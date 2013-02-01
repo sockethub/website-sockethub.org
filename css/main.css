@@ -11,17 +11,27 @@ h1 {
   margin-bottom: 30px;
 }
 
-p {
-  margin-top: 30px;
+.blurb {
+  margin: 20px auto 20px auto;
 }
 
-.github {
+
+
+.contribute {
   line-height: 24px;
+  margin-top: 10px;
 }
-.github img {
+.contribute img {
   vertical-align: top;
 }
 
+.credits {
+  margin-top: 10px;
+}
+
+.nlnet {
+  margin-top: 30px;
+}
 .nlnet span {
   display: block;
   margin: 0 auto auto 50px;
@@ -38,3 +48,6 @@ a:hover {
   color: #555;
 }
 
+.default {
+  margin-top: 30px;
+}
