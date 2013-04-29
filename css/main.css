@@ -1,9 +1,9 @@
 body {
   text-align: center;
   background-image: url('../img/connect.png');
-  width: 500px;
+  width: 595px;
   margin: 45px auto;
-  font: 16px/140% sans-serif;
+  font: 17px/140% 'iABCRegular', Georgia, sans-serif;
 }
 
 h1 {
