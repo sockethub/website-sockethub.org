@@ -14,7 +14,7 @@
    id="svg3804"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 3">
+   sodipodi:docname="architecture_overview.svg">
   <defs
      id="defs3806" />
   <sodipodi:namedview
@@ -26,7 +26,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
      inkscape:cx="361.49434"
-     inkscape:cy="393.17255"
+     inkscape:cy="336.60401"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -126,25 +126,25 @@
        id="rect3832"
        width="148"
        height="67"
-       x="161"
+       x="113"
        y="897.36218"
        ry="29.476963" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="232.52539"
+       x="184.52539"
        y="933.36218"
        id="text3834"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="232.52539"
+         x="184.52539"
          y="933.36218"
          id="tspan3838"
          style="font-size:22px;text-align:center;text-anchor:middle">Email</tspan></text>
     <rect
        ry="29.476963"
        y="821.36218"
-       x="33"
+       x="17"
        height="67"
        width="148"
        id="rect3840"
@@ -152,19 +152,19 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="106.93115"
+       x="90.931152"
        y="858.9696"
        id="text3826"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="106.93115"
+         x="90.931152"
          y="858.9696"
          id="tspan3830"
          style="font-size:22px;text-align:center;text-anchor:middle">XMPP</tspan></text>
     <rect
        ry="29.476963"
        y="817.36218"
-       x="290"
+       x="212"
        height="67"
        width="148"
        id="rect3866"
@@ -174,20 +174,20 @@
        id="rect3868"
        width="148"
        height="67"
-       x="426"
+       x="340"
        y="897.36218"
        ry="29.476963" />
     <rect
        ry="29.476963"
        y="816.36218"
-       x="560"
+       x="440"
        height="67"
        width="148"
        id="rect3870"
        style="fill:#ffffff;stroke:#000000;stroke-opacity:1" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.92649347px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
-       d="m 106,820.9629 0,-114.16591"
+       d="M 90,820.9629 90,706.79699"
        id="path3890"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0" />
@@ -198,49 +198,49 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.99448061px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
-       d="M 234.8555,897.36494 233.99724,706.73442"
+       d="M 186.8555,897.36494 185.99724,706.73442"
        id="path3904"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="313"
+       x="235"
        y="856.36218"
        id="text3908"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3910"
-         x="313"
+         x="235"
          y="856.36218"
          style="font-size:22px">Facebook</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="464"
+       x="378"
        y="936.36218"
        id="text3912"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3914"
-         x="464"
+         x="378"
          y="936.36218"
          style="font-size:22px">Twitter</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="613"
+       x="493"
        y="856.36218"
        id="text3916"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3918"
-         x="613"
+         x="493"
          y="856.36218"
          style="font-size:22px">RSS</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.99989986px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
-       d="m 363.11231,817.18545 -0.013,-111.10122"
+       d="m 285.11231,817.18545 -0.013,-111.10122"
        id="path3922"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0" />
@@ -248,24 +248,24 @@
        inkscape:connector-curvature="0"
        inkscape:connector-type="polyline"
        id="path3924"
-       d="m 494.4547,897.61616 -0.008,-191.52924"
+       d="m 408.4547,897.61616 -0.008,-191.52924"
        style="fill:none;stroke:#000000;stroke-width:1.00527751px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
     <path
        inkscape:connector-curvature="0"
        inkscape:connector-type="polyline"
        id="path3926"
-       d="m 640.82858,816.12487 -0.0132,-109.77555"
+       d="m 520.82858,816.12487 -0.0132,-109.77555"
        style="fill:none;stroke:#000000;stroke-width:0.99974692px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="261.5"
+       x="307.5"
        y="749.86218"
        id="text3928"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3930"
-         x="261.5"
+         x="307.5"
          y="749.86218"
          style="font-size:20px">Listener</tspan></text>
     <text
@@ -293,7 +293,7 @@
          id="tspan3942"
          sodipodi:role="line">...............................................................................................</tspan></text>
     <rect
-       style="fill:#f6ffd5;stroke:#000000;stroke-opacity:1"
+       style="fill:#d5e5ff;stroke:#000000;stroke-opacity:1"
        id="rect3944"
        width="166.5"
        height="77"
@@ -337,5 +337,26 @@
          x="301.22748"
          y="1017.0068"
          style="font-size:28px">Platforms</tspan></text>
+    <rect
+       style="fill:#f6ffd5;stroke:#000000;stroke-width:0.99703729;stroke-opacity:1"
+       id="rect3991"
+       width="45.257797"
+       height="469.52185"
+       x="643.4657"
+       y="565.87122"
+       ry="22.492065" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="753.00574"
+       y="-660.51135"
+       id="text3993"
+       sodipodi:linespacing="125%"
+       transform="matrix(9.3050283e-4,0.99999957,-0.99999957,9.3050283e-4,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3995"
+         x="753.00574"
+         y="-660.51135"
+         style="font-size:20px">Session</tspan></text>
   </g>
 </svg>
