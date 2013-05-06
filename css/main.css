@@ -11,15 +11,32 @@ h1 {
   margin-bottom: 30px;
 }
 
+h2 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
 .blurb {
   margin: 20px auto 20px auto;
 }
 
+strong {
+  font-weight: 900;
+}
 
 
 .contribute {
   line-height: 24px;
   margin-top: 10px;
+}
+
+.news {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: auto auto 20px auto;
+  padding: 20px 10px 20px 10px;
 }
 .contribute img {
   vertical-align: top;
