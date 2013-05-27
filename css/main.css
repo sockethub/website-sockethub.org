@@ -1,17 +1,25 @@
 body {
   text-align: center;
-  background-image: url('../img/connect.png');
   font: 16px/100% 'iABCRegular', Georgia, sans-serif;
+  padding-bottom:0px;
 }
 
-.news {
-  background-color: rgba(0, 0, 0, 0.1);
+.video {
+  background-color: rgba(0, 0, 0, 0.05);
   text-align: center;
   min-width: 600px;
   min-height: 350px;
   padding-bottom: 40px;
 }
 
+.news {
+  padding: 10px 0 30px 0;
+}
+
+.footer {
+  background-color: rgba(0, 0, 200, 0.05);
+  padding: 30px 0 50px 0;
+}
 .nlnet img {
   width: 175px;
 }
@@ -25,15 +33,21 @@ a:hover {
 }
 
 .example-button {
-  width: 200px;
-  height: 25px;
+  width: 250px;
+  height: 35px;
 }
 
 .github-button {
-  width: 200px;
-  height: 25px;
+  width: 250px;
+  height: 35px;
 }
 
 li {
   margin-bottom: 5px;
+}
+
+.btn {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight:400;
 }
