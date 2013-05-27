@@ -4,6 +4,14 @@ body {
   font: 16px/100% 'iABCRegular', Georgia, sans-serif;
 }
 
+.news {
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 600px;
+  min-height: 350px;
+  padding-bottom: 40px;
+}
+
 .nlnet img {
   width: 175px;
 }
@@ -24,4 +32,8 @@ a:hover {
 .github-button {
   width: 200px;
   height: 25px;
+}
+
+li {
+  margin-bottom: 5px;
 }
