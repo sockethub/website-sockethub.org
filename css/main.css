@@ -1,56 +1,27 @@
 body {
   text-align: center;
   background-image: url('../img/connect.png');
-  width: 595px;
-  margin: 45px auto;
-  font: 17px/140% 'iABCRegular', Georgia, sans-serif;
+  font: 16px/100% 'iABCRegular', Georgia, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.blurb {
-  margin: 20px auto 20px auto;
-}
-
-
-
-.contribute {
-  line-height: 24px;
-  margin-top: 10px;
-}
-.contribute img {
-  vertical-align: top;
-}
-
-.credits {
-  margin-top: 10px;
-}
-
-.flattr {
-  margin: 30px 0 0 10px;
-}
-.nlnet {
-  margin-top: 20px;
-}
-.nlnet span {
-  display: block;
-  margin: 0 auto auto 50px;
-}
 .nlnet img {
   width: 175px;
 }
 
 a:visited, a {
-  color: black;
+  color: #2e2aff;
 }
 
 a:hover {
   color: #555;
 }
 
-.default {
-  margin-top: 30px;
+.example-button {
+  width: 200px;
+  height: 25px;
+}
+
+.github-button {
+  width: 200px;
+  height: 25px;
 }
