@@ -97,11 +97,11 @@ h3 {
   display: block;
 }
 .page-top {
-  height: 350px;
+  height: 370px;
 }
 .page-middle {
-  background-color: #FFeedd;
-  height: 470px;
+  background-color: rgba(255, 156, 31, 0.2); /*orange;/*#FFeedd;*/
+  height: 490px;
 }
 .page-bottom {
 }
