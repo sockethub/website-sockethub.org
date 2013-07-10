@@ -30,24 +30,50 @@ body {
   width: 175px;
 }
 
-a:visited, a {
+/*a:visited, a {
   color: #2e2ad0;
 }
-
+*/
 a:hover {
   color: #555;
 }
 
-.example-button {
+.button-top {
   width: 250px;
   height: 35px;
+  /*color: #0e0a80;*/
+  /*background-image: linear-gradient(to bottom, rgb(91, 191, 222), rgb(91, 191, 222));*/
+  color: #000000;
+  background-image: linear-gradient(to bottom, rgb(151, 221, 252), rgb(151, 221, 252));
+}
+.button-top:hover {
+  color: #2e2ad0;
+  background-color: rgb(131, 221, 252);
 }
 
-.github-button {
+.button-middle {
   width: 250px;
   height: 35px;
+  /*color: #1e1a90;*/
+  /*background-image: linear-gradient(to bottom, rgb(131, 211, 232), rgb(131, 211, 232));*/
+  color: #000000;
+  background-image: linear-gradient(to bottom, rgb(181, 241, 255), rgb(181, 241, 255));
 }
-
+.button-middle:hover {
+  color: #2e2ad0;
+  background-color: rgb(161, 241, 255);
+}
+.button-bottom {
+  width: 250px;
+  height: 35px;
+  /*color: #2e2ad0;*/
+  color: #000000;
+  background-image: linear-gradient(to bottom, rgb(241, 255, 255), rgb(241, 255, 255));
+}
+.button-bottom:hover {
+  color: #2e2ad0;
+  background-color: rgb(221, 255, 255);
+}
 .flattr-button {
   width: 100px;
   height: 30px;
@@ -65,4 +91,17 @@ h3 {
   padding-top: 10px;
   font-size: 18px;
   font-weight:400;
+}
+
+.page {
+  display: block;
+}
+.page-top {
+  height: 350px;
+}
+.page-middle {
+  background-color: #FFeedd;
+  height: 470px;
+}
+.page-bottom {
 }
