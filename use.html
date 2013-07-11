@@ -66,8 +66,7 @@ sockethubClient.on('message', function(response) {
   console.log('message!', response);
 });
 sockethubClient.on('registration-failed', function(response) {
-  console.log('not registered!');
-  alert(response);
+  console.log('register error', response);
 });
 sockethubClient.on('registered', function() {
   console.log('registered!');
@@ -85,10 +84,10 @@ sockethubClient.on('registered', function() {
     }).then(function (response) {
       console.log('post sucessful, heres the response: ', response);
     }, function (err) {
-      console.log('oh no! ', err);
-    }, function(err) {
-      alert(err);
+      console.log('sendObject error', err);
     });
+  }, function(err) {
+    console.log('set error', err);
   });
 });
 </code></pre>
