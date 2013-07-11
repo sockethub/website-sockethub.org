@@ -3,9 +3,11 @@ body {
   font: 17px/130% Georgia, sans-serif;
   padding: 0;
 }
-
+.container-fluid {
+  padding: 0;
+}
 .video {
-  background-color: rgba(0, 0, 0, 0.05);
+  /*background-color: rgba(0, 0, 0, 0.05);*/
   text-align: center;
   min-width: 600px;
   min-height: 350px;
@@ -21,7 +23,8 @@ body {
 
 .footer {
   background-color: rgba(0, 0, 200, 0.05);
-  padding: 30px 0 50px 0;
+  padding-top: 30px;
+  padding-bottom: 50px;
   line-height: 100%;
   width: 100%;
 }
@@ -41,10 +44,9 @@ a:hover {
 .button-top {
   width: 250px;
   height: 35px;
-  /*color: #0e0a80;*/
-  /*background-image: linear-gradient(to bottom, rgb(91, 191, 222), rgb(91, 191, 222));*/
   color: #000000;
-  background-image: linear-gradient(to bottom, rgb(151, 221, 252), rgb(151, 221, 252));
+  background-image: none;
+  background-color: rgb(151, 221, 252);
 }
 .button-top:hover {
   color: #2e2ad0;
@@ -54,26 +56,27 @@ a:hover {
 .button-middle {
   width: 250px;
   height: 35px;
-  /*color: #1e1a90;*/
-  /*background-image: linear-gradient(to bottom, rgb(131, 211, 232), rgb(131, 211, 232));*/
   color: #000000;
-  background-image: linear-gradient(to bottom, rgb(181, 241, 255), rgb(181, 241, 255));
+  background-image: none;
+  background-color: rgb(181, 241, 255);
 }
 .button-middle:hover {
   color: #2e2ad0;
   background-color: rgb(161, 241, 255);
 }
+
 .button-bottom {
   width: 250px;
   height: 35px;
-  /*color: #2e2ad0;*/
   color: #000000;
-  background-image: linear-gradient(to bottom, rgb(241, 255, 255), rgb(241, 255, 255));
+  background-image: none;
+  background-color: rgb(221, 255, 255);
 }
 .button-bottom:hover {
   color: #2e2ad0;
   background-color: rgb(221, 255, 255);
 }
+
 .flattr-button {
   width: 100px;
   height: 30px;
@@ -96,12 +99,38 @@ h3 {
 .page {
   display: block;
 }
-.page-top {
+.page-about {
   min-height: 370px;
 }
-.page-middle {
-  background-color: rgba(255, 156, 31, 0.2); /*orange;/*#FFeedd;*/
-  min-height: 490px;
+.page-use {
 }
-.page-bottom {
+.page-news {
+  min-height: 490px;
+  background-color: rgb(221, 255, 255);
+}
+.page-video {
+  background-color: rgb(221, 255, 255);
+}
+
+ul {
+  text-align: left;
+}
+ul li {
+  list-style: none;
+}
+pre {
+  text-align: left;
+  padding: 3px 3px 3px 10px;
+}
+code {
+  font-size: 14px;
+}
+.example {
+  margin: 25px auto 25px 25px;
+}
+.setup p {
+  margin: 30px auto 30px auto;
+}
+.about p {
+  margin-bottom: 40px;
 }

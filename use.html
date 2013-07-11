@@ -53,13 +53,13 @@
   <li>git checkout v0.0.7</li>
   <li>cp config.js.sample config.js</li>
   <li>cp config.secrets.js.sample config.secrets.js</li>
-  <li>npm install #assumes you have nodejs installed</li>
+  <li>npm install // assumes you have nodejs installed</li>
   <li>./bin/sockethub</li>
 <p>Now, in your unhosted web app, include the <a href="https://raw.github.com/sockethub/sockethub-client/fbd1b5492565281476a61316b2fc91f649de91bb/sockethub-client.js">sockethub-client.js</a> script, and then the following sequence connects to sockethub, sets your Twitter credentials, and fetches your tweets:</p>
 <pre style="width:600px"><code>
 var sockethubClient = SockethubClient.connect('ws://localhost:10550/sockethub', {
-  register: { 
-    secret: '1234567890' 
+  register: {
+    secret: '1234567890'
   }
 });
 sockethubClient.on('message', function(response) {
