@@ -118,6 +118,15 @@ ul {
 ul li {
   list-style: none;
 }
+li .date {
+  font-size: 14px;
+  font-family: monospace;
+  margin-right: 10px;
+}
+li .title {
+  font-weight: 600;
+  margin-right: 5px;
+}
 pre {
   text-align: left;
   padding: 3px 3px 3px 10px;
