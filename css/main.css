@@ -106,10 +106,10 @@ h3 {
 }
 .page-news {
   min-height: 490px;
-  background-color: rgb(151, 221, 252);
+  background-color: rgb(230,230,230);/*151, 221, 252);*/
 }
 .page-video {
-  background-color: rgb(151, 221, 252);
+  background-color: rgb(230,230,230);/*151, 221, 252);*/
 }
 
 ul {
