@@ -6,32 +6,6 @@ body {
 .container-fluid {
   padding: 0;
 }
-.video {
-  /*background-color: rgba(0, 0, 0, 0.05);*/
-  text-align: center;
-  min-width: 600px;
-  min-height: 350px;
-  padding-bottom: 40px;
-}
-
-.about {
-  padding-top: 20px;
-}
-.news {
-  padding: 10px 0 30px 0;
-}
-
-.footer {
-  /*background-color: rgba(0, 0, 200, 0.05);*/
-  padding-top: 30px;
-  padding-bottom: 50px;
-  line-height: 100%;
-  width: 100%;
-}
-
-.nlnet img {
-  width: 175px;
-}
 
 /*a:visited, a {
   color: #2e2ad0;
@@ -99,18 +73,38 @@ h3 {
 .page {
   display: block;
 }
+
+.page-intro {
+  padding-top: 20px;
+  margin-bottom: 30px;
+}
+.intro p {
+  margin-bottom: 20px;
+}
+
 .page-about {
-  min-height: 370px;
+  padding-bottom: 50px;
+  background-color: rgb(240,240,240);/*151, 221, 252);*/
 }
-.page-use {
-}
+
 .page-news {
+  padding: 10px 0 30px 0;
   min-height: 490px;
-  background-color: rgb(230,230,230);/*151, 221, 252);*/
 }
+
+.page-use {
+  background-color: rgb(240,240,240);/*151, 221, 252);*/
+}
+
 .page-video {
-  background-color: rgb(230,230,230);/*151, 221, 252);*/
+  /*background-color: rgba(0, 0, 0, 0.05);*/
+  text-align: center;
+  min-width: 600px;
+  min-height: 350px;
+  padding-bottom: 40px;
+
 }
+
 
 ul {
   text-align: left;
@@ -140,6 +134,21 @@ code {
 .setup p {
   margin: 30px auto 30px auto;
 }
-.about p {
+.intro p {
   margin-bottom: 40px;
+}
+
+
+
+.footer {
+  /*background-color: rgba(0, 0, 200, 0.05);*/
+  padding-top: 30px;
+  padding-bottom: 50px;
+  line-height: 100%;
+  width: 100%;
+  background-color: rgb(240,240,240);/*151, 221, 252);*/
+}
+
+.nlnet img {
+  width: 175px;
 }
