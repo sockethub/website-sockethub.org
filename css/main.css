@@ -6,7 +6,15 @@ body {
 .container-fluid {
   padding: 0;
 }
-
+p {
+  color: #555;
+}
+a {
+  color: rgb(0, 136, 204);
+}
+a:hover {
+  color: rgb(0, 85, 128);
+}
 /*a:visited, a {
   color: #2e2ad0;
 }
@@ -18,7 +26,7 @@ a:hover {
 .button-top {
   width: 250px;
   height: 35px;
-  color: #000000;
+  color: #555;
   background-image: none;
   background-color: rgb(151, 221, 252);
 }
@@ -30,7 +38,7 @@ a:hover {
 .button-middle {
   width: 250px;
   height: 35px;
-  color: #000000;
+  color: #555;
   background-image: none;
   background-color: rgb(181, 241, 255);
 }
@@ -42,7 +50,7 @@ a:hover {
 .button-bottom {
   width: 250px;
   height: 35px;
-  color: #000000;
+  color: #555;
   background-image: none;
   background-color: rgb(221, 255, 255);
 }
@@ -66,6 +74,12 @@ h3 {
   text-align: left;
   margin: 0 0 20px 30px;
   font-family: sans-serif;
+}
+h3 a {
+  text-decoration: none;
+}
+h3 a:hover{
+  text-decoration: none;
 }
 .nav i {
   margin-top: 6px;
