@@ -61,9 +61,16 @@ li {
 }
 
 h3 {
-  text-transform: uppercase;
-  font-size: 19px;
+  text-transform: lowercase;
+  font-size: 24px;
+  text-align: left;
+  margin: 0 0 20px 30px;
+  font-family: sans-serif;
 }
+.nav i {
+  margin-top: 6px;
+}
+
 .btn {
   padding-top: 10px;
   font-size: 18px;
@@ -72,6 +79,24 @@ h3 {
 
 .page {
   display: block;
+  text-align: left;
+}
+.page p {
+  margin-bottom: 20px;
+}
+.right-buttons a {
+  margin-bottom: 10px;
+}
+.right-buttons p {
+  text-align: center;
+  margin-left: -35px;
+}
+.nav-buttons a {
+  font-family: sans-serif;
+  padding: 5px 10px 10px 10px;
+}
+.nav-buttons i {
+  margin-top: 5px;
 }
 
 .page-intro {
@@ -83,13 +108,12 @@ h3 {
 }
 
 .page-about {
-  padding-bottom: 50px;
+  padding: 10px 0 50px 0;
   background-color: rgb(240,240,240);/*151, 221, 252);*/
 }
 
 .page-news {
-  padding: 10px 0 30px 0;
-  min-height: 490px;
+  padding: 10px 0 50px 0;
 }
 
 .page-use {
@@ -100,9 +124,7 @@ h3 {
   /*background-color: rgba(0, 0, 0, 0.05);*/
   text-align: center;
   min-width: 600px;
-  min-height: 350px;
-  padding-bottom: 40px;
-
+  padding: 10px 0 50px 0;
 }
 
 
