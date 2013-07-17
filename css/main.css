@@ -127,7 +127,8 @@ h3 a:hover{
 .page-about {
   padding: 10px 0 50px 0;
   background-color: rgb(240,240,240);/*151, 221, 252);*/
-  border: 1px solid rgb(220,220,220);
+  border-top: 1px solid rgb(220,220,220);
+  border-bottom: 1px solid rgb(220,220,220);
 }
 
 .page-news {
@@ -136,7 +137,8 @@ h3 a:hover{
 
 .page-use {
   background-color: rgb(240,240,240);/*151, 221, 252);*/
-  border: 1px solid rgb(220,220,220);
+  border-top: 1px solid rgb(220,220,220);
+  border-bottom: 1px solid rgb(220,220,220);
 }
 
 .page-video {
@@ -187,7 +189,7 @@ code {
   padding-bottom: 50px;
   line-height: 100%;
   background-color: rgb(240,240,240);/*151, 221, 252);*/
-  border: 1px solid rgb(220,220,220);
+  border-top: 1px solid rgb(220,220,220);
 }
 
 .nlnet img {
