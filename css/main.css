@@ -205,7 +205,11 @@ code {
 }
 
 .donations span {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
   padding: 0;
+  color: #777;
 }
 .gittip {
   margin-top: -30px;
