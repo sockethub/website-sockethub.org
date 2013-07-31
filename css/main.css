@@ -211,8 +211,19 @@ code {
   padding: 0;
   color: #777;
 }
-.gittip {
-  margin-top: -30px;
-  display: block;
+.donation-buttons {
+  margin: -20px auto 30px auto;
   text-align: center;
+}
+.gittip {
+  margin-left: -30px;
+  display: inline-block;
+  height: 75px;
+  width: 130px;
+}
+.flattr {
+  float: left;
+  margin: 10px auto auto 100px;
+  height: 50px;
+  width: 130px;
 }
