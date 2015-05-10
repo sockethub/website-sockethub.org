@@ -1,0 +1,5 @@
+<div class="side-text">
+  <p>current stable release: <a href="https://github.com/sockethub/sockethub/releases/tag/{{sockethub_version}}">{{sockethub_version}}</a></p>
+  <p>twitter <a target="_blank" href="http://twitter.com/sockethub">@sockethub</a><br/>
+  irc <a target="_blank" href="irc://irc.freenode.net/#sockethub">#sockethub</a></p>
+</div>

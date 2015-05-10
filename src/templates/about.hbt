@@ -1,0 +1,10 @@
+{{>header}}
+<h1>{{title}}</h1>
+{{{contents}}}
+<div class="sister-logos">
+<a target="_blank" href="http://unhosted.org"><img src="/res/img/unhosted_logo.png" /></a>
+<a target="_blank" href="http://remotestorage.io"><img src="/res/img/remotestoragejs_logo.png" /></a>
+<a target="_blank" href="http://nobackend.org"><img src="/res/img/nobackend_logo.png" /></a>
+</div>
+{{>presentation}}
+{{>footer}}

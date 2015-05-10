@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>{{ title }}</title>
+  
+  <meta property="og:image" content="/res/img/sockethub-logo.png" />
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title_brief }}" />
+  <meta property="og:site_name" content="{{ title }}" />
+  <meta property="og:description" content="{{ description }}" />
+
+  <meta name="title" content="{{ title_brief }}" />
+  <meta name="description" content="{{ description }}" />
+  <meta name="keywords" content="{{ keywords }}" />
+
+  <link href="/res/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/res/css/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="image_src" type="image/jpeg" href="/res/img/sockethub-logo.png" />
+  <link rel="canonical" href="{{ url }}" />
+
+  <script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+  var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+  t.parentNode.insertBefore(s, t);
+})();
+/* ]]> */
+  </script>
+ </head>
+
+ <body id="top">
+
+  <div class="container-fluid wrapper">
+
+    {{>nav}}
+
+    <div class="row-fluid page">
+
+      <div class="span2">
+        <p></p>
+      </div>
+
+      <div class="span5 content-area">
