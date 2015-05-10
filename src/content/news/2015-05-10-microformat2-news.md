@@ -1,5 +1,5 @@
 ---
-date: 2014-05-10
+date: 2015-05-10
 title: Microformat2 markup in news entries
 collection: news
 author: 
