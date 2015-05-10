@@ -1,6 +1,6 @@
 ---
 date: 2015-05-10
-title: Microformat2 @ RSS news entries
+title: Microformat2 & RSS news entries
 collection: news
 author: 
   name: Nick Jennings
