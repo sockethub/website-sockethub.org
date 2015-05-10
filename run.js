@@ -77,7 +77,7 @@ Metalsmith(__dirname)
         })
         .use(assets({
             source: './src/content/res',
-            destination: './build/res'
+            destination: 'res/'
         }))
         .destination('./build')
         .build(function (err) {
