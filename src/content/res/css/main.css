@@ -153,12 +153,20 @@ h3 {
 }
 .sponsored-by {
   padding-top: 10px;
+  text-align: center;
+}
+.sponsored-by span {
+  margin-left: 20px;
 }
 .credits {
   padding-top: 15px;
 }
-.flattr-footer {
-  padding-top: 10px;
+.extras {
+  padding-top: 30px;
+  text-align: center;
+}
+.extras a {
+  margin: 0 5px 0 5px;
 }
 
 .support {
