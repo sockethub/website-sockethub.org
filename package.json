@@ -1,0 +1,29 @@
+{
+  "name": "website-sockethub.org",
+  "version": "1.0.0",
+  "description": "metalsmith project for sockethub.org",
+  "main": "run.js",
+  "public": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sockethub/website-sockethub.org.git"
+  },
+  "author": "Nick Jennings <nick@silverbucket.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sockethub/website-sockethub.org/issues"
+  },
+  "homepage": "https://github.com/sockethub/website-sockethub.org",
+  "devDependencies": {
+    "handlebars": "^3.0.3",
+    "metalsmith": "^1.7.0",
+    "metalsmith-assets": "^0.1.0",
+    "metalsmith-collections": "^0.7.0",
+    "metalsmith-feed": "0.0.6",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-templates": "^0.7.0"
+  }
+}
