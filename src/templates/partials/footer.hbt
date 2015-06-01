@@ -45,7 +45,7 @@
   </div>
   </footer>
 
-
+  <script type="text/javascript" src="/res/js/bootstrap.min.js"></script>
   <script>
 if (window.location.href.match(/sockethub\.org/)) {
   var _paq = _paq || []; _paq.push(["trackPageView"]); _paq.push(["enableLinkTracking"]);
