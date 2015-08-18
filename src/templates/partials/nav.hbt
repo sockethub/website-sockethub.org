@@ -22,7 +22,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a target="_blank" href="http://demo.sockethub.org/examples/">Demos</a></li>
           <li><a target="_blank" href="https://github.com/sockethub/sockethub"><img src="/res/img/github-icon.png" /></a></li>
-          <li><a target="_blank" href="https://github.com/sockethub/sockethub/blob/master/doc/getting_started.md">Docs</a></li>
+          <li><a target="_blank" href="https://github.com/sockethub/sockethub/wiki">Docs</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
