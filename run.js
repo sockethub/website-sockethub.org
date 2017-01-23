@@ -43,7 +43,7 @@ Handlebars.registerHelper("toDisplay", function (record) {
 
 Metalsmith(__dirname)
         .metadata({
-            sockethub_version: 'v1.0.1',
+            sockethub_version: 'v1.0.4',
             site: {
                 title: 'Sockethub',
                 url: 'http://sockethub.org',
