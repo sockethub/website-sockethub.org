@@ -2,9 +2,9 @@
 <html lang="en">
  <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <title>{{ title }}</title>
-  
+
   <meta property="og:image" content="/res/img/sockethub-logo.png" />
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title_brief }}" />
@@ -20,6 +20,7 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="image_src" type="image/jpeg" href="/res/img/sockethub-logo.png" />
   <link rel="canonical" href="{{ url }}" />
+  <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="/feed.xml" />
 
   <script type="text/javascript">
 /* <![CDATA[ */
