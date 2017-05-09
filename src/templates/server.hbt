@@ -2,7 +2,7 @@
 <h1>{{title}}</h1>
 <div class="server-setup">
   <p>Getting a sockethub instance up and running is fairly straight forward. In this example we'll get it up and running on our local machine.</p>
-  
+
   <h2>prerequisites</h2>
   <ul>
     <li>Redis v1.0 or greater</li>
@@ -25,7 +25,7 @@
     <ul>
       <li><pre><code>$ git clone https://github.com/sockethub/sockethub.git</code></pre></li>
       <li><pre><code>$ cd sockethub/</code></pre></li>
-      <li><pre><code>$ git checkout {{sockethub_version}}</code></pre></li>
+      <li><pre><code>$ git checkout <i>[latest-tagged-release]</i></code></pre></li>
       <li><pre><code>$ npm install</code></pre></li>
     </ul>
 
@@ -44,7 +44,7 @@
   <p>You can now browse to:</p>
   <ul>
     <li>
-      <pre><code>http://localhost:10550/examples</code></pre> 
+      <pre><code>http://localhost:10550/examples</code></pre>
     </li>
   </ul>
   <p> and verify your installation has succeeded</p>
