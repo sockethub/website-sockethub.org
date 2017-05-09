@@ -10,6 +10,7 @@
   <meta property="og:title" content="{{ title_brief }}" />
   <meta property="og:site_name" content="{{ title }}" />
   <meta property="og:description" content="{{ description }}" />
+  <meta name="flattr:id" content="4jxk23">
 
   <meta name="title" content="{{ title_brief }}" />
   <meta name="description" content="{{ description }}" />
