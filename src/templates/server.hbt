@@ -37,7 +37,7 @@
 
     <p>If you installed via git, then you can run the executable in the <pre><code>bin/</code></pre> directory:</p>
     <ul>
-      <li><pre><code>$ bin/sockethub</code></pre></li>
+      <li><pre><code>$ DEBUG=sockethub* bin/sockethub --examples</code></pre></li>
     </ul>
 
   <h2>verify</h2>
