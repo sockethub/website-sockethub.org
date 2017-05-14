@@ -10,11 +10,9 @@
         {{{this.contents}}}
       </div>
       <div class="hidden p-author h-card">
-        <span class="p-name">{{this.author.name}}</span>
-        <span class="u-email">{{this.author.email}}</span>
-        <span class="p-url">{{this.author.url}}</span>
+        <span class="p-name">{{this.author}}</span>
       </div>
     </li>
   {{/if}}
 {{/each}}
-</ul> 
+</ul>
