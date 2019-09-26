@@ -3,18 +3,15 @@ title: About
 current_page: about
 template: about.hbt
 ---
-Sockethub is a generic web service for sending and receiving messages on the 
-web, from client-side applications or websites. All communication is represented 
-in simple JSON objects, allowing front-end developers to write 
-[dream code](http://nobackend.org/dreamcode.html) without worry about protocol 
-details and other complexities.
+Sockethub is a translation layer for web applications to communicate with other protocols and services that are traditionally either inaccessible or impractical to use from in-browser JavaScript.
 
+Using [ActivityStream](http://activitystrea.ms/) (AS) objects to pass messages to and from the web app, Sockethub acts as a smart proxy server/agent, which can maintain state, and connect to sockets, endpoints and networks that would otherwise be restricted from an application running in the browser.
 
-By implementing a polyglot server that can speak all of the various protocols 
-and APIs of the web today, Sockethub exposes a single abstracted interface to 
-application developers to carry out messaging and social tasks. This open-source web 
-service adds one more building block to 
-the goals of [unhosted](http://unhosted.org) and [nobackend](http://nobackend.org), 
-which is to provide *"server-independent, server-side functionality"*, so that 
-front-end application developers can interface with these generic open-services 
-free from vendor lock-in.
+Originally inspired as a sister project to [RemoteStorage](https://remotestorage.io/), and assisting in the development of (unhosted)[http://unhosted.org/] and (noBackend)[http://nobackend.org/] applications, Sockethub's functionality can also fit into a more traditional development stack, removing the need for custom code to handle various protocol specifics at the application layer.
+
+Example uses of Sockethub are:
+
+Writing and receiving messages (SMTP, IMAP, Facebook, Twitter, ...)
+Instant messaging (XMPP, IRC, MSN, FB Messenger, Hangouts, ...)
+Discovery (WebFinger, RDF(a), ...)
+The architecture of Sockethub is extensible and supports easy implementation of additional 'platforms' to carry out tasks.
