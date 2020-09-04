@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/sockethub/website-sockethub.org",
   "devDependencies": {
-    "handlebars": "^4.3.1",
+    "handlebars": "^4.4.5",
     "metalsmith": "^2.3.0",
     "metalsmith-assets": "^0.1.0",
     "metalsmith-collections": "^0.9.0",
