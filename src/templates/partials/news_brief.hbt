@@ -1,5 +1,0 @@
-<h2>latest news</h2>
-{{>news_list}}
-<link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
-<link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
-<a href="/news">More News</a>
