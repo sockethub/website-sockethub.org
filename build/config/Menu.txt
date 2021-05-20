@@ -1,0 +1,169 @@
+Format: 1.52
+
+
+# You can add a title and sub-title to your menu like this:
+# Title: [project name]
+# SubTitle: [subtitle]
+
+# You can add a footer to your documentation like this:
+# Footer: [text]
+# If you want to add a copyright notice, this would be the place to do it.
+
+# You can add a timestamp to your documentation like one of these:
+# Timestamp: Generated on month day, year
+# Timestamp: Updated mm/dd/yyyy
+# Timestamp: Last updated mon day
+#
+#   m     - One or two digit month.  January is "1"
+#   mm    - Always two digit month.  January is "01"
+#   mon   - Short month word.  January is "Jan"
+#   month - Long month word.  January is "January"
+#   d     - One or two digit day.  1 is "1"
+#   dd    - Always two digit day.  1 is "01"
+#   day   - Day with letter extension.  1 is "1st"
+#   yy    - Two digit year.  2006 is "06"
+#   yyyy  - Four digit year.  2006 is "2006"
+#   year  - Four digit year.  2006 is "2006"
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# --------------------------------------------------------------------------
+
+
+Group: Lib  {
+
+   Group: Platforms  {
+
+      File: Email  (lib/platforms/email.js)
+      File: Facebook  (lib/platforms/facebook.js)
+      File: Feeds  (lib/platforms/feeds.js)
+      File: IRC  (lib/platforms/irc.js)
+      File: Twitter  (lib/platforms/twitter.js)
+      File: XMPP  (lib/platforms/xmpp.js)
+      }  # Group: Platforms
+
+   Group: Sockethub  {
+
+      File: ClientManager  (lib/sockethub/client-manager.js)
+      File: ConfigLoader  (lib/sockethub/config-loader.js)
+      File: Dispatcher  (lib/sockethub/dispatcher.js)
+      File: Listener  (lib/sockethub/listener.js)
+      File: SessionManager  (lib/sockethub/session.js)
+      File: Sockethub  (lib/sockethub/sockethub.js)
+      File: Subsystem  (lib/sockethub/subsystem.js)
+      }  # Group: Sockethub
+
+   }  # Group: Lib
+
+Group: Node_modules  {
+
+   File: https://dev.twitter.com/docs/streaming-apis/messages#User_stream_messages  (node_modules/twit/lib/oarequest.js)
+   File: redis-connection-pool/src/redis-connection-pool.js  (node_modules/redis-connection-pool/src/redis-connection-pool.js)
+
+   Group: Request  {
+
+      File: 'content-type'  (node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js)
+      File: 'header',                                 // 'header', 'bewit', 'response'  (node_modules/request/node_modules/hawk/lib/crypto.js)
+      File: http-signature/.../tools/jsstyle  (node_modules/request/node_modules/http-signature/node_modules/ctype/tools/jsstyle)
+      }  # Group: Request
+
+   File: SearchPanel  (node_modules/redis-connection-pool/doc/javascript/main.js)
+   File: short/long, flag, negate, value, opt  (node_modules/argp/lib/argp.js)
+
+   Group: Simple-xmpp  {
+
+      Group: Node_modules  {
+
+         Group: Browserify  {
+
+            File: jQuery hashchange event  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/browserify/node_modules/syntax-error/node_modules/esprima/test/3rdparty/jquery.mobile-1.0.js)
+            File: RFC 3986, RFC 1808, RFC 2396  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/browserify/node_modules/browser-builtins/builtin/url.js)
+            File: syntax-error/.../3rdparty/jquery-1.6.4.js  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/browserify/node_modules/syntax-error/node_modules/esprima/test/3rdparty/jquery-1.6.4.js)
+            File: syntax-error/.../3rdparty/jquery-1.7.1.js  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/browserify/node_modules/syntax-error/node_modules/esprima/test/3rdparty/jquery-1.7.1.js)
+            File: umd/.../fixture/jquery.js  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/browserify/node_modules/umd/node_modules/ruglify/test/fixture/jquery.js)
+            }  # Group: Browserify
+
+         Group: Node-xmpp-client  {
+
+            File: 'content-type'  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/node-xmpp-client/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js)
+            File: 'header',                                 // 'header', 'bewit', 'response'  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/node-xmpp-client/node_modules/request/node_modules/hawk/lib/crypto.js)
+            File: http-signature/.../tools/jsstyle  (node_modules/simple-xmpp/node_modules/node-xmpp/node_modules/node-xmpp-client/node_modules/request/node_modules/http-signature/node_modules/ctype/tools/jsstyle)
+            }  # Group: Node-xmpp-client
+
+         }  # Group: Node_modules
+
+      File: simple-xmpp.js  (node_modules/simple-xmpp/lib/simple-xmpp.js)
+      }  # Group: Simple-xmpp
+
+   Group: Teste  {
+
+      Group: Lib  {
+
+         File: remoteStorageMock  (node_modules/teste/lib/fakes/remoteStorageMock.js)
+         File: Stub  (node_modules/teste/lib/fakes/Stub.js)
+
+         Group: Tools  {
+
+            File: assert  (node_modules/teste/lib/tools/assert.js)
+            File: assertType  (node_modules/teste/lib/tools/assertType.js)
+            File: Env  (node_modules/teste/lib/tools/Env.js)
+            File: Http  (node_modules/teste/lib/tools/Http.js)
+            File: HttpServer  (node_modules/teste/lib/tools/HttpServer.js)
+            File: result  (node_modules/teste/lib/tools/result.js)
+            File: Throws  (node_modules/teste/lib/tools/Throws.js)
+            File: WebSocketClient  (node_modules/teste/lib/tools/WebSocketClient.js)
+            File: WebSocketServer  (node_modules/teste/lib/tools/WebSocketServer.js)
+            File: Write  (node_modules/teste/lib/tools/Write.js)
+            }  # Group: Tools
+
+         }  # Group: Lib
+
+      Group: Node_modules  {
+
+         File: dist/cdn/jquery-2.1.0.js  (node_modules/teste/node_modules/jquery/dist/cdn/jquery-2.1.0.js)
+         File: dist/jquery.js  (node_modules/teste/node_modules/jquery/dist/jquery.js)
+         File: protocol always yields status 0; see #8605, #14207  (node_modules/teste/node_modules/jquery/src/ajax/xhr.js)
+         File: src/.../test/jquery.js  (node_modules/teste/node_modules/jquery/src/sizzle/test/jquery.js)
+         File: src/core/init.js  (node_modules/teste/node_modules/jquery/src/core/init.js)
+         File: src/data/Data.js  (node_modules/teste/node_modules/jquery/src/data/Data.js)
+         }  # Group: Node_modules
+
+      }  # Group: Teste
+
+   Group: Winston  {
+
+      File: 'content-type'  (node_modules/winston/node_modules/request/node_modules/hawk/node_modules/boom/lib/index.js)
+      File: 'header'                                  // 'header', 'bewit', 'response'  (node_modules/winston/node_modules/request/node_modules/hawk/lib/crypto.js)
+      File: qs/.../browser/jquery.js  (node_modules/winston/node_modules/request/node_modules/qs/test/browser/jquery.js)
+      }  # Group: Winston
+
+   }  # Group: Node_modules
+
+Group: Index  {
+
+   Class Index: Classes
+   Event Index: Events
+   Index: Everything
+   File Index: Files
+   Function Index: Functions
+   Property Index: Properties
+   Type Index: Types
+   Variable Index: Variables
+   }  # Group: Index
+
