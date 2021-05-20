@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="/res/img/sockethub-logo.png" />
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="" />
+  <meta property="og:site_name" content="About" />
+  <meta property="og:description" content="" />
+  <meta name="flattr:id" content="4jxk23">
+  <meta name="title" content="" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+ <title>About</title>
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" rel="stylesheet" type="text/css">
+  <link href="/res/css/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="image_src" type="image/jpeg" href="/res/img/sockethub-logo.png" />
+  <link rel="canonical" href="" />
+  <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="feed.xml" />
+ </head>
+ <body>
+ <div class="container">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+              <img src="/res/img/sockethub-logo.svg" class="title" alt="Sockethub" />
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+          </a>
+      </div>
+      <div class="navbar-menu">
+          <div class="navbar-start">
+              <a class="navbar-item active" href="/about">About</a>
+              <a class="navbar-item " href="/news">News</a>
+          </div>
+          <div class="navbar-end">
+              <div class="navbar-item">
+                  <div class="buttons">
+                      <a class="button is-light" target="_blank" href="https://github.com/sockethub/sockethub">
+                          <span class="icon"><i class="is-size-4 fab fa-github"></i></span><span>Repo</span>
+                      </a>
+                      <a class="button is-light" target="_blank" href="https://github.com/sockethub/sockethub/wiki">
+                          <span>Docs</span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </nav>
+<section class="section about">
+    <div class="container content">
+        <p>Sockethub is a translation layer for web applications to communicate with other protocols and services that are traditionally either inaccessible or impractical to use from in-browser JavaScript.</p>
+<p>Using <a href="http://activitystrea.ms/">ActivityStream</a> (AS) objects to pass messages to and from the web app, Sockethub acts as a smart proxy server/agent, which can maintain state, and connect to sockets, endpoints and networks that would otherwise be restricted from an application running in the browser.</p>
+<p>Originally inspired as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>, and assisting in the development of <a href="http://unhosted.org/">Unhosted</a> and <a href="http://nobackend.org/">noBackend</a> applications, Sockethub&#39;s functionality can also fit into a more traditional development stack, removing the need for custom code to handle various protocol specifics at the application layer.</p>
+<p>Example uses of Sockethub are:</p>
+<p>Writing and receiving messages (SMTP, IMAP, Facebook, Twitter, ...)
+Instant messaging (XMPP, IRC, MSN, FB Messenger, Hangouts, ...)
+Discovery (WebFinger, RDF(a), ...)
+The architecture of Sockethub is extensible and supports easy implementation of additional &#39;platforms&#39; to carry out tasks.</p>
+
+    </div>
+    <div class="container sister-logos">
+        <a target="_blank" href="http://unhosted.org"><img src="/res/img/unhosted_logo.png" /></a>
+        <a target="_blank" href="http://remotestorage.io"><img src="/res/img/remotestorage_text_logo.png" /></a>
+        <a target="_blank" href="http://nobackend.org"><img src="/res/img/nobackend_logo.png" /></a>
+    </div>
+    <div class="container presentation content">
+        <h2>Presentation</h2>
+        <p>Sockethub presentation at <strong>re:publica 2013</strong>! Wednesday, May 8th 2014 @ 13:00 on Stage 4</p>
+        <div class="video">
+            <iframe width="560" height="315" src="http://www.youtube.com/embed/KU4PZK48-dg" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+  <footer class="footer container-fluid">
+
+    <div class="columns is-desktop">
+      <div class="column credits">
+        <p>
+          <span>Developed and maintained by</span>
+          <a target="_blank" href="https://silverbucket.net">Nick Jennings</a>
+        </p>
+      </div>
+
+      <div class="column sponsored-by">
+        <span>Sponsored by</span><br />
+        <a target="_blank" href="http://nlnet.nl">
+          <img src="/res/img/nlnet-logo.svg" alt="nlnet" />
+        </a>
+      </div>
+
+      <div class="column extras">
+        <a rel="alternate" type="application/rss+xml" title="RSS feed for sockethub.org" href="/feed.xml">
+            <span class="icon"><i class="is-size-4 fas fa-rss"></i></span>
+        </a>
+        <a rel="me" href="https://github.com/sockethub/sockethub">
+            <span class="icon"><i class="is-size-4 fab fa-github"></i></span>
+        </a>
+        <a rel="me" href="https://twitter.com/sockethub">
+            <span class="icon"><i class="is-size-4 fab fa-twitter"></i></span>
+        </a>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

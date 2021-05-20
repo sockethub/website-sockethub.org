@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    { "metalsmith-discover-partials": {} },
+    { "metalsmith-discover-helpers": {} },
+    { "metalsmith-markdown": {} },
+    { "metalsmith-collections":  {
+      "news": {
+        "sortBy": "date",
+        "reverse": true
+      }
+    } },
+    { "metalsmith-layouts": {} }
+  ]
+}

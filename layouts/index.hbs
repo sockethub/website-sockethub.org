@@ -1,10 +1,10 @@
 {{>header}}
 <div class="columns is-desktop is-multiline">
-<section class="section column is-three-quarters">
-    <p>{{{ contents }}}</p>
+<section class="section content column is-three-quarters">
+    {{{contents}}}
 </section>
 <section class="section support column is-one-quarter">
-    <h2 class="title">Support</h2>
+    <h2>Support</h2>
     <div class="container donation-list">
         <div class="bitcoin">
             <p><span class="icon"><i class="is-size-4 fab fa-bitcoin"></i></span>Sockethub Bitcoin Address</p>
@@ -17,7 +17,7 @@
     </div>
 </section>
 <section class="section news_brief column is-full">
-    <h2 class="title">Latest News</h2>
+    <h2>Latest News</h2>
     {{>news_list}}
     <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
     <link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />

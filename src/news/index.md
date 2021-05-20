@@ -1,7 +1,7 @@
 ---
 title: News
 collections: news
-template: news.hbt
+layout: news.hbs
 current_page: news
 news_count: 0
 ---
