@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "site": {
+      "title": "Sockethub",
+      "url": "https://sockethub.org",
+      "author": "Nick Jennings",
+      "title_brief": "Sockethub - a polyglot messaging service",
+      "description": "The polyglot solution to the federated social web",
+      "keywords": "federated social web, messaging, protocols, api, open source, facebook, twitter"
+    }
+  },
+  "plugins": [
+    { "metalsmith-discover-partials": {} },
+    { "metalsmith-discover-helpers": {} },
+    { "metalsmith-markdown": {} },
+    { "metalsmith-collections":  {
+      "news": {
+        "sortBy": "date",
+        "reverse": true
+      }
+    } },
+    { "metalsmith-feed":  {
+      "collection": "news",
+      "destination": "feed.xml"
+    } },
+    { "metalsmith-layouts": {} }
+  ]
+}

@@ -1,6 +1,5 @@
 ---
 title: Client Setup
-template: client.hbt
-news_count: 0
+layout: client.hbs
 current_page: client
 ---
