@@ -13,12 +13,16 @@
     { "metalsmith-discover-partials": {} },
     { "metalsmith-discover-helpers": {} },
     { "metalsmith-markdown": {} },
+    { "metalsmith-layouts": {} },
     { "metalsmith-collections":  {
       "news": {
         "sortBy": "date",
         "reverse": true
       }
     } },
-    { "metalsmith-layouts": {} }
+    { "metalsmith-feed":  {
+      "collection": "news",
+      "destination": "feed.xml"
+    } }
   ]
 }
