@@ -110,7 +110,8 @@ h3 {
   color: #ff9c1f;
   font-weight: 900;
   font-size: .8em;
-  margin-right: 10px;
+  margin-right: 1rem;
+  margin-top: 0.3rem;
   float: left;
   font-family: monospace;
 }
