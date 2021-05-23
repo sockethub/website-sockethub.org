@@ -25,7 +25,10 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.donation-list > div {
+.support > h2 {
+  margin-top: 0;
+}
+.donation-list > .bitcoin {
   margin-bottom: 2rem;
 }
 .bitcoin-address, .tippin {
