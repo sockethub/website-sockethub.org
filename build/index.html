@@ -81,15 +81,36 @@ It assists web app developers by providing server-independent, server-side funct
             <p><span class="icon"><i class="is-size-4 fab fa-bitcoin"></i></span>Sockethub Bitcoin Address</p>
             <p class="bitcoin-address">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</p>
         </div>
-        <div class="tippin">
-            <span class="icon"><i class="is-size-4 fas fa-bolt"></i></span>
-            <span><a target="_blank" href="https://tippin.me/@slvrbckt">https://tippin.me/@slvrbckt</a></span>
-        </div>
     </div>
 </section>
 <section class="section news_brief column is-full">
     <h2>Latest News</h2>
     <ul class="news">
+                <li class="h-entry news-entry">
+                    <div class="header">
+                        <span class="date dt-published">2026.1.20</span>
+                        <h3 class="news-title p-name">Sockethub 5.0.0-alpha.6</h3>
+                    </div>
+                    <div class="entry-content e-content">
+                        <p>Sockethub 5.0.0-alpha.6 has been released! This alpha release has major rewrite and architectural improvements across the board, working toward a stable 5.0.0 release.  </p>
+    <ul>
+    <li>Packaging changes, the <code>sockethub</code> package is still the main package, but works as a meta package for a number of packages in the @sockethub namespace. i
+    e.g. @sockethub/server, @sockethub/client, @sockethub/platform-xmpp</li>
+    <li>Greatly improved unit and integration tests</li>
+    <li>A New Metadata Platform!</li>
+    <li>An Examples package</li>
+    <li>Migrate to BullMQ</li>
+    <li>Migrate to Bun</li>
+    <li>Improved documentation</li>
+    <li>So much more...</li>
+    </ul>
+    <p>For a full list of changes, see the <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-alpha.6">Sockethub release page</a>.</p>
+    
+                    </div>
+                    <div class="hidden p-author h-card">
+                        <span class="p-name">Nick Jennings</span>
+                    </div>
+                </li>
                 <li class="h-entry news-entry">
                     <div class="header">
                         <span class="date dt-published">2021.9.2</span>
@@ -136,19 +157,6 @@ It assists web app developers by providing server-independent, server-side funct
                     </div>
                     <div class="entry-content e-content">
                         <p>Sockethub 3.2.2 has been released and focuses mainly on stability and bugfixes, highlights include pegging the sockethub.io dependency version to resolve a CORS issues, and a hotfix for the IRC platforms upstream library <code>irc-socket</code> allowing TLS connections. For a full list of changes, see <a href="https://github.com/sockethub/sockethub/releases/tag/v3.2.2">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2020.12.26</span>
-                        <h3 class="news-title p-name">Sockethub 3.2</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 3.2 has been released and includes a lot of improvements and work that has progressed throughout the year. The most notable improvement has come with the spawning of new threads for platform modules to help protect against possible platform crashes and memory leaks, which has greatly improved the stability of sockethub core. For a full list of changes, see <a href="https://github.com/sockethub/sockethub/releases/tag/v3.2.0">Sockethub release page</a>.</p>
     
                     </div>
                     <div class="hidden p-author h-card">
