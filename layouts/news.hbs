@@ -1,6 +1,16 @@
 {{>header}}
-<h2>{{title}}</h2>
-{{>news_list}}
-<link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
-<link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
+
+<nav class="page-nav">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/about" class="nav-link">About</a>
+    <a href="/news" class="nav-link active">News</a>
+</nav>
+
+<section class="section news-page">
+    <h2>{{title}}</h2>
+    {{>news_list}}
+    <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
+    <link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
+</section>
+
 {{>footer}}

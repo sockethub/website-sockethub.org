@@ -1,23 +1,50 @@
 {{>header}}
-<div class="columns is-desktop is-multiline">
-<section class="section content column is-three-quarters">
-    {{{contents}}}
-</section>
-<section class="section support column is-one-quarter">
-    <h2>Support</h2>
-    <div class="container donation-list">
-        <div class="bitcoin">
-            <p><span class="icon"><i class="is-size-4 fab fa-bitcoin"></i></span>Sockethub Bitcoin Address</p>
-            <p class="bitcoin-address">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</p>
+
+<nav class="page-nav">
+    <a href="/" class="nav-link active">Home</a>
+    <a href="/about" class="nav-link">About</a>
+    <a href="/news" class="nav-link">News</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" />
+        <p class="hero-subtitle">A protocol gateway for the web</p>
+        <div class="hero-actions">
+            <a class="button is-primary is-large" target="_blank" href="https://github.com/sockethub/sockethub">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>View on GitHub</span>
+            </a>
+            <a class="button is-light is-large" target="_blank" href="https://github.com/sockethub/sockethub/wiki">
+                <span>Read Documentation</span>
+            </a>
         </div>
     </div>
 </section>
-<section class="section news_brief column is-full">
+
+<section class="main-content-section">
+    <div class="content-wrapper">
+        <div class="main-description">
+            {{{contents}}}
+        </div>
+        <aside class="support-box">
+            <h3>Support the Project</h3>
+            <div class="donation-list">
+                <div class="bitcoin">
+                    <p><span class="icon"><i class="fab fa-bitcoin"></i></span>Bitcoin Address</p>
+                    <p class="bitcoin-address">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<section class="news_brief">
     <h2>Latest News</h2>
     {{>news_list}}
     <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
     <link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
-    <a href="/news">More News</a>
+    <a href="/news" class="button is-light">View All News</a>
 </section>
-</div>
+
 {{>footer}}

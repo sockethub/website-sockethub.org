@@ -37,47 +37,49 @@
  </head>
  <body>
  <div class="container">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-              <img src="/res/img/sockethub-logo.svg" class="title" alt="Sockethub" />
-          </a>
 
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-          </a>
-      </div>
-      <div class="navbar-menu">
-          <div class="navbar-start">
-              <a class="navbar-item active" href="/about">About</a>
-              <a class="navbar-item " href="/news">News</a>
-          </div>
-          <div class="navbar-end">
-              <div class="navbar-item">
-                  <div class="buttons">
-                      <a class="button is-light" target="_blank" href="https://github.com/sockethub/sockethub">
-                          <span class="icon"><i class="is-size-4 fab fa-github"></i></span><span>Repo</span>
-                      </a>
-                      <a class="button is-light" target="_blank" href="https://github.com/sockethub/sockethub/wiki">
-                          <span>Docs</span>
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </nav>
+<nav class="page-nav">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/about" class="nav-link active">About</a>
+    <a href="/news" class="nav-link">News</a>
+</nav>
+
 <section class="section about">
     <div class="container content">
-        <p>Sockethub is a translation layer for web applications to communicate with other protocols and services that are traditionally either inaccessible or impractical to use from in-browser JavaScript.</p>
-<p>Using <a href="http://activitystrea.ms/">ActivityStream</a> (AS) objects to pass messages to and from the web app, Sockethub acts as a smart proxy server/agent, which can maintain state, and connect to sockets, endpoints and networks that would otherwise be restricted from an application running in the browser.</p>
-<p>Originally inspired as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>, and assisting in the development of <a href="http://unhosted.org/">Unhosted</a> and <a href="http://nobackend.org/">noBackend</a> applications, Sockethub&#39;s functionality can also fit into a more traditional development stack, removing the need for custom code to handle various protocol specifics at the application layer.</p>
-<p>Example uses of Sockethub are:</p>
-<p>Writing and receiving messages (SMTP, IMAP, Facebook, Twitter, ...)
-Instant messaging (XMPP, IRC, MSN, FB Messenger, Hangouts, ...)
-Discovery (WebFinger, RDF(a), ...)
-The architecture of Sockethub is extensible and supports easy implementation of additional &#39;platforms&#39; to carry out tasks.</p>
+        <h2 id="what-is-sockethub">What is Sockethub?</h2>
+<p>Sockethub is a <strong>protocol gateway for the web</strong> that bridges the gap between browser-based applications and traditional network protocols. Using <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams</a> objects as a standardized message format, it acts as an intelligent proxy server that maintains state and connects to services that would otherwise be inaccessible from in-browser JavaScript.</p>
+<h2 id="architecture--features">Architecture &amp; Features</h2>
+<p>Built with modern TypeScript and powered by Bun runtime, Sockethub features a robust <strong>multi-process architecture</strong> where:</p>
+<ul>
+<li>The main server handles Socket.IO connections through a middleware pipeline</li>
+<li>Each protocol runs as an isolated child process for stability</li>
+<li>A Redis-backed job queue ensures reliable message delivery</li>
+<li>Per-session encrypted credential storage protects user data</li>
+<li>Process isolation prevents failures from affecting other connections</li>
+</ul>
+<h2 id="supported-protocols">Supported Protocols</h2>
+<p>Currently implemented platforms include:</p>
+<ul>
+<li><strong>XMPP</strong> – Extensible Messaging and Presence Protocol with full presence and multi-user chat support</li>
+<li><strong>IRC</strong> – Internet Relay Chat for traditional chat networks</li>
+<li><strong>RSS/Atom</strong> – Feed processing and aggregation</li>
+<li><strong>Metadata</strong> – Link preview generation and metadata extraction</li>
+</ul>
+<p>The extensible design allows for straightforward implementation of additional protocols like SMTP, IMAP, Nostr, and more.</p>
+<h2 id="origins--philosophy">Origins &amp; Philosophy</h2>
+<p>Originally conceived as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>, Sockethub supports the development of <a href="http://unhosted.org/">Unhosted</a> and <a href="http://nobackend.org/">noBackend</a> applications. However, its functionality seamlessly integrates into traditional development stacks, removing the need for custom protocol-specific code at the application layer.</p>
+<h2 id="use-cases">Use Cases</h2>
+<p>Sockethub enables web applications to:</p>
+<ul>
+<li>Connect to chat networks (XMPP, IRC) without server-side code</li>
+<li>Process and aggregate RSS/Atom feeds</li>
+<li>Generate link previews and extract metadata</li>
+<li>Maintain persistent protocol connections with session management</li>
+<li>Translate between ActivityStreams and traditional protocol formats</li>
+</ul>
+<h2 id="open-source--actively-maintained">Open Source &amp; Actively Maintained</h2>
+<p>Sockethub is actively developed and maintained by Nick Jennings with support from the NLNET Foundation. With over 390 stars and contributions from 20+ developers, the project continues to evolve with regular updates and improvements.</p>
+<p>The architecture is designed to be extensible – implementing new platforms is straightforward by defining a schema and mapping functions to ActivityStream verbs.</p>
 
     </div>
     <div class="container sister-logos">
