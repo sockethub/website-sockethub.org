@@ -1,52 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Sockethub — platforms">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff4e6"/>
-      <stop offset="1" stop-color="#fde1c3"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="80%" cy="18%" r="55%">
-      <stop offset="0"   stop-color="#ff9758" stop-opacity="0.35"/>
-      <stop offset="0.6" stop-color="#ff9758" stop-opacity="0"/>
-    </radialGradient>
-    <style><![CDATA[
-      .mark    { font: 700 38px system-ui, -apple-system, sans-serif; fill: #1a1a1a; letter-spacing: -0.01em; }
-      .title   { font: 800 92px system-ui, -apple-system, sans-serif; fill: #1a1a1a; letter-spacing: -0.02em; }
-      .accent  { fill: #b04514; }
-      .sub     { font: 400 32px system-ui, -apple-system, sans-serif; fill: #4a3420; }
-      .url     { font: 600 24px "SFMono-Regular", Menlo, Consolas, monospace; fill: #7b3310; letter-spacing: 0.02em; }
-      .eyebrow { font: 700 22px "SFMono-Regular", Menlo, Consolas, monospace; fill: #b04514; letter-spacing: 0.18em; text-transform: uppercase; }
-      .proto   { font: 700 30px "SFMono-Regular", Menlo, Consolas, monospace; fill: #1a1a1a; }
-    ]]></style>
-  </defs>
-
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="#fff4e6"/>
 
   <circle cx="88" cy="88" r="18" fill="#ff7a2a"/>
   <circle cx="88" cy="88" r="9"  fill="#ffd19a"/>
-  <text x="124" y="100" class="mark">sockethub</text>
+  <text x="124" y="100" font-family="sans-serif" font-weight="700" font-size="38" fill="#1a1a1a">sockethub</text>
 
-  <text x="88" y="240" class="eyebrow">Platforms</text>
+  <text x="88" y="240" font-family="monospace" font-weight="700" font-size="22" fill="#b04514" letter-spacing="4">PLATFORMS</text>
 
-  <text x="88" y="340" class="title">Built in,</text>
-  <text x="88" y="438" class="title"><tspan class="accent">out of the box.</tspan></text>
+  <text x="88" y="360" font-family="sans-serif" font-weight="800" font-size="86" fill="#1a1a1a">Supported platforms</text>
 
-  <text x="88" y="508" class="sub">Each one a first-class, documented adapter.</text>
+  <text x="88" y="440" font-family="sans-serif" font-weight="400" font-size="36" fill="#4a3420">Each one a documented ActivityStreams 2.0 adapter.</text>
 
   <!-- Protocol chips -->
-  <g transform="translate(88 540)">
-    <rect x="0"   y="0"  width="150" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
-    <text x="75"  y="34" class="proto" text-anchor="middle">IRC</text>
+  <g transform="translate(88 485)">
+    <rect x="0"   y="0"  width="160" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="80"  y="40" font-family="monospace" font-weight="700" font-size="28" fill="#1a1a1a" text-anchor="middle">IRC</text>
 
-    <rect x="166" y="0"  width="150" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
-    <text x="241" y="34" class="proto" text-anchor="middle">XMPP</text>
+    <rect x="176" y="0"  width="160" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="256" y="40" font-family="monospace" font-weight="700" font-size="28" fill="#1a1a1a" text-anchor="middle">XMPP</text>
 
-    <rect x="332" y="0"  width="150" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
-    <text x="407" y="34" class="proto" text-anchor="middle">Feeds</text>
+    <rect x="352" y="0"  width="220" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="462" y="40" font-family="monospace" font-weight="700" font-size="28" fill="#1a1a1a" text-anchor="middle">RSS / Atom</text>
 
-    <rect x="498" y="0"  width="190" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
-    <text x="593" y="34" class="proto" text-anchor="middle">Dummy</text>
+    <rect x="588" y="0"  width="210" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="693" y="40" font-family="monospace" font-weight="700" font-size="28" fill="#1a1a1a" text-anchor="middle">Metadata</text>
   </g>
 
-  <text x="1112" y="580" class="url" text-anchor="end">sockethub.org</text>
+  <text x="1112" y="580" font-family="monospace" font-weight="600" font-size="24" fill="#7b3310" text-anchor="end">sockethub.org</text>
 </svg>
