@@ -1,50 +1,312 @@
 {{>header}}
 
-<nav class="page-nav">
-    <a href="/" class="nav-link active">Home</a>
-    <a href="/about" class="nav-link">About</a>
-    <a href="/news" class="nav-link">News</a>
-</nav>
-
 <section class="hero">
-    <div class="hero-content">
-        <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" />
-        <p class="hero-subtitle">A protocol gateway for the web</p>
-        <div class="hero-actions">
-            <a class="button is-primary is-large" target="_blank" href="https://github.com/sockethub/sockethub">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>View on GitHub</span>
-            </a>
-            <a class="button is-light is-large" target="_blank" href="https://github.com/sockethub/sockethub/blob/master/docs/README.md">
-                <span>Read Documentation</span>
-            </a>
-        </div>
+  <div class="container hero-content">
+    <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" width="352" height="112">
+    <p class="hero-eyebrow">Protocol gateway for the web</p>
+    <h1 class="hero-title">
+      Chat, feeds, and metadata —
+      <span class="hero-title__accent">through one API.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Sockethub lets browser apps talk to IRC, XMPP, RSS/Atom feeds and more, all
+      through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
+    </p>
+
+    <div class="hero-actions">
+      <a class="button is-primary is-large" href="https://github.com/sockethub/sockethub" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+        </svg>
+        View on GitHub
+      </a>
+      <a class="button is-light is-large" href="/about">How it works</a>
     </div>
+
+    <div class="hero-install" aria-label="Install Sockethub">
+      <span class="hero-install__prompt" aria-hidden="true">$</span>
+      <code class="hero-install__cmd">{{installCommand}}</code>
+      <span class="hero-install__version">v{{site.release.version}}</span>
+    </div>
+  </div>
 </section>
 
-<section class="main-content-section">
-    <div class="content-wrapper">
-        <div class="main-description">
-            {{{contents}}}
-        </div>
-        <aside class="support-box">
-            <h3>Support the Project</h3>
-            <div class="donation-list">
-                <div class="bitcoin">
-                    <p><span class="icon"><i class="fab fa-bitcoin"></i></span>Bitcoin Address</p>
-                    <p class="bitcoin-address">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</p>
-                </div>
-            </div>
-        </aside>
+<section class="fanout" aria-labelledby="fanout-title">
+  <div class="container fanout__container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Fan out</p>
+      <h2 id="fanout-title" class="section-header__title">One message. Every protocol.</h2>
+    </header>
+
+    <svg class="fanout__diagram" viewBox="0 0 800 360" role="img"
+         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which fans it out to IRC, XMPP, RSS/Atom feeds, and Metadata services.">
+      <!-- Inline gradient matching the sockethub logo: sun → signal → ember. -->
+      <defs>
+        <linearGradient id="emberGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#ff9c1f"/>
+          <stop offset="42%"  stop-color="#f23c00"/>
+          <stop offset="100%" stop-color="#de0f3c"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Connection lines -->
+      <g class="fanout__lines">
+        <path class="fanout__line" d="M220,180 L344,180"/>
+        <path class="fanout__line" d="M456,180 Q540,180 620,60"/>
+        <path class="fanout__line" d="M456,180 L620,150"/>
+        <path class="fanout__line" d="M456,180 L620,240"/>
+        <path class="fanout__line" d="M456,180 Q540,180 620,330"/>
+      </g>
+
+      <!-- Client node -->
+      <g class="fanout__node fanout__node--client" transform="translate(40,140)">
+        <rect width="180" height="80" rx="12"/>
+        <text x="90" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
+        <text x="90" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
+      </g>
+
+      <!-- Sockethub hub -->
+      <g class="fanout__node fanout__node--hub" transform="translate(400,180)">
+        <circle r="56"/>
+        <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
+      </g>
+
+      <!-- Platform chips -->
+      <g class="fanout__chip" transform="translate(620,30)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">IRC</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Chat &amp; channels</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,120)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">XMPP</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Messaging &amp; presence</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,210)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,300)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Metadata</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
+      </g>
+
+      <!-- Envelopes (animated — CSS drives motion) -->
+      <g class="fanout-envelope fanout-envelope--irc" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--xmpp" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--feeds" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--metadata" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+    </svg>
+
+    <p class="fanout__caption">
+      Your app sends one JSON shape. Sockethub routes it to the right protocol, and the response
+      comes back in the same shape.
+    </p>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="container">
+    <div class="intro__prose prose">
+      {{{contents}}}
     </div>
+  </div>
+</section>
+
+<section class="platforms">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Platforms</p>
+      <h2 class="section-header__title">Built in, out of the box.</h2>
+      <p class="section-header__lede">
+        Sockethub ships with these protocols today. Add your own by implementing the
+        <a href="https://github.com/sockethub/sockethub/blob/master/docs/platform-development.md">platform interface</a>.
+      </p>
+    </header>
+
+    <div class="platforms__grid">
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="18" r="14" stroke="currentColor" stroke-width="2"/>
+            <text x="20" y="25" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">#</text>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">IRC</h3>
+        <p class="platform-card__desc">Chat and channels on the original open protocol.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 10 H32 V26 H24 L20 32 L16 26 H8 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="14" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="20" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="26" cy="18" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">XMPP</h3>
+        <p class="platform-card__desc">Federated messaging, rooms, and presence.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 14 a18 18 0 0 1 18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M8 8 a24 24 0 0 1 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="9" cy="31" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">RSS / Atom</h3>
+        <p class="platform-card__desc">Poll, parse, and stream updates from feeds.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M10 22 l12 -12 h10 v10 l-12 12 z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="26" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">Metadata</h3>
+        <p class="platform-card__desc">Link previews and structured-data extraction.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Why Sockethub</p>
+      <h2 class="section-header__title">Three reasons it's in your stack.</h2>
+    </header>
+
+    <div class="values__grid">
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M3 9 L12 14 L21 9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">One format, every protocol</h3>
+        <p>ActivityStreams 2.0 JSON in, ActivityStreams 2.0 JSON out. No protocol-specific code in your frontend.</p>
+      </article>
+
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 21 H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M12 17 V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">Browser-safe, server-side state</h3>
+        <p>Sockethub holds long-lived connections, session credentials, and reconnect logic. Your app stays thin.</p>
+      </article>
+
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 3 V7 M12 17 V21 M3 12 H7 M17 12 H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M5.6 5.6 L8.4 8.4 M15.6 15.6 L18.4 18.4 M5.6 18.4 L8.4 15.6 M15.6 8.4 L18.4 5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">Pluggable platforms</h3>
+        <p>Add support for new protocols by implementing a small platform interface. Your frontend never changes.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="code-peek">
+  <div class="container code-peek__inner">
+    <div class="code-peek__copy">
+      <p class="section-header__eyebrow"><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></p>
+      <h2 class="code-peek__title">Same shape, any protocol.</h2>
+      <p>
+        Every message is a JSON-LD ActivityStreams 2.0 object. The
+        <code>@context</code> array names the AS2 base, the Sockethub
+        vocabulary, and the specific platform — swap the platform URL and the
+        same call reaches a different network.
+      </p>
+      <a href="/about" class="button is-light">Read the full model</a>
+    </div>
+<pre class="code-peek__block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/xmpp/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"bob@chat.example"</span>,   <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>,
+              <span class="tok-key">"content"</span>: <span class="tok-str">"Hello across protocols!"</span> }
+}</code></pre>
+  </div>
 </section>
 
 <section class="news_brief">
-    <h2>Latest News</h2>
+  <div class="container">
+    <header class="section-header section-header--row">
+      <h2 class="section-header__title">Latest news</h2>
+      <a href="/news" class="section-header__link">All news →</a>
+    </header>
     {{>news_list}}
-    <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
-    <link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
-    <a href="/news" class="button is-light">View All News</a>
+    <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc">
+    <link rel="webmention" href="https://webmention.io/sockethub.org/webmention">
+  </div>
+</section>
+
+<section class="support">
+  <div class="container support__inner">
+    <div class="support__text">
+      <h2 class="support__title">Support the project</h2>
+      <p>
+        Sockethub is free and open source. Starring the repo helps visibility; donations help
+        keep development going.
+      </p>
+    </div>
+    <div class="support__options">
+      <a class="support-option" href="https://github.com/sockethub/sockethub" target="_blank" rel="noopener">
+        <span class="support-option__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+          </svg>
+        </span>
+        <span class="support-option__body">
+          <span class="support-option__label">Star on GitHub</span>
+          <span class="support-option__target">sockethub/sockethub</span>
+        </span>
+      </a>
+      <div class="support-option support-option--btc">
+        <span class="support-option__icon support-option__icon--btc" aria-hidden="true">&#8383;</span>
+        <span class="support-option__body">
+          <span class="support-option__label">Bitcoin</span>
+          <code class="support-option__target">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</code>
+        </span>
+      </div>
+    </div>
+  </div>
 </section>
 
 {{>footer}}

@@ -3,15 +3,17 @@ title: About
 current_page: about
 news_count: 0
 layout: about.hbs
+og_image: /res/img/og/about.png
+og_description: Open source, built in the open — maintained by Nick Jennings, funded in part by NLnet.
 ---
 
 ## What is Sockethub?
 
 Sockethub is a **protocol gateway for the web**. It lets browser apps talk to
 IRC, XMPP, feeds, and other services using one message format:
-[ActivityStreams](https://www.w3.org/TR/activitystreams-core/).
+[ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/).
 
-## ActivityStreams In/Out
+## ActivityStreams 2.0 In/Out
 
 Sockethub uses the same JSON envelope for every platform. Your app sends one
 shape, Sockethub translates it, and you receive the same shape back.
@@ -19,15 +21,15 @@ shape, Sockethub translates it, and you receive the same shape back.
 <picture>
   <source
     media="(prefers-color-scheme: dark)"
-    srcset="https://sockethub.org/res/img/activitystreams-send-receive.dark.svg"
+    srcset="/res/img/activitystreams-send-receive.dark.svg"
   />
   <source
     media="(prefers-color-scheme: light)"
-    srcset="https://sockethub.org/res/img/activitystreams-send-receive.svg"
+    srcset="/res/img/activitystreams-send-receive.svg"
   />
   <img
-    alt="ActivityStreams send/receive examples"
-    src="https://sockethub.org/res/img/activitystreams-send-receive.svg"
+    alt="ActivityStreams 2.0 send/receive examples — canonical AS2.0 @context array envelope"
+    src="/res/img/activitystreams-send-receive.svg"
   />
 </picture>
 

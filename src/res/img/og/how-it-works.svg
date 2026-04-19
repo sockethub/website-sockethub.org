@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Sockethub — how it works">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff4e6"/>
+      <stop offset="1" stop-color="#fde1c3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="18%" r="55%">
+      <stop offset="0"   stop-color="#ff9758" stop-opacity="0.35"/>
+      <stop offset="0.6" stop-color="#ff9758" stop-opacity="0"/>
+    </radialGradient>
+    <style><![CDATA[
+      .mark    { font: 700 38px system-ui, -apple-system, sans-serif; fill: #1a1a1a; letter-spacing: -0.01em; }
+      .title   { font: 800 92px system-ui, -apple-system, sans-serif; fill: #1a1a1a; letter-spacing: -0.02em; }
+      .accent  { fill: #b04514; }
+      .sub     { font: 400 32px system-ui, -apple-system, sans-serif; fill: #4a3420; }
+      .url     { font: 600 24px "SFMono-Regular", Menlo, Consolas, monospace; fill: #7b3310; letter-spacing: 0.02em; }
+      .eyebrow { font: 700 22px "SFMono-Regular", Menlo, Consolas, monospace; fill: #b04514; letter-spacing: 0.18em; text-transform: uppercase; }
+      .step    { font: 700 28px "SFMono-Regular", Menlo, Consolas, monospace; fill: #1a1a1a; }
+      .arrow   { stroke: #b04514; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+    ]]></style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <circle cx="88" cy="88" r="18" fill="#ff7a2a"/>
+  <circle cx="88" cy="88" r="9"  fill="#ffd19a"/>
+  <text x="124" y="100" class="mark">sockethub</text>
+
+  <text x="88" y="240" class="eyebrow">How it works</text>
+
+  <text x="88" y="340" class="title">From tab</text>
+  <text x="88" y="438" class="title">to <tspan class="accent">channel.</tspan></text>
+
+  <text x="88" y="508" class="sub">Browser → Sockethub → protocol, in one envelope.</text>
+
+  <!-- Three little chips: Client · Gateway · Protocol -->
+  <g transform="translate(88 540)">
+    <rect x="0"   y="0" width="140" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
+    <text x="70"  y="34" class="step" text-anchor="middle">Client</text>
+
+    <path class="arrow" d="M 150 26 L 200 26 M 192 18 L 202 26 L 192 34"/>
+
+    <rect x="212" y="0" width="180" height="52" rx="10" fill="#b04514"/>
+    <text x="302" y="34" class="step" text-anchor="middle" fill="#fff">Sockethub</text>
+
+    <path class="arrow" d="M 402 26 L 452 26 M 444 18 L 454 26 L 444 34"/>
+
+    <rect x="464" y="0" width="160" height="52" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="1.5"/>
+    <text x="544" y="34" class="step" text-anchor="middle">Protocol</text>
+  </g>
+
+  <text x="1112" y="580" class="url" text-anchor="end">sockethub.org</text>
+</svg>

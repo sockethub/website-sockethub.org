@@ -1,0 +1,27 @@
+{{#each (groupByYear collections.news)}}
+  <section class="news-year">
+    <h2 class="news-year__label">{{this.year}}</h2>
+    <ol class="news-year__list">
+      {{#each this.posts}}
+        <li class="news-card">
+          <a class="news-card__link" href="/news/{{this.slug}}/">
+            <time class="news-card__date" datetime="{{isoDate this.date}}">
+              {{getMonth this.date}}.{{getDay this.date}}
+            </time>
+            <div class="news-card__body">
+              <h3 class="news-card__title">{{this.title}}</h3>
+              <p class="news-card__excerpt">{{excerpt this.body}}</p>
+              <p class="news-card__meta">
+                {{#if this.author}}{{this.author}}{{/if}}
+                {{#if this.readingTime}}
+                  {{#if this.author}}&nbsp;·&nbsp;{{/if}}
+                  {{this.readingTime}} min read
+                {{/if}}
+              </p>
+            </div>
+          </a>
+        </li>
+      {{/each}}
+    </ol>
+  </section>
+{{/each}}

@@ -1,0 +1,214 @@
+{{>header}}
+
+<article class="doc-page">
+  <header class="page-intro">
+    <div class="container">
+      <p class="page-intro__eyebrow">Get started</p>
+      <h1 class="page-intro__title">
+        Install,
+        <span class="text-ember">then connect.</span>
+      </h1>
+      <p class="page-intro__lede">
+        Pick whichever install path fits how you work. The client code is the
+        same either way — one Socket.IO connection, one ActivityStreams 2.0
+        envelope per action.
+      </p>
+    </div>
+  </header>
+
+  <section class="install">
+    <div class="container">
+      <header class="section-header section-header--row">
+        <h2 class="section-header__title">Install</h2>
+        <a class="section-header__link" href="https://github.com/sockethub/sockethub" target="_blank" rel="noopener">
+          Repository →
+        </a>
+      </header>
+
+      <div class="install-tabs">
+        <!-- npm -->
+        <details class="install-tab" open>
+          <summary>
+            <span class="install-tab__label">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                <path d="M2 2h20v20h-8V10h-4v12H2z"/>
+              </svg>
+              npm
+            </span>
+            <span class="install-tab__hint">fastest way to try it</span>
+          </summary>
+          <div class="install-tab__body">
+            <p>Requires Node.js 20+ and a Redis instance reachable at <code>localhost:6379</code>:</p>
+<pre class="code-block"><code><span class="tok-comment"># install the current release channel</span>
+npm install -g sockethub{{site.release.installTag}}
+
+<span class="tok-comment"># start the gateway</span>
+sockethub
+
+<span class="tok-comment"># or explore the bundled examples</span>
+sockethub --examples</code></pre>
+            <p class="install-tab__run">Running version: <code>{{site.release.version}}</code></p>
+          </div>
+        </details>
+
+        <!-- Docker -->
+        <details class="install-tab">
+          <summary>
+            <span class="install-tab__label">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                <path d="M13.8 10.6h2.3v2.3h-2.3zm-3 0h2.3v2.3h-2.3zm-3 0h2.3v2.3H7.8zm-3 0h2.3v2.3H4.8zm3-3h2.3V10H7.8zm3 0h2.3V10h-2.3zm3 0h2.3V10h-2.3zm-6-3h2.3v2.3H7.8zm3 0h2.3v2.3h-2.3zM23 11.2s-1-.6-2.8-.4c-.2-1.5-1-2.2-1-2.2s-1 1.2-.8 2.7c.3 1.1-.3 2-1.5 2H1c-.2 1.7 0 6.6 5.5 7.7 4.5.9 9-1 11-5 .2 0 5 .2 5.5-4.7z"/>
+              </svg>
+              Docker
+            </span>
+            <span class="install-tab__hint">for deployment</span>
+          </summary>
+          <div class="install-tab__body">
+            <p>Bring up Sockethub + Redis with a single compose file:</p>
+<pre class="code-block"><code><span class="tok-comment"># docker-compose.yml</span>
+<span class="tok-key">services</span>:
+  <span class="tok-key">redis</span>:
+    <span class="tok-key">image</span>: <span class="tok-str">redis:7-alpine</span>
+  <span class="tok-key">sockethub</span>:
+    <span class="tok-key">image</span>: <span class="tok-str">sockethub/sockethub:alpha</span>
+    <span class="tok-key">ports</span>: [<span class="tok-str">"10550:10550"</span>]
+    <span class="tok-key">environment</span>:
+      <span class="tok-key">REDIS_URL</span>: <span class="tok-str">redis://redis:6379</span>
+    <span class="tok-key">depends_on</span>: [<span class="tok-str">redis</span>]</code></pre>
+            <p class="install-tab__run">
+              <code>docker compose up</code> — Sockethub is live on
+              <code>http://localhost:10550</code>.
+            </p>
+          </div>
+        </details>
+
+        <!-- Source -->
+        <details class="install-tab">
+          <summary>
+            <span class="install-tab__label">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+              </svg>
+              Source
+            </span>
+            <span class="install-tab__hint">hack on it</span>
+          </summary>
+          <div class="install-tab__body">
+            <p>Clone the monorepo and run with <a href="https://bun.sh">Bun</a>:</p>
+<pre class="code-block"><code>git clone https://github.com/sockethub/sockethub.git
+cd sockethub
+bun install
+bun run dev</code></pre>
+            <p class="install-tab__run">
+              This runs the full workspace with live reload. Changes in any
+              package are picked up by the running gateway.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== Client ================== -->
+  <section class="client-example">
+    <div class="container">
+      <header class="section-header section-header--row">
+        <h2 class="section-header__title">Talk to it from the browser</h2>
+        <a class="section-header__link" href="/platforms">All platforms →</a>
+      </header>
+
+      <div class="client-example__grid">
+        <div class="client-example__copy">
+          <p>
+            The client is a thin wrapper over Socket.IO. Point it at your
+            gateway, wait for the schema registry, then credentials → connect
+            → join → send. Every call is the same JSON-LD ActivityStreams
+            2.0 shape.
+          </p>
+          <p>
+            This example sends a single message to
+            <code>#sockethub</code> on Libera.Chat. Swap
+            <code>sc.contextFor('irc')</code> for
+            <code>sc.contextFor('xmpp')</code> and the same code reaches
+            an XMPP contact (for 1:1 you can skip the <code>join</code>).
+          </p>
+          <p>
+            Every emit returns an ack. We wrap that as a promise so each
+            step either resolves on success or throws — no silent failures,
+            no guessing at state.
+          </p>
+        </div>
+<pre class="client-example__block"><code><span class="tok-comment">// Load @sockethub/client (ESM or bundled UMD)</span>
+<span class="tok-key">import</span> SockethubClient <span class="tok-key">from</span> <span class="tok-str">'@sockethub/client'</span>;
+
+<span class="tok-key">const</span> sc = <span class="tok-key">new</span> SockethubClient({
+  host: <span class="tok-str">'http://localhost:10550'</span>,
+});
+
+<span class="tok-comment">// wait for the schema registry to load</span>
+<span class="tok-key">await</span> sc.ready();
+
+<span class="tok-key">const</span> ircContext = sc.contextFor(<span class="tok-str">'irc'</span>);
+<span class="tok-key">const</span> actor = { id: <span class="tok-str">'alice@irc.libera.chat'</span>, type: <span class="tok-str">'person'</span> };
+<span class="tok-key">const</span> room  = { id: <span class="tok-str">'#sockethub@irc.libera.chat'</span>, type: <span class="tok-str">'room'</span> };
+
+<span class="tok-comment">// turn emit+ack into an awaitable step</span>
+<span class="tok-key">const</span> step = (event, activity) =&gt; <span class="tok-key">new</span> <span class="tok-key">Promise</span>((resolve, reject) =&gt; {
+  sc.socket.emit(event, activity, (ack) =&gt; {
+    <span class="tok-key">if</span> (ack?.error) reject(<span class="tok-key">new</span> <span class="tok-key">Error</span>(ack.error));
+    <span class="tok-key">else</span>            resolve(ack);
+  });
+});
+
+<span class="tok-key">try</span> {
+  <span class="tok-comment">// 1. credentials (stored encrypted per session)</span>
+  <span class="tok-key">await</span> step(<span class="tok-str">'credentials'</span>, {
+    <span class="tok-str">'@context'</span>: ircContext,
+    type:   <span class="tok-str">'credentials'</span>,
+    actor,
+    object: {
+      type:   <span class="tok-str">'credentials'</span>,
+      nick:   <span class="tok-str">'alice'</span>,
+      server: <span class="tok-str">'irc.libera.chat'</span>,
+      port:   6697,
+      secure: <span class="tok-key">true</span>,
+      token:  process.env.IRC_TOKEN,
+    },
+  });
+  console.log(<span class="tok-str">'creds stored'</span>);
+
+  <span class="tok-comment">// 2. connect</span>
+  <span class="tok-key">await</span> step(<span class="tok-str">'message'</span>, { <span class="tok-str">'@context'</span>: ircContext, type: <span class="tok-str">'connect'</span>, actor });
+  console.log(<span class="tok-str">'connected'</span>);
+
+  <span class="tok-comment">// 3. join (required on IRC + XMPP MUC; skip for XMPP 1:1)</span>
+  <span class="tok-key">await</span> step(<span class="tok-str">'message'</span>, { <span class="tok-str">'@context'</span>: ircContext, type: <span class="tok-str">'join'</span>, actor, target: room });
+  console.log(<span class="tok-str">'joined'</span>, room.id);
+
+  <span class="tok-comment">// 4. send</span>
+  <span class="tok-key">const</span> ack = <span class="tok-key">await</span> step(<span class="tok-str">'message'</span>, {
+    <span class="tok-str">'@context'</span>: ircContext,
+    type:   <span class="tok-str">'send'</span>,
+    actor,
+    target: room,
+    object: { type: <span class="tok-str">'message'</span>, content: <span class="tok-str">'hello from the browser'</span> },
+  });
+  console.log(<span class="tok-str">'sent'</span>, ack);
+} <span class="tok-key">catch</span> (err) {
+  console.error(<span class="tok-str">'sockethub:'</span>, err.message);
+}</code></pre></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-outro">
+    <div class="container">
+      <p class="page-outro__text">
+        Looking for the deeper architecture?
+        <a class="button is-light" href="/how-it-works">How it works</a>
+        <a class="button is-primary" href="https://github.com/sockethub/sockethub">Source on GitHub</a>
+      </p>
+    </div>
+  </section>
+</article>
+
+{{>footer}}

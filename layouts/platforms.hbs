@@ -1,0 +1,295 @@
+{{>header}}
+
+<article class="doc-page">
+  <header class="page-intro">
+    <div class="container">
+      <p class="page-intro__eyebrow">Platforms</p>
+      <h1 class="page-intro__title">
+        Built in,
+        <span class="text-ember">out of the box.</span>
+      </h1>
+      <p class="page-intro__lede">
+        Each platform maps ActivityStreams 2.0 onto a specific network. Same
+        JSON envelope on the way in, same shape on the way back. If you need
+        more, the platform interface is small enough to implement in an
+        afternoon.
+      </p>
+      <nav class="platforms-toc" aria-label="Platform sections">
+        <a href="#irc">IRC</a>
+        <a href="#xmpp">XMPP</a>
+        <a href="#feeds">RSS / Atom</a>
+        <a href="#metadata">Metadata</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ IRC ============ -->
+  <section class="protocol" id="irc">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="18" r="14" stroke="currentColor" stroke-width="2"/>
+            <text x="20" y="25" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">#</text>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">IRC</h2>
+          <p class="protocol__sub">Chat and channels on the original open protocol.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-irc" target="_blank" rel="noopener">
+          @sockethub/platform-irc ↗
+        </a>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Speak to any IRC network — Libera, OFTC, your local. Sockethub
+          handles reconnects, PINGs, and nick collision for you.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full IRC flow is
+          <strong>credentials → connect → join → send</strong>.
+          Each envelope shares the same <code>@context</code>; only
+          <code>type</code> and the target change.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/irc/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"alice@irc.libera.chat"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"nick"</span>:   <span class="tok-str">"alice"</span>,
+    <span class="tok-key">"server"</span>: <span class="tok-str">"irc.libera.chat"</span>,
+    <span class="tok-key">"port"</span>:   6697,
+    <span class="tok-key">"secure"</span>: true,
+    <span class="tok-key">"token"</span>:  <span class="tok-str">"…"</span>
+  }
+}</code></pre>
+
+        <h3 class="protocol__section">2. Connect</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"connect"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@irc.libera.chat"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">3. Join a channel</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"join"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@irc.libera.chat"</span>,     <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"#sockethub@irc.libera.chat"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"room"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">4. Send a message</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@irc.libera.chat"</span>,     <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"#sockethub@irc.libera.chat"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"room"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>, <span class="tok-key">"content"</span>: <span class="tok-str">"hey everyone"</span> }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ XMPP ============ -->
+  <section class="protocol" id="xmpp">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 10 H32 V26 H24 L20 32 L16 26 H8 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="14" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="20" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="26" cy="18" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">XMPP</h2>
+          <p class="protocol__sub">Federated messaging, rooms, and presence.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-xmpp" target="_blank" rel="noopener">
+          @sockethub/platform-xmpp ↗
+        </a>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Connect to any XMPP service — public or self-hosted. Multi-user
+          chat, direct messages, presence, and roster updates all come
+          through as ActivityStreams objects.
+        </p>
+
+        <p class="protocol__flow-note">
+          Full XMPP MUC flow is
+          <strong>credentials → connect → join → send</strong>. For a 1:1
+          message to a contact, skip <code>join</code> and target the
+          person JID directly (shown at the end).
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/xmpp/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"alice@chat.example"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:        <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"userAddress"</span>: <span class="tok-str">"alice@chat.example"</span>,
+    <span class="tok-key">"password"</span>:    <span class="tok-str">"…"</span>,
+    <span class="tok-key">"server"</span>:      <span class="tok-str">"chat.example"</span>,
+    <span class="tok-key">"resource"</span>:    <span class="tok-str">"sockethub"</span>
+  }
+}</code></pre>
+
+        <h3 class="protocol__section">2. Connect</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"connect"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">3. Join a room (MUC)</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"join"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>,              <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"sockethub@conference.chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"room"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">4a. Send to the room</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>,              <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"sockethub@conference.chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"room"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>, <span class="tok-key">"content"</span>: <span class="tok-str">"hey everyone"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">4b. Send 1:1 to a contact (no join needed)</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"bob@chat.example"</span>,   <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>, <span class="tok-key">"content"</span>: <span class="tok-str">"ping"</span> }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Feeds ============ -->
+  <section class="protocol" id="feeds">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 14 a18 18 0 0 1 18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M8 8 a24 24 0 0 1 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="9" cy="31" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">RSS / Atom</h2>
+          <p class="protocol__sub">Fetch, parse, and stream updates from feeds.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-feeds" target="_blank" rel="noopener">
+          @sockethub/platform-feeds ↗
+        </a>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Point the feeds platform at any RSS or Atom URL and it returns
+          normalized entries as ActivityStreams objects. Useful for reader
+          apps, dashboards, or anywhere you'd otherwise reach for a polling
+          cron.
+        </p>
+
+        <h3 class="protocol__section">Fetch once</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/feeds/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://example.org/reader"</span>,    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/feed.xml"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"feed"</span> }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Metadata ============ -->
+  <section class="protocol" id="metadata">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M10 22 l12 -12 h10 v10 l-12 12 z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="26" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">Metadata</h2>
+          <p class="protocol__sub">Link previews and structured-data extraction.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-metadata" target="_blank" rel="noopener">
+          @sockethub/platform-metadata ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Fetch a URL, extract Open Graph, oEmbed, microformats2, and
+          JSON-LD, and hand back a single normalized object. Built for chat
+          link previews and reader summaries.
+        </p>
+
+        <h3 class="protocol__section">Fetch metadata for a URL</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/metadata/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://example.org/reader"</span>,    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/article"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"link"</span> }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-outro">
+    <div class="container">
+      <p class="page-outro__text">
+        Want to add another protocol?
+        <a class="button is-light" href="https://github.com/sockethub/sockethub/blob/master/docs/platform-development.md">Platform interface</a>
+        <a class="button is-primary" href="/get-started">Get started</a>
+      </p>
+    </div>
+  </section>
+</article>
+
+{{>footer}}

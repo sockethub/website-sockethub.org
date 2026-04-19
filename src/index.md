@@ -1,10 +1,16 @@
 ---
 title: Sockethub
 current_page: home
-news_count: 5
+news_count: 3
 layout: index.hbs
+og_image: /res/img/og/sockethub.png
 ---
 
-Sockethub is a **protocol gateway for the web**, a translation layer that enables web applications to communicate with protocols and services traditionally inaccessible from in-browser JavaScript. 
+Sockethub is a **protocol gateway for the web**. It lets browser apps talk to
+protocols and services that JavaScript can't reach on its own — IRC, XMPP,
+RSS/Atom, link-metadata services — using one standard message format:
+[ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/).
 
-By using **ActivityStreams** as a standardized message format, Sockethub acts as an intelligent proxy server that maintains state and connects to networks, sockets, and endpoints that would otherwise be restricted in browser environments. This approach gives applications and users greater autonomy, privacy, and protocol independence. 
+By holding the long-lived connections, credentials, and protocol-specific
+logic on the server, Sockethub gives browser apps a single, consistent
+JSON API for reaching networks the web usually walls off.

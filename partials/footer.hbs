@@ -1,33 +1,122 @@
-  <footer class="footer container-fluid">
-
-    <div class="columns is-desktop">
-      <div class="column credits">
-        <p>
-          <span>Developed and maintained by</span>
-          <a target="_blank" href="https://silverbucket.net">Nick Jennings</a>
-        </p>
-      </div>
-
-      <div class="column sponsored-by">
-        <span>Sponsored by</span><br />
-        <a target="_blank" href="http://nlnet.nl">
-          <img src="/res/img/nlnet-logo.svg" alt="nlnet" />
-        </a>
-      </div>
-
-      <div class="column extras">
-        <a rel="alternate" type="application/rss+xml" title="RSS feed for sockethub.org" href="{{site.url}}/feed.xml">
-            <span class="icon"><i class="is-size-4 fas fa-rss"></i></span>
-        </a>
-        <a rel="me" href="https://github.com/sockethub/sockethub">
-            <span class="icon"><i class="is-size-4 fab fa-github"></i></span>
-        </a>
-        <a rel="me" href="https://twitter.com/sockethub">
-            <span class="icon"><i class="is-size-4 fab fa-twitter"></i></span>
-        </a>
-      </div>
+</main>
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__credits">
+      <p>
+        Developed and maintained by
+        <a href="https://silverbucket.net" target="_blank" rel="noopener">Nick Jennings</a>.
+      </p>
+      <p>Released under the <a href="https://github.com/sockethub/sockethub/blob/master/LICENSE">GNU Lesser General Public License 3.0</a>.</p>
     </div>
-  </footer>
-</div>
+
+    <div class="site-footer__sponsor">
+      <span class="site-footer__sponsor-label">Sponsored by</span>
+      <a href="https://nlnet.nl" target="_blank" rel="noopener">
+        <img class="theme-only-light" src="/res/img/nlnet-logo.svg"      alt="NLnet Foundation" width="160" height="48">
+        <img class="theme-only-dark"  src="/res/img/nlnet-logo.dark.svg" alt=""                 width="160" height="48" aria-hidden="true">
+      </a>
+    </div>
+
+    <div class="site-footer__controls">
+      <div class="site-footer__icons">
+        <a href="{{site.url}}/feed.xml"
+           rel="alternate" type="application/rss+xml"
+           aria-label="Subscribe to Sockethub news feed">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 11a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 4a16 16 0 0 1 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="5.5" cy="18.5" r="1.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://github.com/sockethub/sockethub"
+           rel="me noopener" target="_blank"
+           aria-label="Sockethub on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+          </svg>
+        </a>
+      </div>
+
+      {{!--
+        Theme switcher — three-state segmented control (System · Light · Dark).
+        The active state is painted by the <script> below on load and after
+        each click. Clicks persist to localStorage (except "system", which
+        clears the key so the OS preference wins again).
+      --}}
+      <fieldset class="theme-switch" aria-label="Theme">
+        <legend class="visually-hidden">Appearance</legend>
+        <button type="button" class="theme-switch__btn" data-theme-set="system" aria-label="Match system theme" title="System">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 20h8M10 17v3M14 17v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="light" aria-label="Use light theme" title="Light">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="dark" aria-label="Use dark theme" title="Dark">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </fieldset>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll(".theme-switch__btn");
+    var media = matchMedia("(prefers-color-scheme: dark)");
+
+    // What did the user actually pick? "system" when they haven't stored
+    // anything; "light" / "dark" when they've chosen explicitly.
+    function storedChoice() {
+      try {
+        var s = localStorage.getItem("theme");
+        return (s === "light" || s === "dark") ? s : "system";
+      } catch (e) { return "system"; }
+    }
+
+    // Resolve a choice to the concrete theme that should be applied to <html>.
+    function resolve(choice) {
+      if (choice === "light" || choice === "dark") return choice;
+      return media.matches ? "dark" : "light";
+    }
+
+    // Apply + highlight. Choice is what the user picked; resolved is what
+    // the page actually renders as.
+    function paint(choice) {
+      var resolved = resolve(choice);
+      root.setAttribute("data-theme", resolved);
+      buttons.forEach(function (b) {
+        var on = b.getAttribute("data-theme-set") === choice;
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var choice = b.getAttribute("data-theme-set");
+        try {
+          if (choice === "system") localStorage.removeItem("theme");
+          else                     localStorage.setItem("theme", choice);
+        } catch (e) { /* storage blocked — we still paint for this session */ }
+        paint(choice);
+      });
+    });
+
+    // When the user is on "system", react to OS scheme changes live.
+    media.addEventListener("change", function () {
+      if (storedChoice() === "system") paint("system");
+    });
+
+    paint(storedChoice());
+  })();
+</script>
 </body>
 </html>
