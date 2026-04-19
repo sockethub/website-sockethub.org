@@ -1,203 +1,599 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
- <head>
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="/res/img/sockethub-logo.png" />
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Sockethub - a polyglot messaging service" />
-  <meta property="og:site_name" content="Sockethub" />
-  <meta property="og:description" content="The polyglot solution to the federated social web" />
-  <meta name="flattr:id" content="4jxk23">
-  <meta name="title" content="Sockethub - a polyglot messaging service" />
-  <meta name="description" content="The polyglot solution to the federated social web" />
-  <meta name="keywords" content="federated social web, messaging, protocols, api, open source, facebook, twitter" />
- <title>Sockethub</title>
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" rel="stylesheet" type="text/css">
-  <link href="/res/css/main.css" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="image_src" type="image/jpeg" href="/res/img/sockethub-logo.png" />
-  <link rel="canonical" href="https://sockethub.org" />
-  <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="feed.xml" />
-    <!-- Matomo -->
-    <script type="text/javascript">
-      var _paq = window._paq = window._paq || [];
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="//matomo.silverbucket.net/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '4']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-        })();
-    </script>
-    <!-- End Matomo Code -->
- </head>
- <body>
- <div class="container">
+  <meta name="color-scheme" content="light dark">
 
-<nav class="page-nav">
-    <a href="/" class="nav-link active">Home</a>
-    <a href="/about" class="nav-link">About</a>
-    <a href="/news" class="nav-link">News</a>
-</nav>
+  <!--
+    Theme bootstrap. Runs synchronously before the stylesheet loads so the
+    `data-theme` attribute is already present on <html> when styles first
+    paint. Prevents a light-flash on a dark-mode preference, and vice
+    versa. Reads a persisted choice from localStorage; falls back to the
+    system preference when the user hasn't chosen.
+  -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var pref = (stored === "light" || stored === "dark") ? stored :
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", pref);
+      } catch (e) {
+        /* private-mode or blocked storage — fall through to media-query default */
+      }
+    })();
+  </script>
+
+  <title>Sockethub — a protocol gateway for the web</title>
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="author" content="Nick Jennings">
+
+  <meta property="og:title" content="Sockethub — a protocol gateway for the web">
+  <meta property="og:site_name" content="Sockethub">
+  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sockethub.org">
+  <meta property="og:image" content="https://sockethub.org/res/img/og/sockethub.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sockethub — a protocol gateway for the web">
+  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="twitter:image" content="https://sockethub.org/res/img/og/sockethub.png">
+
+  <link rel="canonical" href="https://sockethub.org">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/res/css/main.css">
+  <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="/feed.xml">
+
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u = "//matomo.silverbucket.net/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript';
+      g.async = true;
+      g.src = u + 'matomo.js';
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+</head>
+<body>
+<div class="alpha-banner" data-banner="alpha-5.0.0-alpha.12" role="region" aria-label="Release channel notice">
+  <div class="alpha-banner__inner">
+    <span class="alpha-banner__tag">Alpha</span>
+    <p class="alpha-banner__text">
+      Sockethub <strong>5.0.0-alpha.12</strong> is the current active-use release.
+      <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
+    </p>
+    <button type="button" class="alpha-banner__close" aria-label="Dismiss release notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+<script>
+  (function () {
+    var el = document.querySelector('.alpha-banner');
+    if (!el) return;
+    var key = 'sh-banner-dismissed-' + el.getAttribute('data-banner');
+    try {
+      if (localStorage.getItem(key) === '1') { el.hidden = true; return; }
+    } catch (e) { /* storage disabled; render the banner */ }
+    var btn = el.querySelector('.alpha-banner__close');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        el.hidden = true;
+        try { localStorage.setItem(key, '1'); } catch (e) { /* ignore */ }
+      });
+    }
+  })();
+</script>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="/">
+      <img src="/res/img/sockethub-icon.svg" alt="" width="28" height="28">
+      <span class="site-header__brand-text">Sockethub</span>
+    </a>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="/"             aria-current="page">Home</a>
+      <a href="/get-started"  >Get started</a>
+      <a href="/how-it-works" >How it works</a>
+      <a href="/platforms"    >Platforms</a>
+      <a href="/news"         >News</a>
+      <a href="/about"        >About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
 
 <section class="hero">
-    <div class="hero-content">
-        <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" />
-        <p class="hero-subtitle">A protocol gateway for the web</p>
-        <div class="hero-actions">
-            <a class="button is-primary is-large" target="_blank" href="https://github.com/sockethub/sockethub">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>View on GitHub</span>
-            </a>
-            <a class="button is-light is-large" target="_blank" href="https://github.com/sockethub/sockethub/blob/master/docs/README.md">
-                <span>Read Documentation</span>
-            </a>
-        </div>
+  <div class="container hero-content">
+    <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" width="352" height="112">
+    <p class="hero-eyebrow">Protocol gateway for the web</p>
+    <h1 class="hero-title">
+      Chat, feeds, and metadata —
+      <span class="hero-title__accent">through one API.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Sockethub lets browser apps talk to IRC, XMPP, RSS/Atom feeds and more, all
+      through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
+    </p>
+
+    <div class="hero-actions">
+      <a class="button is-primary is-large" href="https://github.com/sockethub/sockethub" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+        </svg>
+        View on GitHub
+      </a>
+      <a class="button is-light is-large" href="/about">How it works</a>
     </div>
+
+    <div class="hero-install" aria-label="Install Sockethub">
+      <span class="hero-install__prompt" aria-hidden="true">$</span>
+      <code class="hero-install__cmd">npm install -g sockethub@alpha</code>
+      <span class="hero-install__version">v5.0.0-alpha.12</span>
+    </div>
+  </div>
 </section>
 
-<section class="main-content-section">
-    <div class="content-wrapper">
-        <div class="main-description">
-            <p>Sockethub is a <strong>protocol gateway for the web</strong>, a translation layer that enables web applications to communicate with protocols and services traditionally inaccessible from in-browser JavaScript. </p>
-<p>By using <strong>ActivityStreams</strong> as a standardized message format, Sockethub acts as an intelligent proxy server that maintains state and connects to networks, sockets, and endpoints that would otherwise be restricted in browser environments. This approach gives applications and users greater autonomy, privacy, and protocol independence. </p>
+<section class="fanout" aria-labelledby="fanout-title">
+  <div class="container fanout__container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Fan out</p>
+      <h2 id="fanout-title" class="section-header__title">One message. Every protocol.</h2>
+    </header>
 
-        </div>
-        <aside class="support-box">
-            <h3>Support the Project</h3>
-            <div class="donation-list">
-                <div class="bitcoin">
-                    <p><span class="icon"><i class="fab fa-bitcoin"></i></span>Bitcoin Address</p>
-                    <p class="bitcoin-address">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</p>
-                </div>
-            </div>
-        </aside>
+    <svg class="fanout__diagram" viewBox="0 0 800 360" role="img"
+         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which fans it out to IRC, XMPP, RSS/Atom feeds, and Metadata services.">
+      <!-- Inline gradient matching the sockethub logo: sun → signal → ember. -->
+      <defs>
+        <linearGradient id="emberGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#ff9c1f"/>
+          <stop offset="42%"  stop-color="#f23c00"/>
+          <stop offset="100%" stop-color="#de0f3c"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Connection lines -->
+      <g class="fanout__lines">
+        <path class="fanout__line" d="M220,180 L344,180"/>
+        <path class="fanout__line" d="M456,180 Q540,180 620,60"/>
+        <path class="fanout__line" d="M456,180 L620,150"/>
+        <path class="fanout__line" d="M456,180 L620,240"/>
+        <path class="fanout__line" d="M456,180 Q540,180 620,330"/>
+      </g>
+
+      <!-- Client node -->
+      <g class="fanout__node fanout__node--client" transform="translate(40,140)">
+        <rect width="180" height="80" rx="12"/>
+        <text x="90" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
+        <text x="90" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
+      </g>
+
+      <!-- Sockethub hub -->
+      <g class="fanout__node fanout__node--hub" transform="translate(400,180)">
+        <circle r="56"/>
+        <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
+      </g>
+
+      <!-- Platform chips -->
+      <g class="fanout__chip" transform="translate(620,30)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">IRC</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Chat &amp; channels</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,120)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">XMPP</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Messaging &amp; presence</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,210)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,300)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Metadata</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
+      </g>
+
+      <!-- Envelopes (animated — CSS drives motion) -->
+      <g class="fanout-envelope fanout-envelope--irc" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--xmpp" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--feeds" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--metadata" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
+    </svg>
+
+    <p class="fanout__caption">
+      Your app sends one JSON shape. Sockethub routes it to the right protocol, and the response
+      comes back in the same shape.
+    </p>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="container">
+    <div class="intro__prose prose">
+      <p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
+protocols and services that JavaScript can&#39;t reach on its own — IRC, XMPP,
+RSS/Atom, link-metadata services — using one standard message format:
+<a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
+<p>By holding the long-lived connections, credentials, and protocol-specific
+logic on the server, Sockethub gives browser apps a single, consistent
+JSON API for reaching networks the web usually walls off.</p>
+
     </div>
+  </div>
+</section>
+
+<section class="platforms">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Platforms</p>
+      <h2 class="section-header__title">Built in, out of the box.</h2>
+      <p class="section-header__lede">
+        Sockethub ships with these protocols today. Add your own by implementing the
+        <a href="https://github.com/sockethub/sockethub/blob/master/docs/platform-development.md">platform interface</a>.
+      </p>
+    </header>
+
+    <div class="platforms__grid">
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="18" r="14" stroke="currentColor" stroke-width="2"/>
+            <text x="20" y="25" text-anchor="middle" font-size="18" font-weight="700" fill="currentColor">#</text>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">IRC</h3>
+        <p class="platform-card__desc">Chat and channels on the original open protocol.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 10 H32 V26 H24 L20 32 L16 26 H8 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="14" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="20" cy="18" r="1.6" fill="currentColor"/>
+            <circle cx="26" cy="18" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">XMPP</h3>
+        <p class="platform-card__desc">Federated messaging, rooms, and presence.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 14 a18 18 0 0 1 18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M8 8 a24 24 0 0 1 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="9" cy="31" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">RSS / Atom</h3>
+        <p class="platform-card__desc">Poll, parse, and stream updates from feeds.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M10 22 l12 -12 h10 v10 l-12 12 z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="26" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">Metadata</h3>
+        <p class="platform-card__desc">Link previews and structured-data extraction.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <header class="section-header">
+      <p class="section-header__eyebrow">Why Sockethub</p>
+      <h2 class="section-header__title">Three reasons it's in your stack.</h2>
+    </header>
+
+    <div class="values__grid">
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M3 9 L12 14 L21 9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">One format, every protocol</h3>
+        <p>ActivityStreams 2.0 JSON in, ActivityStreams 2.0 JSON out. No protocol-specific code in your frontend.</p>
+      </article>
+
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 21 H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M12 17 V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">Browser-safe, server-side state</h3>
+        <p>Sockethub holds long-lived connections, session credentials, and reconnect logic. Your app stays thin.</p>
+      </article>
+
+      <article class="value-card">
+        <div class="value-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 3 V7 M12 17 V21 M3 12 H7 M17 12 H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M5.6 5.6 L8.4 8.4 M15.6 15.6 L18.4 18.4 M5.6 18.4 L8.4 15.6 M15.6 8.4 L18.4 5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="value-card__title">Pluggable platforms</h3>
+        <p>Add support for new protocols by implementing a small platform interface. Your frontend never changes.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="code-peek">
+  <div class="container code-peek__inner">
+    <div class="code-peek__copy">
+      <p class="section-header__eyebrow"><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></p>
+      <h2 class="code-peek__title">Same shape, any protocol.</h2>
+      <p>
+        Every message is a JSON-LD ActivityStreams 2.0 object. The
+        <code>@context</code> array names the AS2 base, the Sockethub
+        vocabulary, and the specific platform — swap the platform URL and the
+        same call reaches a different network.
+      </p>
+      <a href="/about" class="button is-light">Read the full model</a>
+    </div>
+<pre class="code-peek__block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/xmpp/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"alice@chat.example"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"bob@chat.example"</span>,   <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>,
+              <span class="tok-key">"content"</span>: <span class="tok-str">"Hello across protocols!"</span> }
+}</code></pre>
+  </div>
 </section>
 
 <section class="news_brief">
-    <h2>Latest News</h2>
-    <ul class="news">
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2026.1.19</span>
-                        <h3 class="news-title p-name">Sockethub 5.0.0 alpha releases</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 5.0.0 has been a multi-year project, and we&#39;ve been quietely releasing alpha builds for testing. These alpha releases have major rewrite and architectural improvements across the board. </p>
-    <p>Stability has improved a lot and so we&#39;re announcing the alpha releases are available for anyone who&#39;d like to try them out. </p>
-    <p>We won&#39;t individually announce each alpha release, but will do so once we move to beta. </p>
-    <p>Some new features include:  </p>
-    <ul>
-    <li>Packaging changes, the <code>sockethub</code> package is still the main package, but works as a meta package for a number of packages in the <code>@sockethub</code> namespace. i
-    e.g. <code>@sockethub/server</code>, <code>@sockethub/client</code>, <code>@sockethub/platform-xmpp</code></li>
-    <li>Greatly improved unit and integration tests</li>
-    <li>A New Metadata Platform!</li>
-    <li>An Examples package</li>
-    <li>Migrate to BullMQ</li>
-    <li>Migrate to Bun</li>
-    <li>Improved documentation</li>
-    <li>So much more...</li>
-    </ul>
-    <p>To try it out, you can run <code>npm install -g sockethub@alpha</code></p>
-    <p>For a full list of changes, see the <a href="https://github.com/sockethub/sockethub/releases">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2021.9.2</span>
-                        <h3 class="news-title p-name">Sockethub 4.1.0</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 4.1.0 has been released! Lots of stability improvements, for a list see the <a href="https://github.com/sockethub/sockethub/releases/tag/v4.1.0">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2021.5.23</span>
-                        <h3 class="news-title p-name">Sockethub 4.0.1</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 4.0.1 has been released! This release fixes a few minor issues present in the previous release, for a list of fixes see the <a href="https://github.com/sockethub/sockethub/releases/tag/v4.0.1">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2021.5.20</span>
-                        <h3 class="news-title p-name">Sockethub 4.0.0</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 4.0.0 has been released! This release has a few major updates to the underlying system, namely switching from <code>node-simple-xmpp</code> to <code>xmpp.js</code>, from <code>Kue</code> to <code>Bull</code> and upgrading to <code>socket.io v4</code>. Additionally, as we performed these significant overhauls of the code, we added more tests and optimizations. This release should be overall a lot faster. For a full list of changes, see the <a href="https://github.com/sockethub/sockethub/releases/tag/v4.0.0">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-                <li class="h-entry news-entry">
-                    <div class="header">
-                        <span class="date dt-published">2021.2.22</span>
-                        <h3 class="news-title p-name">Sockethub 3.2.2</h3>
-                    </div>
-                    <div class="entry-content e-content">
-                        <p>Sockethub 3.2.2 has been released and focuses mainly on stability and bugfixes, highlights include pegging the sockethub.io dependency version to resolve a CORS issues, and a hotfix for the IRC platforms upstream library <code>irc-socket</code> allowing TLS connections. For a full list of changes, see <a href="https://github.com/sockethub/sockethub/releases/tag/v3.2.2">Sockethub release page</a>.</p>
-    
-                    </div>
-                    <div class="hidden p-author h-card">
-                        <span class="p-name">Nick Jennings</span>
-                    </div>
-                </li>
-    </ul>    <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc" />
-    <link rel="webmention" href="https://webmention.io/sockethub.org/webmention" />
-    <a href="/news" class="button is-light">View All News</a>
+  <div class="container">
+    <header class="section-header section-header--row">
+      <h2 class="section-header__title">Latest news</h2>
+      <a href="/news" class="section-header__link">All news →</a>
+    </header>
+    <ol class="news-cards">
+          <li class="news-card">
+            <a class="news-card__link" href="/news/alpha-12-canonical-context/">
+              <time class="news-card__date" datetime="2026-03-29">
+                2026.3.29
+              </time>
+              <div class="news-card__body">
+                <h3 class="news-card__title">Alpha 12 — Canonical AS2.0 contexts</h3>
+                <p class="news-card__excerpt">With the 5.0.0-alpha.12 release, Sockethub&#x27;s message envelope is a first-class ActivityStreams 2.0 and JSON-LD citizen. Every outgoing and incoming message carries a canonical…</p>
+                <p class="news-card__meta">
+                  Nick Jennings
+                    &nbsp;·&nbsp;
+                    2 min read
+                </p>
+              </div>
+            </a>
+          </li>
+          <li class="news-card">
+            <a class="news-card__link" href="/news/release-500-alpha/">
+              <time class="news-card__date" datetime="2026-01-19">
+                2026.1.19
+              </time>
+              <div class="news-card__body">
+                <h3 class="news-card__title">Sockethub 5.0.0 alpha releases</h3>
+                <p class="news-card__excerpt">Sockethub 5.0.0 has been a multi-year project, and we&#x27;ve been quietely releasing alpha builds for testing. These alpha releases have major rewrite and architectural improvements…</p>
+                <p class="news-card__meta">
+                  Nick Jennings
+                    &nbsp;·&nbsp;
+                    1 min read
+                </p>
+              </div>
+            </a>
+          </li>
+          <li class="news-card">
+            <a class="news-card__link" href="/news/release-410/">
+              <time class="news-card__date" datetime="2021-09-02">
+                2021.9.2
+              </time>
+              <div class="news-card__body">
+                <h3 class="news-card__title">Sockethub 4.1.0</h3>
+                <p class="news-card__excerpt">Sockethub 4.1.0 has been released! Lots of stability improvements, for a list see the Sockethub release page .</p>
+                <p class="news-card__meta">
+                  Nick Jennings
+                    &nbsp;·&nbsp;
+                    1 min read
+                </p>
+              </div>
+            </a>
+          </li>
+    </ol>
+    <link rel="pingback" href="https://webmention.io/sockethub.org/xmlrpc">
+    <link rel="webmention" href="https://webmention.io/sockethub.org/webmention">
+  </div>
 </section>
 
-  <footer class="footer container-fluid">
-
-    <div class="columns is-desktop">
-      <div class="column credits">
-        <p>
-          <span>Developed and maintained by</span>
-          <a target="_blank" href="https://silverbucket.net">Nick Jennings</a>
-        </p>
-      </div>
-
-      <div class="column sponsored-by">
-        <span>Sponsored by</span><br />
-        <a target="_blank" href="http://nlnet.nl">
-          <img src="/res/img/nlnet-logo.svg" alt="nlnet" />
-        </a>
-      </div>
-
-      <div class="column extras">
-        <a rel="alternate" type="application/rss+xml" title="RSS feed for sockethub.org" href="https://sockethub.org/feed.xml">
-            <span class="icon"><i class="is-size-4 fas fa-rss"></i></span>
-        </a>
-        <a rel="me" href="https://github.com/sockethub/sockethub">
-            <span class="icon"><i class="is-size-4 fab fa-github"></i></span>
-        </a>
-        <a rel="me" href="https://twitter.com/sockethub">
-            <span class="icon"><i class="is-size-4 fab fa-twitter"></i></span>
-        </a>
+<section class="support">
+  <div class="container support__inner">
+    <div class="support__text">
+      <h2 class="support__title">Support the project</h2>
+      <p>
+        Sockethub is free and open source. Starring the repo helps visibility; donations help
+        keep development going.
+      </p>
+    </div>
+    <div class="support__options">
+      <a class="support-option" href="https://github.com/sockethub/sockethub" target="_blank" rel="noopener">
+        <span class="support-option__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+          </svg>
+        </span>
+        <span class="support-option__body">
+          <span class="support-option__label">Star on GitHub</span>
+          <span class="support-option__target">sockethub/sockethub</span>
+        </span>
+      </a>
+      <div class="support-option support-option--btc">
+        <span class="support-option__icon support-option__icon--btc" aria-hidden="true">&#8383;</span>
+        <span class="support-option__body">
+          <span class="support-option__label">Bitcoin</span>
+          <code class="support-option__target">bc1qccxptc5vzzj2fl590w52xzr7tvc4eltygkuqur</code>
+        </span>
       </div>
     </div>
-  </footer>
-</div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__credits">
+      <p>
+        Developed and maintained by
+        <a href="https://silverbucket.net" target="_blank" rel="noopener">Nick Jennings</a>.
+      </p>
+      <p>Released under the <a href="https://github.com/sockethub/sockethub/blob/master/LICENSE">GNU Lesser General Public License 3.0</a>.</p>
+    </div>
+
+    <div class="site-footer__sponsor">
+      <span class="site-footer__sponsor-label">Sponsored by</span>
+      <a href="https://nlnet.nl" target="_blank" rel="noopener">
+        <img class="theme-only-light" src="/res/img/nlnet-logo.svg"      alt="NLnet Foundation" width="160" height="48">
+        <img class="theme-only-dark"  src="/res/img/nlnet-logo.dark.svg" alt=""                 width="160" height="48" aria-hidden="true">
+      </a>
+    </div>
+
+    <div class="site-footer__controls">
+      <div class="site-footer__icons">
+        <a href="https://sockethub.org/feed.xml"
+           rel="alternate" type="application/rss+xml"
+           aria-label="Subscribe to Sockethub news feed">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 11a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 4a16 16 0 0 1 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="5.5" cy="18.5" r="1.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://github.com/sockethub/sockethub"
+           rel="me noopener" target="_blank"
+           aria-label="Sockethub on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+          </svg>
+        </a>
+      </div>
+
+      <fieldset class="theme-switch" aria-label="Theme">
+        <legend class="visually-hidden">Appearance</legend>
+        <button type="button" class="theme-switch__btn" data-theme-set="system" aria-label="Match system theme" title="System">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 20h8M10 17v3M14 17v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="light" aria-label="Use light theme" title="Light">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="dark" aria-label="Use dark theme" title="Dark">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </fieldset>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll(".theme-switch__btn");
+    var media = matchMedia("(prefers-color-scheme: dark)");
+
+    // What did the user actually pick? "system" when they haven't stored
+    // anything; "light" / "dark" when they've chosen explicitly.
+    function storedChoice() {
+      try {
+        var s = localStorage.getItem("theme");
+        return (s === "light" || s === "dark") ? s : "system";
+      } catch (e) { return "system"; }
+    }
+
+    // Resolve a choice to the concrete theme that should be applied to <html>.
+    function resolve(choice) {
+      if (choice === "light" || choice === "dark") return choice;
+      return media.matches ? "dark" : "light";
+    }
+
+    // Apply + highlight. Choice is what the user picked; resolved is what
+    // the page actually renders as.
+    function paint(choice) {
+      var resolved = resolve(choice);
+      root.setAttribute("data-theme", resolved);
+      buttons.forEach(function (b) {
+        var on = b.getAttribute("data-theme-set") === choice;
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var choice = b.getAttribute("data-theme-set");
+        try {
+          if (choice === "system") localStorage.removeItem("theme");
+          else                     localStorage.setItem("theme", choice);
+        } catch (e) { /* storage blocked — we still paint for this session */ }
+        paint(choice);
+      });
+    });
+
+    // When the user is on "system", react to OS scheme changes live.
+    media.addEventListener("change", function () {
+      if (storedChoice() === "system") paint("system");
+    });
+
+    paint(storedChoice());
+  })();
+</script>
 </body>
 </html>

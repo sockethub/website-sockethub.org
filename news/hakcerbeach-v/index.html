@@ -25,22 +25,22 @@
     })();
   </script>
 
-  <title>About — Sockethub</title>
+  <title>Hackerbeach V milestones v1.0.4 — Sockethub</title>
   <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
   <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
-  <meta property="og:title" content="About — Sockethub">
+  <meta property="og:title" content="Hackerbeach V milestones v1.0.4 — Sockethub">
   <meta property="og:site_name" content="Sockethub">
-  <meta property="og:description" content="Open source, built in the open — maintained by Nick Jennings, funded in part by NLnet.">
+  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sockethub.org">
-  <meta property="og:image" content="https://sockethub.org/res/img/og/about.png">
+  <meta property="og:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About — Sockethub">
-  <meta name="twitter:description" content="Open source, built in the open — maintained by Nick Jennings, funded in part by NLnet.">
-  <meta name="twitter:image" content="https://sockethub.org/res/img/og/about.png">
+  <meta name="twitter:title" content="Hackerbeach V milestones v1.0.4 — Sockethub">
+  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="twitter:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <link rel="canonical" href="https://sockethub.org">
   <link rel="icon" href="/favicon.ico">
@@ -110,80 +110,41 @@
       <a href="/how-it-works" >How it works</a>
       <a href="/platforms"    >Platforms</a>
       <a href="/news"         >News</a>
-      <a href="/about"        aria-current="page">About</a>
+      <a href="/about"        >About</a>
     </nav>
   </div>
 </header>
 <main id="main">
 
-<section class="container">
-  <article class="prose" style="margin-inline: auto; padding-block: var(--space-2xl);">
-    <h2 id="what-is-sockethub">What is Sockethub?</h2>
-<p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
-IRC, XMPP, feeds, and other services using one message format:
-<a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
-<h2 id="activitystreams-20-inout">ActivityStreams 2.0 In/Out</h2>
-<p>Sockethub uses the same JSON envelope for every platform. Your app sends one
-shape, Sockethub translates it, and you receive the same shape back.</p>
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="/res/img/activitystreams-send-receive.dark.svg"
-  />
-  <source
-    media="(prefers-color-scheme: light)"
-    srcset="/res/img/activitystreams-send-receive.svg"
-  />
-  <img
-    alt="ActivityStreams 2.0 send/receive examples — canonical AS2.0 @context array envelope"
-    src="/res/img/activitystreams-send-receive.svg"
-  />
-</picture>
+<article class="news-post">
+  <header class="news-post__head">
+    <div class="container">
+      <p class="news-post__eyebrow">
+        <a href="/news">News</a>
+      </p>
+      <h1 class="news-post__title">Hackerbeach V milestones v1.0.4</h1>
+      <p class="news-post__meta">
+        <time datetime="2017-01-23">
+          2017.1.23
+        </time>
+        <span class="news-post__sep">·</span>Nick Jennings
+          <span class="news-post__sep">·</span>1 min read
+      </p>
+    </div>
+  </header>
 
-<h2 id="what-you-can-do">What You Can Do</h2>
-<ul>
-<li>Send and receive chat messages (IRC, XMPP)</li>
-<li>Fetch and parse feeds (RSS, Atom)</li>
-<li>Generate link previews and metadata</li>
-<li>Add new protocols as custom platforms</li>
-</ul>
-<h2 id="architecture">Architecture</h2>
-<p>Sockethub runs each protocol in its own process and moves messages through
-Redis so browsers can talk to long-lived connections safely.</p>
-<ul>
-<li>Main server handles Socket.IO, validation, routing</li>
-<li>Platform processes run per protocol</li>
-<li>Redis job queue handles delivery</li>
-<li>Encrypted, per-session credential storage</li>
-</ul>
-<h2 id="supported-protocols">Supported Protocols</h2>
-<p>Currently implemented platforms include:</p>
-<ul>
-<li><strong>XMPP</strong> – Extensible Messaging and Presence Protocol</li>
-<li><strong>IRC</strong> – Internet Relay Chat</li>
-<li><strong>RSS/Atom</strong> – Feed processing and aggregation</li>
-<li><strong>Metadata</strong> – Link preview generation and metadata extraction</li>
-</ul>
-<h2 id="origins">Origins</h2>
-<p>Originally conceived as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>,
-Sockethub supported the development of <a href="http://unhosted.org/">Unhosted</a> and
-<a href="http://nobackend.org/">noBackend</a>. It also fits cleanly into traditional stacks
-by removing protocol-specific code at the application layer.</p>
+  <div class="container news-post__body prose">
+    <p>While 2016 was a year of mostly maintenance work, 2017 has started off strong. Meeting up with several of the guys at <a href="https://5apps.com">5apps</a> for <a href="http://hackerbeach.org">Hackerbeach V</a>, we&#39;re working toward building an open-source Slack replacement using unhosted technologies Sockethub and <a href="http://remotestorage.io">remoteStorage</a>. No further details at this time, but we&#39;re close to an MVP. In the meantime, I released Sockethub v1.0.4 and activity should increase as we deploy Sockethub for multi-user use.</p>
+<p>[ <a href="https://github.com/sockethub/sockethub/releases/tag/v1.0.4">release v1.0.4</a> ]</p>
 
-  </article>
-
-  <div class="sister-logos">
-    <a href="https://unhosted.org" target="_blank" rel="noopener">
-      <img src="/res/img/unhosted_logo.png" alt="Unhosted">
-    </a>
-    <a href="https://remotestorage.io" target="_blank" rel="noopener">
-      <img src="/res/img/remotestorage_text_logo.png" alt="remoteStorage">
-    </a>
-    <a href="https://nobackend.org" target="_blank" rel="noopener">
-      <img src="/res/img/nobackend_logo.png" alt="noBackend">
-    </a>
   </div>
-</section>
+
+  <footer class="news-post__foot">
+    <div class="container">
+      <a class="button is-light" href="/news">← All news</a>
+    </div>
+  </footer>
+</article>
 
 </main>
 <footer class="site-footer">

@@ -25,22 +25,22 @@
     })();
   </script>
 
-  <title>About — Sockethub</title>
+  <title>Alpha 12 — Canonical AS2.0 contexts — Sockethub</title>
   <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
   <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
-  <meta property="og:title" content="About — Sockethub">
+  <meta property="og:title" content="Alpha 12 — Canonical AS2.0 contexts — Sockethub">
   <meta property="og:site_name" content="Sockethub">
-  <meta property="og:description" content="Open source, built in the open — maintained by Nick Jennings, funded in part by NLnet.">
+  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sockethub.org">
-  <meta property="og:image" content="https://sockethub.org/res/img/og/about.png">
+  <meta property="og:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About — Sockethub">
-  <meta name="twitter:description" content="Open source, built in the open — maintained by Nick Jennings, funded in part by NLnet.">
-  <meta name="twitter:image" content="https://sockethub.org/res/img/og/about.png">
+  <meta name="twitter:title" content="Alpha 12 — Canonical AS2.0 contexts — Sockethub">
+  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="twitter:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <link rel="canonical" href="https://sockethub.org">
   <link rel="icon" href="/favicon.ico">
@@ -110,80 +110,110 @@
       <a href="/how-it-works" >How it works</a>
       <a href="/platforms"    >Platforms</a>
       <a href="/news"         >News</a>
-      <a href="/about"        aria-current="page">About</a>
+      <a href="/about"        >About</a>
     </nav>
   </div>
 </header>
 <main id="main">
 
-<section class="container">
-  <article class="prose" style="margin-inline: auto; padding-block: var(--space-2xl);">
-    <h2 id="what-is-sockethub">What is Sockethub?</h2>
-<p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
-IRC, XMPP, feeds, and other services using one message format:
-<a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
-<h2 id="activitystreams-20-inout">ActivityStreams 2.0 In/Out</h2>
-<p>Sockethub uses the same JSON envelope for every platform. Your app sends one
-shape, Sockethub translates it, and you receive the same shape back.</p>
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="/res/img/activitystreams-send-receive.dark.svg"
-  />
-  <source
-    media="(prefers-color-scheme: light)"
-    srcset="/res/img/activitystreams-send-receive.svg"
-  />
-  <img
-    alt="ActivityStreams 2.0 send/receive examples — canonical AS2.0 @context array envelope"
-    src="/res/img/activitystreams-send-receive.svg"
-  />
-</picture>
+<article class="news-post">
+  <header class="news-post__head">
+    <div class="container">
+      <p class="news-post__eyebrow">
+        <a href="/news">News</a>
+      </p>
+      <h1 class="news-post__title">Alpha 12 — Canonical AS2.0 contexts</h1>
+      <p class="news-post__meta">
+        <time datetime="2026-03-29">
+          2026.3.29
+        </time>
+        <span class="news-post__sep">·</span>Nick Jennings
+          <span class="news-post__sep">·</span>2 min read
+      </p>
+    </div>
+  </header>
 
-<h2 id="what-you-can-do">What You Can Do</h2>
+  <div class="container news-post__body prose">
+    <p>With the 5.0.0-alpha.12 release, Sockethub&#39;s message envelope is a first-class
+<a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a> and JSON-LD
+citizen. Every outgoing and incoming message carries a canonical three-element
+<code>@context</code> array identifying the AS2 base vocabulary, the Sockethub gateway
+vocabulary, and the specific platform vocabulary in play.</p>
+<h2 id="what-changed">What changed</h2>
+<p>Before:</p>
+<pre><code class="language-json">{
+  &quot;context&quot;: &quot;irc&quot;,
+  &quot;type&quot;: &quot;send&quot;,
+  ...
+}
+</code></pre>
+<p>After:</p>
+<pre><code class="language-json">{
+  &quot;@context&quot;: [
+    &quot;https://www.w3.org/ns/activitystreams&quot;,
+    &quot;https://sockethub.org/ns/context/v1.jsonld&quot;,
+    &quot;https://sockethub.org/ns/context/platform/irc/v1.jsonld&quot;
+  ],
+  &quot;type&quot;: &quot;send&quot;,
+  ...
+}
+</code></pre>
+<p>The server now routes by resolving the platform context URL in that array, not
+by matching a bespoke <code>context</code> string. That unlocks four things:</p>
 <ul>
-<li>Send and receive chat messages (IRC, XMPP)</li>
-<li>Fetch and parse feeds (RSS, Atom)</li>
-<li>Generate link previews and metadata</li>
-<li>Add new protocols as custom platforms</li>
+<li><strong>Proper AS2.0 compliance.</strong> Payloads validate against any off-the-shelf
+JSON-LD or AS2 tool — no Sockethub-specific reader required.</li>
+<li><strong>Deterministic platform resolution.</strong> The platform identity lives in the
+context URL itself, not in convention. No more guessing from a short name.</li>
+<li><strong>Versioned platform vocabularies.</strong> A platform can ship breaking changes
+under <code>/v2.jsonld</code> without forcing every consumer to migrate at once.</li>
+<li><strong>A real schema registry.</strong> The server exposes each platform&#39;s schema
+metadata (<code>contextUrl</code>, <code>contextVersion</code>, <code>schemaVersion</code>) so clients build
+canonical arrays without hardcoding URLs.</li>
 </ul>
-<h2 id="architecture">Architecture</h2>
-<p>Sockethub runs each protocol in its own process and moves messages through
-Redis so browsers can talk to long-lived connections safely.</p>
-<ul>
-<li>Main server handles Socket.IO, validation, routing</li>
-<li>Platform processes run per protocol</li>
-<li>Redis job queue handles delivery</li>
-<li>Encrypted, per-session credential storage</li>
-</ul>
-<h2 id="supported-protocols">Supported Protocols</h2>
-<p>Currently implemented platforms include:</p>
-<ul>
-<li><strong>XMPP</strong> – Extensible Messaging and Presence Protocol</li>
-<li><strong>IRC</strong> – Internet Relay Chat</li>
-<li><strong>RSS/Atom</strong> – Feed processing and aggregation</li>
-<li><strong>Metadata</strong> – Link preview generation and metadata extraction</li>
-</ul>
-<h2 id="origins">Origins</h2>
-<p>Originally conceived as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>,
-Sockethub supported the development of <a href="http://unhosted.org/">Unhosted</a> and
-<a href="http://nobackend.org/">noBackend</a>. It also fits cleanly into traditional stacks
-by removing protocol-specific code at the application layer.</p>
+<h2 id="new-client-apis">New client APIs</h2>
+<p>Two additions to <code>@sockethub/client</code> make this easy:</p>
+<h3 id="await-scready"><code>await sc.ready()</code></h3>
+<p>Waits for the schema registry to finish loading. Messages sent before readiness
+are queued and flushed afterward; anything emitted after <code>ready()</code> is
+validated immediately on the client.</p>
+<pre><code class="language-javascript">const sc = new SockethubClient(socket);
+await sc.ready();
+</code></pre>
+<h3 id="sccontextforplatform"><code>sc.contextFor(platform)</code></h3>
+<p>Builds the canonical three-element array from server metadata. Use it instead
+of hardcoding URLs:</p>
+<pre><code class="language-javascript">sc.socket.emit(&#39;message&#39;, {
+  &#39;@context&#39;: sc.contextFor(&#39;irc&#39;),
+  type: &#39;send&#39;,
+  actor:  { id: &#39;alice@irc.libera.chat&#39;, type: &#39;person&#39; },
+  target: { id: &#39;#sockethub@irc.libera.chat&#39;, type: &#39;room&#39; },
+  object: { type: &#39;message&#39;, content: &#39;hello&#39; }
+});
+</code></pre>
+<p><code>contextFor()</code> is preferred over hand-writing the array because it derives URLs
+from the live schema registry and stays correct across server versions.</p>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<p>Legacy <code>context</code> strings continue to route as before during the alpha
+transition. If you&#39;re already sending the old shape, nothing breaks — you just
+get a subtly nicer error surface when platforms are misregistered. New code
+should prefer canonical <code>@context</code>.</p>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>Sockethub has always carried the spirit of AS2.0, but not always the letter.
+Alpha 12 closes that gap. The protocol gateway now speaks a format that any
+AS2 consumer can read — which means an ActivityPub inbox, a Fediverse tool, or
+anything that knows JSON-LD can parse Sockethub traffic natively.</p>
+<p>Upgrade with <code>npm install -g sockethub@alpha</code>.
+Full changelog: <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-alpha.12">v5.0.0-alpha.12</a>.</p>
 
-  </article>
-
-  <div class="sister-logos">
-    <a href="https://unhosted.org" target="_blank" rel="noopener">
-      <img src="/res/img/unhosted_logo.png" alt="Unhosted">
-    </a>
-    <a href="https://remotestorage.io" target="_blank" rel="noopener">
-      <img src="/res/img/remotestorage_text_logo.png" alt="remoteStorage">
-    </a>
-    <a href="https://nobackend.org" target="_blank" rel="noopener">
-      <img src="/res/img/nobackend_logo.png" alt="noBackend">
-    </a>
   </div>
-</section>
+
+  <footer class="news-post__foot">
+    <div class="container">
+      <a class="button is-light" href="/news">← All news</a>
+    </div>
+  </footer>
+</article>
 
 </main>
 <footer class="site-footer">
