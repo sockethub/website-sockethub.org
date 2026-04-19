@@ -120,14 +120,11 @@
   <header class="page-intro">
     <div class="container">
       <p class="page-intro__eyebrow">How it works</p>
-      <h1 class="page-intro__title">
-        From tab to
-        <span class="text-ember">channel.</span>
-      </h1>
+      <h1 class="page-intro__title">How it works</h1>
       <p class="page-intro__lede">
-        Sockethub is a small pile of well-defined parts: an envelope format,
-        a gateway, protocol workers, and a queue. Here's what each part does
-        and how a message gets from your browser to a channel on IRC.
+        Sockethub is a small set of well-defined parts: an envelope format,
+        a gateway, protocol workers, and a queue. This page explains what each
+        part does and how a message gets from your browser to a channel on IRC.
       </p>
     </div>
   </header>
@@ -137,7 +134,7 @@
     <div class="container step__inner">
       <div class="step__copy">
         <p class="step__eyebrow">01 — The problem</p>
-        <h2 class="step__title">Browsers can't open raw sockets.</h2>
+        <h2 class="step__title">The browser sandbox</h2>
         <p>
           IRC wants a TCP stream. XMPP wants a long-lived connection that
           survives credential rotation. Feed polling wants a cron. A browser tab
@@ -194,7 +191,7 @@
     <div class="container step__inner step__inner--reverse">
       <div class="step__copy">
         <p class="step__eyebrow">02 — The envelope</p>
-        <h2 class="step__title">One shape, every protocol.</h2>
+        <h2 class="step__title">A shared envelope format</h2>
         <p>
           Every message — outgoing or incoming — is a JSON-LD
           <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>
@@ -239,7 +236,7 @@
     <div class="container step__inner">
       <div class="step__copy">
         <p class="step__eyebrow">03 — The flow</p>
-        <h2 class="step__title">Credentials, connect, operate.</h2>
+        <h2 class="step__title">The client flow</h2>
         <p>
           Three actions in that order. Credentials are stored encrypted per
           session. Connect spins up a worker and holds the live socket.
@@ -286,7 +283,7 @@
     <div class="container step__inner step__inner--reverse">
       <div class="step__copy">
         <p class="step__eyebrow">04 — The architecture</p>
-        <h2 class="step__title">Gateway, queue, workers.</h2>
+        <h2 class="step__title">Gateway, queue, and workers</h2>
         <p>
           The gateway validates and routes. The queue ( BullMQ on Redis )
           moves jobs between the gateway and the workers. Each platform runs
@@ -357,7 +354,7 @@
     <div class="container step__inner">
       <div class="step__copy">
         <p class="step__eyebrow">05 — Session isolation</p>
-        <h2 class="step__title">Your credentials stay yours.</h2>
+        <h2 class="step__title">Per-session credentials</h2>
         <p>
           Every client gets its own session key on connect. Credentials are
           encrypted at rest with that key, so one session can never read
