@@ -1,0 +1,295 @@
+{{>header}}
+
+<article class="doc-page">
+  <header class="page-intro">
+    <div class="container">
+      <p class="page-intro__eyebrow">How it works</p>
+      <h1 class="page-intro__title">
+        From tab to
+        <span class="text-ember">channel.</span>
+      </h1>
+      <p class="page-intro__lede">
+        Sockethub is a small pile of well-defined parts: an envelope format,
+        a gateway, protocol workers, and a queue. Here's what each part does
+        and how a message gets from your browser to a channel on IRC.
+      </p>
+    </div>
+  </header>
+
+  <!-- ---------- Step 1 ---------- -->
+  <section class="step" id="problem">
+    <div class="container step__inner">
+      <div class="step__copy">
+        <p class="step__eyebrow">01 — The problem</p>
+        <h2 class="step__title">Browsers can't open raw sockets.</h2>
+        <p>
+          IRC wants a TCP stream. XMPP wants a long-lived connection that
+          survives credential rotation. Feed polling wants a cron. A browser tab
+          can do none of these — the sandbox blocks raw sockets, CORS blocks
+          arbitrary hosts, and page lifecycle breaks long-lived connections.
+        </p>
+        <p>
+          The classic workaround is a backend per protocol. Sockethub is the
+          alternative: <strong>one gateway that speaks all of them</strong>.
+        </p>
+      </div>
+      <figure class="step__figure">
+        <svg viewBox="0 0 360 220" class="diagram diagram--wall" role="img"
+             aria-label="A browser tab sends sockets that hit a sandbox wall, with IRC, XMPP, and feed servers unreachable on the far side.">
+          <defs>
+            <linearGradient id="wallGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#ff9c1f" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#de0f3c" stop-opacity="0.15"/>
+            </linearGradient>
+          </defs>
+          <!-- Browser -->
+          <g class="diagram__browser" transform="translate(12,70)">
+            <rect width="110" height="76" rx="8" class="diagram__box"/>
+            <rect x="10" y="10" width="90" height="8" rx="2" class="diagram__bar"/>
+            <circle cx="16" cy="14" r="2" class="diagram__dot"/>
+            <circle cx="24" cy="14" r="2" class="diagram__dot"/>
+            <circle cx="32" cy="14" r="2" class="diagram__dot"/>
+            <text x="55" y="46" text-anchor="middle" class="diagram__text">Browser tab</text>
+            <text x="55" y="62" text-anchor="middle" class="diagram__text-sub">one sandboxed origin</text>
+          </g>
+          <!-- Packets bouncing off the wall -->
+          <g class="diagram__packets">
+            <circle cx="160" cy="90"  r="4" class="diagram__packet diagram__packet--1"/>
+            <circle cx="160" cy="110" r="4" class="diagram__packet diagram__packet--2"/>
+            <circle cx="160" cy="130" r="4" class="diagram__packet diagram__packet--3"/>
+          </g>
+          <!-- The sandbox wall -->
+          <rect x="180" y="30" width="10" height="160" class="diagram__wall" fill="url(#wallGradient)"/>
+          <text x="185" y="20" text-anchor="middle" class="diagram__wall-label">sandbox</text>
+          <!-- Inaccessible servers -->
+          <g class="diagram__servers" transform="translate(210,40)">
+            <g class="diagram__server"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">IRC server</text></g>
+            <g class="diagram__server" transform="translate(0,40)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">XMPP server</text></g>
+            <g class="diagram__server" transform="translate(0,80)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Feed origin</text></g>
+            <g class="diagram__server" transform="translate(0,120)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Metadata source</text></g>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Step 2 ---------- -->
+  <section class="step step--alt" id="envelope">
+    <div class="container step__inner step__inner--reverse">
+      <div class="step__copy">
+        <p class="step__eyebrow">02 — The envelope</p>
+        <h2 class="step__title">One shape, every protocol.</h2>
+        <p>
+          Every message — outgoing or incoming — is a JSON-LD
+          <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>
+          object. <code>@context</code> names the vocabularies in play —
+          AS2, Sockethub, and the target platform. <code>type</code> says
+          what you're doing; <code>actor</code>, <code>target</code>, and
+          <code>object</code> say to whom and what.
+        </p>
+        <p>
+          Swap the platform URL (here <code>irc</code>) for another and the
+          same call reaches a different network. The rest of your code stays
+          put.
+        </p>
+      </div>
+      <figure class="step__figure">
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/irc/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"alice@irc.libera.chat"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>
+  },
+  <span class="tok-key">"target"</span>: {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"#sockethub@irc.libera.chat"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"room"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:    <span class="tok-str">"message"</span>,
+    <span class="tok-key">"content"</span>: <span class="tok-str">"Hello from the browser!"</span>
+  }
+}</code></pre>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Step 3 ---------- -->
+  <section class="step" id="flow">
+    <div class="container step__inner">
+      <div class="step__copy">
+        <p class="step__eyebrow">03 — The flow</p>
+        <h2 class="step__title">Credentials, connect, operate.</h2>
+        <p>
+          Three actions in that order. Credentials are stored encrypted per
+          session. Connect spins up a worker and holds the live socket.
+          Operate is everything after — send, join, fetch.
+        </p>
+        <p>
+          Every step is the same JSON envelope, just with a different
+          <code>type</code>.
+        </p>
+      </div>
+      <figure class="step__figure">
+        <ol class="flow-steps" aria-label="Three-stage client flow">
+          <li class="flow-step">
+            <span class="flow-step__num">1</span>
+            <div>
+              <h3 class="flow-step__name">credentials</h3>
+              <p class="flow-step__desc">Stored encrypted. Scoped to the session.</p>
+              <code class="flow-step__code">sc.credentials('irc', creds)</code>
+            </div>
+          </li>
+          <li class="flow-step">
+            <span class="flow-step__num">2</span>
+            <div>
+              <h3 class="flow-step__name">connect</h3>
+              <p class="flow-step__desc">Spawns (or reuses) a worker; opens the live socket.</p>
+              <code class="flow-step__code">sc.connect('irc')</code>
+            </div>
+          </li>
+          <li class="flow-step">
+            <span class="flow-step__num">3</span>
+            <div>
+              <h3 class="flow-step__name">operate</h3>
+              <p class="flow-step__desc">Send, join, leave, follow, update — all the same shape.</p>
+              <code class="flow-step__code">sc.send({ type, actor, target, object })</code>
+            </div>
+          </li>
+        </ol>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Step 4 ---------- -->
+  <section class="step step--alt" id="architecture">
+    <div class="container step__inner step__inner--reverse">
+      <div class="step__copy">
+        <p class="step__eyebrow">04 — The architecture</p>
+        <h2 class="step__title">Gateway, queue, workers.</h2>
+        <p>
+          The gateway validates and routes. The queue ( BullMQ on Redis )
+          moves jobs between the gateway and the workers. Each platform runs
+          in its own worker process, so an IRC reconnect loop can't stall
+          XMPP, and a metadata parse error can't take down feeds.
+        </p>
+        <p>
+          Events flow back the other way — from worker, through the queue,
+          to the right session on the gateway, to your browser.
+        </p>
+      </div>
+      <figure class="step__figure">
+        <svg viewBox="0 0 520 320" class="diagram diagram--arch" role="img"
+             aria-label="Browser connects to the Sockethub gateway over Socket.IO; gateway pushes jobs onto a Redis / BullMQ queue, which dispatches to per-platform worker processes.">
+          <defs>
+            <linearGradient id="archHub" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%"   stop-color="#ff9c1f"/>
+              <stop offset="55%"  stop-color="#f23c00"/>
+              <stop offset="100%" stop-color="#de0f3c"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Browser -->
+          <g class="diagram__node" transform="translate(18,130)">
+            <rect width="100" height="60" rx="8"/>
+            <text x="50" y="28" text-anchor="middle" class="diagram__text">Browser</text>
+            <text x="50" y="46" text-anchor="middle" class="diagram__text-sub">Socket.IO</text>
+          </g>
+
+          <!-- Gateway -->
+          <g class="diagram__node diagram__node--hub" transform="translate(148,120)">
+            <rect width="120" height="80" rx="12" fill="url(#archHub)" stroke="none"/>
+            <text x="60" y="38" text-anchor="middle" class="diagram__text-hub">Sockethub</text>
+            <text x="60" y="56" text-anchor="middle" class="diagram__text-hub-sub">gateway</text>
+          </g>
+
+          <!-- Redis / BullMQ -->
+          <g class="diagram__node" transform="translate(298,130)">
+            <rect width="100" height="60" rx="8"/>
+            <text x="50" y="28" text-anchor="middle" class="diagram__text">Redis</text>
+            <text x="50" y="46" text-anchor="middle" class="diagram__text-sub">BullMQ queue</text>
+          </g>
+
+          <!-- Workers -->
+          <g class="diagram__workers" transform="translate(428,30)">
+            <g class="diagram__worker"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">IRC worker</text></g>
+            <g class="diagram__worker" transform="translate(0,62)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">XMPP worker</text></g>
+            <g class="diagram__worker" transform="translate(0,124)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Feeds worker</text></g>
+            <g class="diagram__worker" transform="translate(0,186)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Metadata</text></g>
+          </g>
+
+          <!-- Wires -->
+          <g class="diagram__wires">
+            <path d="M118,160 L148,160"/>
+            <path d="M268,160 L298,160"/>
+            <path d="M398,160 Q 414,160 428,50"/>
+            <path d="M398,160 Q 414,160 428,112"/>
+            <path d="M398,160 Q 414,160 428,175"/>
+            <path d="M398,160 Q 414,160 428,237"/>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ---------- Step 5 ---------- -->
+  <section class="step" id="isolation">
+    <div class="container step__inner">
+      <div class="step__copy">
+        <p class="step__eyebrow">05 — Session isolation</p>
+        <h2 class="step__title">Your credentials stay yours.</h2>
+        <p>
+          Every client gets its own session key on connect. Credentials are
+          encrypted at rest with that key, so one session can never read
+          another's secrets — not even at the Redis layer.
+        </p>
+        <p>
+          When the session ends, its key disappears. Whatever was encrypted
+          under it is unreadable forever. No vendor lock-in, no shared secret
+          store, no cross-session leakage.
+        </p>
+      </div>
+      <figure class="step__figure">
+        <ul class="lanes" aria-label="Three isolated session lanes">
+          <li class="lane">
+            <span class="lane__key" aria-hidden="true">🔑</span>
+            <div>
+              <strong>session A</strong>
+              <small>own key · own creds · own workers</small>
+            </div>
+          </li>
+          <li class="lane">
+            <span class="lane__key" aria-hidden="true">🔑</span>
+            <div>
+              <strong>session B</strong>
+              <small>own key · own creds · own workers</small>
+            </div>
+          </li>
+          <li class="lane">
+            <span class="lane__key" aria-hidden="true">🔑</span>
+            <div>
+              <strong>session C</strong>
+              <small>own key · own creds · own workers</small>
+            </div>
+          </li>
+        </ul>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-outro">
+    <div class="container">
+      <p class="page-outro__text">
+        See what's built in →
+        <a class="button is-light" href="/platforms">Supported platforms</a>
+        <a class="button is-primary" href="/get-started">Get started</a>
+      </p>
+    </div>
+  </section>
+</article>
+
+{{>footer}}

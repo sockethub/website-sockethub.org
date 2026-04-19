@@ -1,0 +1,18 @@
+{
+  "_comment": "Source of truth for the currently-promoted release channel. Flip `channel` to switch which version the site advertises. Can be overridden at build time with SOCKETHUB_CHANNEL=stable|alpha.",
+  "channel": "alpha",
+  "channels": {
+    "alpha": {
+      "version": "5.0.0-alpha.12",
+      "installTag": "@alpha",
+      "label": "Alpha",
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
+    },
+    "stable": {
+      "version": "4.1.0",
+      "installTag": "",
+      "label": "Stable",
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
+    }
+  }
+}

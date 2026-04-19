@@ -1,6 +1,6 @@
 ---
-title: Server Setup
-template: server.hbs
+title: Moved to Get started
+layout: redirect.hbs
+redirect_to: /get-started
 news_count: 0
-current_page: server
 ---

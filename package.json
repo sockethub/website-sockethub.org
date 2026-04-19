@@ -1,12 +1,17 @@
 {
   "name": "website-sockethub.org",
-  "version": "1.0.0",
-  "description": "metalsmith project for sockethub.org",
-  "main": "run.js",
-  "public": false,
+  "version": "2.0.0",
+  "description": "Source for the sockethub.org website (Metalsmith-based static site).",
+  "main": "build.js",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "npx metalsmith",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js",
+    "build:stable": "SOCKETHUB_CHANNEL=stable node build.js",
+    "build:alpha": "SOCKETHUB_CHANNEL=alpha node build.js",
+    "serve": "cd build && python3 -m http.server 8080"
   },
   "repository": {
     "type": "git",
@@ -19,17 +24,15 @@
   },
   "homepage": "https://github.com/sockethub/website-sockethub.org",
   "devDependencies": {
-    "jstransformer-handlebars": "^1.1.0",
-    "metalsmith": "^2.3.0",
-    "metalsmith-assets": "^0.1.0",
-    "metalsmith-collections": "^0.9.0",
+    "@metalsmith/collections": "^2.0.0",
+    "@metalsmith/layouts": "^3.0.0",
+    "@metalsmith/markdown": "^1.10.0",
+    "@metalsmith/permalinks": "^3.2.0",
+    "jstransformer-handlebars": "^1.2.0",
+    "metalsmith": "^2.7.0",
     "metalsmith-discover-helpers": "^0.1.1",
     "metalsmith-discover-partials": "^0.1.2",
     "metalsmith-feed": "^1.0.0",
-    "metalsmith-layouts": "^2.3.1",
-    "metalsmith-markdown": "^1.3.0"
-  },
-  "dependencies": {
-    "metalsmith-permalinks": "^2.2.0"
+    "metalsmith-sitemap": "^1.2.2"
   }
 }

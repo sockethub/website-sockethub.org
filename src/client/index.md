@@ -1,5 +1,6 @@
 ---
-title: Client Setup
-layout: client.hbs
-current_page: client
+title: Moved to Get started
+layout: redirect.hbs
+redirect_to: /get-started
+news_count: 0
 ---

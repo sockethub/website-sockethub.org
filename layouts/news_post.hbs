@@ -1,0 +1,33 @@
+{{>header}}
+
+<article class="news-post">
+  <header class="news-post__head">
+    <div class="container">
+      <p class="news-post__eyebrow">
+        <a href="/news">News</a>
+      </p>
+      <h1 class="news-post__title">{{title}}</h1>
+      <p class="news-post__meta">
+        <time datetime="{{isoDate date}}">
+          {{getYear date}}.{{getMonth date}}.{{getDay date}}
+        </time>
+        {{#if author}}<span class="news-post__sep">·</span>{{author}}{{/if}}
+        {{#if readingTime}}
+          <span class="news-post__sep">·</span>{{readingTime}} min read
+        {{/if}}
+      </p>
+    </div>
+  </header>
+
+  <div class="container news-post__body prose">
+    {{{contents}}}
+  </div>
+
+  <footer class="news-post__foot">
+    <div class="container">
+      <a class="button is-light" href="/news">← All news</a>
+    </div>
+  </footer>
+</article>
+
+{{>footer}}
