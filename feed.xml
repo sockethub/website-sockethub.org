@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Sun, 19 Apr 2026 23:05:23 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Alpha 12 — Canonical AS2.0 contexts]]></title><description><![CDATA[<p>With the 5.0.0-alpha.12 release, Sockethub&#39;s message envelope is a first-class
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Tue, 21 Apr 2026 23:41:56 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Alpha 12 — Canonical AS2.0 contexts]]></title><description><![CDATA[<p>With the 5.0.0-alpha.12 release, Sockethub&#39;s message envelope is a first-class
 <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a> and JSON-LD
 citizen. Every outgoing and incoming message carries a canonical three-element
 <code>@context</code> array identifying the AS2 base vocabulary, the Sockethub gateway
@@ -57,11 +57,6 @@ of hardcoding URLs:</p>
 </code></pre>
 <p><code>contextFor()</code> is preferred over hand-writing the array because it derives URLs
 from the live schema registry and stays correct across server versions.</p>
-<h2 id="backward-compatibility">Backward compatibility</h2>
-<p>Legacy <code>context</code> strings continue to route as before during the alpha
-transition. If you&#39;re already sending the old shape, nothing breaks — you just
-get a subtly nicer error surface when platforms are misregistered. New code
-should prefer canonical <code>@context</code>.</p>
 <h2 id="why-this-matters">Why this matters</h2>
 <p>Sockethub has always carried the spirit of AS2.0, but not always the letter.
 Alpha 12 closes that gap. The protocol gateway now speaks a format that any
