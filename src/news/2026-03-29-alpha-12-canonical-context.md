@@ -83,13 +83,6 @@ sc.socket.emit('message', {
 `contextFor()` is preferred over hand-writing the array because it derives URLs
 from the live schema registry and stays correct across server versions.
 
-## Backward compatibility
-
-Legacy `context` strings continue to route as before during the alpha
-transition. If you're already sending the old shape, nothing breaks — you just
-get a subtly nicer error surface when platforms are misregistered. New code
-should prefer canonical `@context`.
-
 ## Why this matters
 
 Sockethub has always carried the spirit of AS2.0, but not always the letter.

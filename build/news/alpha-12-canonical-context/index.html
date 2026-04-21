@@ -193,11 +193,6 @@ of hardcoding URLs:</p>
 </code></pre>
 <p><code>contextFor()</code> is preferred over hand-writing the array because it derives URLs
 from the live schema registry and stays correct across server versions.</p>
-<h2 id="backward-compatibility">Backward compatibility</h2>
-<p>Legacy <code>context</code> strings continue to route as before during the alpha
-transition. If you&#39;re already sending the old shape, nothing breaks — you just
-get a subtly nicer error surface when platforms are misregistered. New code
-should prefer canonical <code>@context</code>.</p>
 <h2 id="why-this-matters">Why this matters</h2>
 <p>Sockethub has always carried the spirit of AS2.0, but not always the letter.
 Alpha 12 closes that gap. The protocol gateway now speaks a format that any
