@@ -419,14 +419,10 @@ li + li { margin-top: var(--space-2xs); }
 }
 
 /* Narrow / tablet: the full nav won't sit on one row alongside the brand, so
-   wrap the inner row and let the nav stretch across its own line, centred
-   beneath the brand. Wordmark hides on the smallest screens to save space. */
+   drop the brand entirely and let the nav span the full row. A lone brand on
+   its own line wasted vertical space and looked unbalanced. */
 @media (max-width: 52rem) {
-  .site-header__inner {
-    flex-wrap: wrap;
-    row-gap: var(--space-sm);
-    justify-content: center;
-  }
+  .site-header__brand { display: none; }
   .site-header__nav {
     margin-left: 0;
     width: 100%;
@@ -436,7 +432,6 @@ li + li { margin-top: var(--space-2xs); }
 }
 
 @media (max-width: 30rem) {
-  .site-header__brand-text { display: none; }
   .site-header__nav a { padding-inline: var(--space-sm); }
 }
 

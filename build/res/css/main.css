@@ -387,12 +387,14 @@ li + li { margin-top: var(--space-2xs); }
   letter-spacing: -0.01em;
 }
 .site-header__brand:hover { color: var(--fg); text-decoration: none; }
-.site-header__brand img { height: 1.75rem; width: auto; }
+/* Explicit width — the icon SVG has no viewBox, so width: auto resolves to 0 */
+.site-header__brand img { width: 1.75rem; height: 1.75rem; }
 .site-header__brand-text { font-size: var(--step-1); }
 
 .site-header__nav {
   margin-left: auto;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2xs);
 }
 
@@ -404,6 +406,7 @@ li + li { margin-top: var(--space-2xs); }
   font-weight: 500;
   color: var(--fg-muted);
   text-decoration: none;
+  white-space: nowrap;
   transition: background var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease);
 }
@@ -415,9 +418,20 @@ li + li { margin-top: var(--space-2xs); }
   background: color-mix(in oklab, var(--brand-500) 12%, transparent);
 }
 
-/* Mobile: brand shrinks, nav still inline */
+/* Narrow / tablet: the full nav won't sit on one row alongside the brand, so
+   drop the brand entirely and let the nav span the full row. A lone brand on
+   its own line wasted vertical space and looked unbalanced. */
+@media (max-width: 52rem) {
+  .site-header__brand { display: none; }
+  .site-header__nav {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    gap: var(--space-2xs) var(--space-xs);
+  }
+}
+
 @media (max-width: 30rem) {
-  .site-header__brand-text { display: none; }
   .site-header__nav a { padding-inline: var(--space-sm); }
 }
 
@@ -1454,11 +1468,13 @@ a.support-option:hover .support-option__icon {
 .step__inner {
   display: grid;
   gap: var(--space-xl);
-  grid-template-columns: 1fr;
+  /* minmax(0, …) so a long unbreakable code line inside an overflow-x:auto
+     child can't stretch the grid track past the viewport. */
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
 }
 @media (min-width: 56rem) {
-  .step__inner { grid-template-columns: 1.05fr 1fr; gap: var(--space-2xl); }
+  .step__inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--space-2xl); }
   .step__inner--reverse .step__copy   { order: 2; }
   .step__inner--reverse .step__figure { order: 1; }
 }
