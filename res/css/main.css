@@ -1848,7 +1848,10 @@ a.support-option:hover .support-option__icon {
 }
 .install-tab__body > * + * { margin-top: var(--space-md); }
 .install-tab__body p       { margin: 0; color: var(--fg-muted); }
-.install-tab__body code    {
+/* Inline code only — scoped to <p> so it doesn't hijack <code> inside
+   <pre class="code-block">, whose tokens are designed for the dark
+   charcoal block background and would be illegible on the inline peach. */
+.install-tab__body p code  {
   font-size: 0.95em;
   background: var(--code-inline-bg);
   color: var(--code-inline-fg);
