@@ -50,8 +50,12 @@
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
+    _paq.push(['disableCookies']);
+    _paq.push(['enableHeartBeatTimer']);
+    _paq.push(['enableJSErrorTracking']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
+    _paq.push(['trackAllContentImpressions']);
     (function() {
       var u = "//matomo.silverbucket.net/";
       _paq.push(['setTrackerUrl', u + 'matomo.php']);
