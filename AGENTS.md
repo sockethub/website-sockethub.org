@@ -2,6 +2,15 @@
 
 This document provides essential information for AI agents working in the sockethub.org website repository.
 
+## Cursor Cloud specific instructions
+
+- **Build entry point is `build.js`, not `metalsmith.json`.** Older parts of this doc mention `metalsmith.json` / `npx metalsmith`; the real build is `npm run build` (which runs `node build.js`). `build.js` injects release-channel metadata from `release.json` before running Metalsmith, so building requires `release.json` to exist and reference a valid channel.
+- **Release channel:** the advertised version comes from `release.json` (`channel` field, currently `alpha`). Override at build time with `SOCKETHUB_CHANNEL=stable|alpha` (see `build:stable` / `build:alpha` scripts). An unknown channel makes `build.js` throw.
+- **Serving locally:** `npm run serve` serves the already-built `build/` directory with Python's `http.server` on port `8080`. It does NOT rebuild — run `npm run build` first (and after any source change) since there is no watch/live-reload.
+- **`build/` is tracked in git but auto-generated.** Every build rewrites `build/feed.xml` (and other files) with fresh timestamps, so `npm run build` will dirty the working tree. Do not commit `build/` changes from routine builds; `git checkout -- build/` to discard them. Deployment (`./deploy.sh`) publishes `build/` to `gh-pages` via git subtree and force-pushes — do not run it during normal dev.
+- **News content workflow (core functionality):** add `src/news/YYYY-MM-DD-slug.md` with frontmatter `date`, `title`, `collection: news`, `author`, rebuild, and the post appears at `/news/<slug>/`, in `/news/`, and in `/feed.xml`. Permalinks rewrite only news posts; other pages keep their source directory path.
+- No automated test suite or lint config exists; verify changes by building and loading pages (e.g. `curl` or the browser against `http://localhost:8080`).
+
 ## Project Overview
 
 This is a static website for sockethub.org built with **Metalsmith**, a static site generator. The site uses Handlebars templates, Markdown content, and generates a news feed.
