@@ -266,7 +266,7 @@ bun run dev</code></pre>
 
 <span class="tok-key">const</span> ircContext = sc.contextFor(<span class="tok-str">'irc'</span>);
 <span class="tok-key">const</span> actor = { id: <span class="tok-str">'alice@irc.libera.chat'</span>, type: <span class="tok-str">'person'</span> };
-<span class="tok-key">const</span> room  = { id: <span class="tok-str">'#sockethub@irc.libera.chat'</span>, type: <span class="tok-str">'room'</span> };
+<span class="tok-key">const</span> room  = { id: <span class="tok-str">'sockethub@irc.libera.chat'</span>, type: <span class="tok-str">'room'</span> };
 
 <span class="tok-comment">// turn emit+ack into an awaitable step</span>
 <span class="tok-key">const</span> step = (event, activity) =&gt; <span class="tok-key">new</span> <span class="tok-key">Promise</span>((resolve, reject) =&gt; {
