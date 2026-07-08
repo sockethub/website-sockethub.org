@@ -1,0 +1,103 @@
+{
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "connect",
+        "update",
+        "join",
+        "leave",
+        "send",
+        "query",
+        "announce",
+        "disconnect"
+      ]
+    },
+    "object": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/objectTypes/message"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/topic"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/address"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/attendance"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "objectTypes": {
+      "message": {
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "message"
+            ]
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "topic": {
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "topic"
+            ]
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "address": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "address"
+            ]
+          }
+        }
+      },
+      "attendance": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "attendance"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,243 @@
+{
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.16/activity-stream.json",
+	"description": "Schema for Sockethub Activity Streams",
+	"type": "object",
+	"required": [
+		"@context",
+		"type",
+		"actor"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"@context": {
+			"type": "array",
+			"minItems": 3,
+			"maxItems": 3,
+			"items": {
+				"type": "string"
+			},
+			"allOf": [
+				{
+					"contains": {
+						"const": "https://www.w3.org/ns/activitystreams"
+					}
+				},
+				{
+					"contains": {
+						"const": "https://sockethub.org/ns/context/v1.jsonld"
+					}
+				}
+			]
+		},
+		"id": {
+			"type": "string"
+		},
+		"type": {
+			"type": "string"
+		},
+		"actor": {
+			"type": "object",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/type/person"
+				},
+				{
+					"$ref": "#/definitions/type/room"
+				},
+				{
+					"$ref": "#/definitions/type/service"
+				},
+				{
+					"$ref": "#/definitions/type/feed"
+				},
+				{
+					"$ref": "#/definitions/type/website"
+				},
+				{
+					"$ref": "#/definitions/type/platform"
+				}
+			]
+		},
+		"target": {
+			"type": "object",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/type/person"
+				},
+				{
+					"$ref": "#/definitions/type/room"
+				},
+				{
+					"$ref": "#/definitions/type/service"
+				},
+				{
+					"$ref": "#/definitions/type/feed"
+				},
+				{
+					"$ref": "#/definitions/type/website"
+				},
+				{
+					"$ref": "#/definitions/type/platform"
+				},
+				{
+					"$ref": "#/definitions/type/address"
+				}
+			]
+		},
+		"object": {
+			"type": "object"
+		},
+		"published": {
+			"type": "string",
+			"format": "date-time"
+		}
+	},
+	"definitions": {
+		"type": {
+			"feed": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"type": {
+						"enum": [
+							"feed"
+						]
+					},
+					"id": {
+						"type": "string",
+						"format": "iri"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"author": {
+						"type": "string"
+					},
+					"favicon": {
+						"type": "string"
+					}
+				}
+			},
+			"person": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"enum": [
+							"person"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"room": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"enum": [
+							"room"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"service": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"enum": [
+							"service"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"platform": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"enum": [
+							"platform"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"website": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "iri"
+					},
+					"type": {
+						"enum": [
+							"website"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"address": {
+				"required": [
+					"type"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"type": {
+						"enum": [
+							"address"
+						]
+					}
+				}
+			}
+		}
+	}
+}

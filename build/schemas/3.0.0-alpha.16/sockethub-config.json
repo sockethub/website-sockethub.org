@@ -1,0 +1,349 @@
+{
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.16/sockethub-config.json",
+	"description": "Sockethub Config Schema",
+	"type": "object",
+	"required": [
+		"platforms"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"examples": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enable the examples pages served at [host]:[port]/examples"
+		},
+		"info": {
+			"type": "boolean",
+			"default": false,
+			"description": "Display Sockethub runtime information"
+		},
+		"logging": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"level": {
+					"type": "string",
+					"enum": [
+						"error",
+						"warn",
+						"info",
+						"debug"
+					],
+					"default": "info"
+				},
+				"fileLevel": {
+					"type": "string",
+					"enum": [
+						"error",
+						"warn",
+						"info",
+						"debug"
+					],
+					"default": "debug"
+				},
+				"file": {
+					"type": "string",
+					"default": "sockethub.log"
+				}
+			}
+		},
+		"platforms": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"description": "Platform packages to load",
+			"default": [
+				"@sockethub/platform-dummy",
+				"@sockethub/platform-feeds",
+				"@sockethub/platform-irc",
+				"@sockethub/platform-metadata",
+				"@sockethub/platform-xmpp"
+			]
+		},
+		"packageConfig": {
+			"type": "object",
+			"default": {},
+			"description": "Per-platform config keyed by package name, validated against each platform's config schema and forwarded to its child process",
+			"properties": {
+				"@sockethub/platform-dummy": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"greeting": {
+							"type": "string",
+							"default": "Hello"
+						}
+					}
+				},
+				"@sockethub/platform-feeds": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"connectTimeoutMs": {
+							"type": "number"
+						},
+						"allowPrivateAddresses": {
+							"type": "boolean"
+						},
+						"concurrency": {
+							"type": "integer",
+							"minimum": 1
+						}
+					}
+				},
+				"@sockethub/platform-irc": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"connectTimeoutMs": {
+							"type": "number"
+						}
+					}
+				},
+				"@sockethub/platform-xmpp": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"connectTimeoutMs": {
+							"type": "number"
+						}
+					}
+				},
+				"@sockethub/platform-metadata": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"allowPrivateAddresses": {
+							"type": "boolean"
+						},
+						"concurrency": {
+							"type": "integer",
+							"minimum": 1
+						}
+					}
+				}
+			}
+		},
+		"credentials": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"ttlMs": {
+					"type": "number",
+					"minimum": 0,
+					"default": 604800000,
+					"description": "Sliding TTL in milliseconds for per-session encrypted credential keys in Redis, refreshed on every save and read. A backstop against keys orphaned by crashes; sessions normally delete their key on disconnect. Size generously — idle sessions do not refresh it. 0 disables expiry."
+				}
+			}
+		},
+		"credentialCheck": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"reconnectIpSource": {
+					"type": "string",
+					"enum": [
+						"socket",
+						"proxy"
+					],
+					"default": "socket"
+				},
+				"proxyHeader": {
+					"type": "string",
+					"default": "x-forwarded-for"
+				}
+			}
+		},
+		"public": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"protocol": {
+					"type": "string",
+					"default": "http"
+				},
+				"host": {
+					"type": "string",
+					"default": "localhost"
+				},
+				"port": {
+					"type": "number",
+					"default": 10550
+				},
+				"path": {
+					"type": "string",
+					"default": "/"
+				}
+			}
+		},
+		"rateLimiter": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"windowMs": {
+					"type": "number",
+					"default": 1000
+				},
+				"maxRequests": {
+					"type": "number",
+					"default": 100
+				},
+				"blockDurationMs": {
+					"type": "number",
+					"default": 5000
+				},
+				"maxConnectionsPerIp": {
+					"type": "number",
+					"minimum": 0,
+					"default": 0,
+					"description": "Maximum concurrent socket connections per client IP. The per-event rate limiter is keyed by socket id, so without a connection cap a client can bypass it by opening more sockets. 0 disables the cap."
+				}
+			}
+		},
+		"limits": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"maxPlatformInstances": {
+					"type": "number",
+					"minimum": 0,
+					"default": 0,
+					"description": "Upper bound on concurrently running platform instances (child processes). Each persistent-platform actor forks its own process, so an unbounded count is a resource exhaustion risk on public instances. 0 disables the cap."
+				}
+			}
+		},
+		"redis": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"url": {
+					"type": "string",
+					"default": "redis://127.0.0.1:6379"
+				},
+				"connectTimeout": {
+					"type": "number",
+					"default": 10000,
+					"description": "Connection timeout in milliseconds"
+				},
+				"disconnectTimeout": {
+					"type": "number",
+					"default": 5000,
+					"description": "Disconnect timeout in milliseconds"
+				},
+				"maxRetriesPerRequest": {
+					"type": [
+						"number",
+						"null"
+					],
+					"default": null,
+					"description": "Maximum number of retries per request (null for BullMQ default)"
+				}
+			}
+		},
+		"sentry": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"dsn": {
+					"type": "string",
+					"default": ""
+				},
+				"traceSampleRate": {
+					"type": "number",
+					"default": 1
+				}
+			}
+		},
+		"sockethub": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"port": {
+					"type": "number",
+					"default": 10550
+				},
+				"host": {
+					"type": "string",
+					"default": "localhost"
+				},
+				"path": {
+					"type": "string",
+					"default": "/sockethub"
+				},
+				"cors": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"origin": {
+							"type": "string",
+							"default": "*",
+							"description": "Allowed CORS origin(s) for socket.io connections and the HTTP actions endpoint. '*' allows any website to connect visitors' browsers to this instance; public deployments should set an explicit origin or comma-separated list of origins."
+						}
+					}
+				}
+			}
+		},
+		"httpActions": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"enabled": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable the HTTP actions endpoint"
+				},
+				"path": {
+					"type": "string",
+					"default": "/sockethub-http"
+				},
+				"requireRequestId": {
+					"type": "boolean",
+					"default": true
+				},
+				"maxMessagesPerRequest": {
+					"type": "number",
+					"minimum": 1,
+					"default": 20
+				},
+				"maxPayloadBytes": {
+					"type": "number",
+					"minimum": 1,
+					"default": 262144
+				},
+				"idempotencyTtlMs": {
+					"type": "number",
+					"minimum": 0,
+					"default": 300000
+				},
+				"requestTimeoutMs": {
+					"type": "number",
+					"minimum": 0,
+					"default": 30000
+				},
+				"idleTimeoutMs": {
+					"type": "number",
+					"minimum": 0,
+					"default": 15000
+				}
+			}
+		},
+		"platformHeartbeat": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"intervalMs": {
+					"type": "number",
+					"default": 5000
+				},
+				"timeoutMs": {
+					"type": "number",
+					"default": 15000
+				}
+			}
+		}
+	}
+}
