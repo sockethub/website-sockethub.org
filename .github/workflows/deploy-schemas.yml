@@ -1,0 +1,160 @@
+name: Deploy schema artifacts
+
+# Serve the published @sockethub/schemas artifacts at their canonical
+# sockethub.org $id / @context URLs (see issue sockethub/sockethub#1185).
+#
+# Triggered by a repository_dispatch fired from the core repo's release-publish
+# workflow once a release is published to npm. The core repo only needs a
+# trigger-scoped token; all writes here use this repo's own GITHUB_TOKEN.
+#
+# Can also be run manually (workflow_dispatch) to backfill a historical version
+# or re-run a failed deploy.
+on:
+  repository_dispatch:
+    types: [deploy-schemas]
+  workflow_dispatch:
+    inputs:
+      schemas_version:
+        description: "@sockethub/schemas version to publish (e.g. 3.0.0-alpha.16)"
+        required: true
+        type: string
+      release_version:
+        description: "Sockethub server release version to advertise (e.g. 5.0.0-alpha.16)"
+        required: false
+        type: string
+      channel:
+        description: "Release channel whose advertised version to bump"
+        required: false
+        type: string
+
+# Never let two deploys race the gh-pages force-push.
+concurrency:
+  group: deploy-schemas
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve inputs
+        id: inputs
+        env:
+          # repository_dispatch carries values under client_payload; a manual
+          # run carries them under inputs. Coalesce to one set of outputs.
+          SCHEMAS_VERSION: ${{ github.event.client_payload.schemas_version || inputs.schemas_version }}
+          RELEASE_VERSION: ${{ github.event.client_payload.release_version || inputs.release_version }}
+          CHANNEL: ${{ github.event.client_payload.channel || inputs.channel }}
+        run: |
+          if [ -z "$SCHEMAS_VERSION" ]; then
+            echo "::error::schemas_version is required"
+            exit 1
+          fi
+          echo "schemas_version=$SCHEMAS_VERSION" >> "$GITHUB_OUTPUT"
+          echo "release_version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
+          echo "📦 schemas=$SCHEMAS_VERSION release=$RELEASE_VERSION channel=$CHANNEL"
+
+      - name: Checkout site (master)
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          # Full history so `git subtree split` can build the gh-pages tree.
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync published schema artifacts into src/
+        run: |
+          node scripts/sync-schemas.mjs "${{ steps.inputs.outputs.schemas_version }}" --alias-latest
+
+      - name: Bump advertised version (release.json)
+        if: steps.inputs.outputs.channel != '' && steps.inputs.outputs.release_version != ''
+        run: |
+          node scripts/set-channel-version.mjs \
+            "${{ steps.inputs.outputs.channel }}" \
+            "${{ steps.inputs.outputs.release_version }}"
+
+      # If neither the synced artifacts nor release.json changed, there is
+      # nothing to publish (e.g. a server-only release where @sockethub/schemas
+      # did not bump, re-running an already-synced version). Skip the rebuild
+      # and deploy entirely so we don't force-push an identical gh-pages tree.
+      - name: Detect changes
+        id: changes
+        run: |
+          git add -A src release.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "✅ Nothing new to publish; skipping build & deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changed files:"
+            git diff --cached --name-only | sed 's/^/  /'
+          fi
+
+      - name: Build site
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Commit source + build
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A src release.json build
+          git commit -m "chore: publish @sockethub/schemas@${{ steps.inputs.outputs.schemas_version }} artifacts"
+          git push origin HEAD:master
+
+      - name: Deploy build/ to gh-pages
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          # Same publish mechanism as ./deploy.sh: split the build/ subtree and
+          # force-push it as the gh-pages root (served by GitHub Pages).
+          git push origin "$(git subtree split --prefix build/ HEAD)":gh-pages --force
+
+      - name: Smoke-test live URLs
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -u
+          VER="${{ steps.inputs.outputs.schemas_version }}"
+
+          # Prefer the versioned config schema (the primary acceptance target);
+          # fall back to the always-present base context for pre-config-schema
+          # releases that ship no top-level JSON schemas.
+          if [ -f "build/schemas/$VER/sockethub-config.json" ]; then
+            URL="https://sockethub.org/schemas/$VER/sockethub-config.json"
+            EXPECT_ID="$URL"
+          else
+            URL="https://sockethub.org/ns/context/v1.jsonld"
+            EXPECT_ID=""
+          fi
+          echo "Verifying $URL (GitHub Pages may take a minute to update)…"
+
+          for attempt in $(seq 1 30); do
+            BODY="$(curl -fsSL "$URL" 2>/dev/null || true)"
+            if [ -n "$BODY" ]; then
+              if [ -z "$EXPECT_ID" ]; then
+                echo "✅ $URL is live"
+                exit 0
+              fi
+              GOT_ID="$(printf '%s' "$BODY" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{process.stdout.write(JSON.parse(s).$id||"")}catch{}})')"
+              if [ "$GOT_ID" = "$EXPECT_ID" ]; then
+                echo "✅ $URL is live and \$id matches"
+                exit 0
+              fi
+              echo "  fetched but \$id not yet matching (got '$GOT_ID'); Pages still updating…"
+            else
+              echo "  not reachable yet (attempt $attempt/30)…"
+            fi
+            sleep 20
+          done
+          echo "::error::$URL did not become live/correct within timeout"
+          exit 1
