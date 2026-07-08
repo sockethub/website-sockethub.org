@@ -1,0 +1,27 @@
+{
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "fetch"
+      ]
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "since": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}
