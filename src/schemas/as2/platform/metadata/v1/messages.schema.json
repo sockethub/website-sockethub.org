@@ -1,0 +1,14 @@
+{
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "fetch"
+      ]
+    },
+    "object": false
+  }
+}

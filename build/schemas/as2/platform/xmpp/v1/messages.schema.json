@@ -1,0 +1,129 @@
+{
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "connect",
+        "join",
+        "leave",
+        "send",
+        "update",
+        "request-friend",
+        "remove-friend",
+        "make-friend",
+        "query",
+        "disconnect"
+      ]
+    },
+    "object": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/objectTypes/message"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/presence"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/attendance"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/room-info"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "objectTypes": {
+      "message": {
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "message"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "xmpp:replace": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "presence": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "presence"
+            ]
+          },
+          "presence": {
+            "enum": [
+              "away",
+              "chat",
+              "dnd",
+              "xa",
+              "offline",
+              "online"
+            ]
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "attendance": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "attendance"
+            ]
+          }
+        }
+      },
+      "room-info": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "room-info"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
