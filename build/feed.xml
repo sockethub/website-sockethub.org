@@ -51,7 +51,7 @@ of hardcoding URLs:</p>
   &#39;@context&#39;: sc.contextFor(&#39;irc&#39;),
   type: &#39;send&#39;,
   actor:  { id: &#39;alice@irc.libera.chat&#39;, type: &#39;person&#39; },
-  target: { id: &#39;#sockethub@irc.libera.chat&#39;, type: &#39;room&#39; },
+  target: { id: &#39;sockethub@irc.libera.chat&#39;, type: &#39;room&#39;, name: &#39;#sockethub&#39; },
   object: { type: &#39;message&#39;, content: &#39;hello&#39; }
 });
 </code></pre>
