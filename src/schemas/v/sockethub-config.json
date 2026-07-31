@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.16/sockethub-config.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.17/sockethub-config.json",
 	"description": "Sockethub Config Schema",
 	"type": "object",
 	"required": [
@@ -57,6 +57,7 @@
 			},
 			"description": "Platform packages to load",
 			"default": [
+				"@sockethub/platform-caldav",
 				"@sockethub/platform-dummy",
 				"@sockethub/platform-feeds",
 				"@sockethub/platform-irc",
@@ -69,6 +70,26 @@
 			"default": {},
 			"description": "Per-platform config keyed by package name, validated against each platform's config schema and forwarded to its child process",
 			"properties": {
+				"@sockethub/platform-caldav": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"connectTimeoutMs": {
+							"type": "integer",
+							"minimum": 1
+						},
+						"allowPrivateAddresses": {
+							"type": "boolean"
+						},
+						"allowInsecureHttp": {
+							"type": "boolean"
+						},
+						"concurrency": {
+							"type": "integer",
+							"minimum": 1
+						}
+					}
+				},
 				"@sockethub/platform-dummy": {
 					"type": "object",
 					"additionalProperties": false,
