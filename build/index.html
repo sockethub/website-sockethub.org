@@ -125,10 +125,10 @@
     <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" width="352" height="112">
     <p class="hero-eyebrow">Protocol gateway for the web</p>
     <h1 class="hero-title">
-      Chat, feeds, and metadata through one API.
+      Chat, feeds, calendars, and metadata through one API.
     </h1>
     <p class="hero-subtitle">
-      Sockethub lets browser apps talk to IRC, XMPP, RSS/Atom feeds and more, all
+      Sockethub lets browser apps talk to IRC, XMPP, RSS/Atom feeds, CalDAV calendars and more, all
       through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
     </p>
 
@@ -157,8 +157,8 @@
       <h2 id="fanout-title" class="section-header__title">One message, every protocol</h2>
     </header>
 
-    <svg class="fanout__diagram" viewBox="0 0 800 360" role="img"
-         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which fans it out to IRC, XMPP, RSS/Atom feeds, and Metadata services.">
+    <svg class="fanout__diagram" viewBox="0 0 800 450" role="img"
+         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which fans it out to IRC, XMPP, RSS/Atom feeds, Metadata, and CalDAV services.">
       <!-- Inline gradient matching the sockethub logo: sun → signal → ember. -->
       <defs>
         <linearGradient id="emberGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -170,46 +170,52 @@
 
       <!-- Connection lines -->
       <g class="fanout__lines">
-        <path class="fanout__line" d="M220,180 L344,180"/>
-        <path class="fanout__line" d="M456,180 Q540,180 620,60"/>
-        <path class="fanout__line" d="M456,180 L620,150"/>
-        <path class="fanout__line" d="M456,180 L620,240"/>
-        <path class="fanout__line" d="M456,180 Q540,180 620,330"/>
+        <path class="fanout__line" d="M220,225 L344,225"/>
+        <path class="fanout__line" d="M456,225 Q540,225 620,45"/>
+        <path class="fanout__line" d="M456,225 Q540,225 620,135"/>
+        <path class="fanout__line" d="M456,225 L620,225"/>
+        <path class="fanout__line" d="M456,225 Q540,225 620,315"/>
+        <path class="fanout__line" d="M456,225 Q540,225 620,405"/>
       </g>
 
       <!-- Client node -->
-      <g class="fanout__node fanout__node--client" transform="translate(40,140)">
+      <g class="fanout__node fanout__node--client" transform="translate(40,185)">
         <rect width="180" height="80" rx="12"/>
         <text x="90" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
         <text x="90" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
       </g>
 
       <!-- Sockethub hub -->
-      <g class="fanout__node fanout__node--hub" transform="translate(400,180)">
+      <g class="fanout__node fanout__node--hub" transform="translate(400,225)">
         <circle r="56"/>
         <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
 
       <!-- Platform chips -->
-      <g class="fanout__chip" transform="translate(620,30)">
+      <g class="fanout__chip" transform="translate(620,15)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">IRC</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Chat &amp; channels</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,120)">
+      <g class="fanout__chip" transform="translate(620,105)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">XMPP</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Messaging &amp; presence</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,210)">
+      <g class="fanout__chip" transform="translate(620,195)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,300)">
+      <g class="fanout__chip" transform="translate(620,285)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Metadata</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,375)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">CalDAV</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Calendars &amp; tasks</text>
       </g>
 
       <!-- Envelopes (animated — CSS drives motion) -->
@@ -229,6 +235,10 @@
         <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
         <path d="M-13,-8 L0,3 L13,-8"/>
       </g>
+      <g class="fanout-envelope fanout-envelope--caldav" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path d="M-13,-8 L0,3 L13,-8"/>
+      </g>
     </svg>
 
     <p class="fanout__caption">
@@ -243,7 +253,8 @@
     <div class="intro__prose prose">
       <p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
 protocols and services that JavaScript can&#39;t reach on its own — IRC, XMPP,
-RSS/Atom, link-metadata services — using one standard message format:
+RSS/Atom, link-metadata services, CalDAV calendars — using one standard
+message format:
 <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
 <p>By holding the long-lived connections, credentials, and protocol-specific
 logic on the server, Sockethub gives browser apps a single, consistent
@@ -310,6 +321,20 @@ JSON API for reaching networks the web usually walls off.</p>
         </div>
         <h3 class="platform-card__name">Metadata</h3>
         <p class="platform-card__desc">Link previews and structured-data extraction.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="10" width="24" height="22" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 17 H32" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 6 V12 M26 6 V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M15 24 l3.5 3.5 L25 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">CalDAV</h3>
+        <p class="platform-card__desc">Calendars, events, and tasks on any CalDAV server.</p>
         <span class="platform-card__badge">New in 5.0</span>
       </article>
     </div>

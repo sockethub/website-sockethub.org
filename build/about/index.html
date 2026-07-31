@@ -124,7 +124,7 @@
   <article class="prose" style="margin-inline: auto; padding-block: var(--space-2xl);">
     <h2 id="what-is-sockethub">What is Sockethub?</h2>
 <p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
-IRC, XMPP, feeds, and other services using one message format:
+IRC, XMPP, feeds, calendars, and other services using one message format:
 <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
 <h2 id="activitystreams-20-inout">ActivityStreams 2.0 In/Out</h2>
 <p>Sockethub uses the same JSON envelope for every platform. Your app sends one
@@ -149,6 +149,7 @@ shape, Sockethub translates it, and you receive the same shape back.</p>
 <li>Send and receive chat messages (IRC, XMPP)</li>
 <li>Fetch and parse feeds (RSS, Atom)</li>
 <li>Generate link previews and metadata</li>
+<li>Manage calendar events and tasks (CalDAV)</li>
 <li>Add new protocols as custom platforms</li>
 </ul>
 <h2 id="architecture">Architecture</h2>
@@ -167,6 +168,7 @@ Redis so browsers can talk to long-lived connections safely.</p>
 <li><strong>IRC</strong> – Internet Relay Chat</li>
 <li><strong>RSS/Atom</strong> – Feed processing and aggregation</li>
 <li><strong>Metadata</strong> – Link preview generation and metadata extraction</li>
+<li><strong>CalDAV</strong> – Calendar, event, and task synchronization</li>
 </ul>
 <h2 id="origins">Origins</h2>
 <p>Originally conceived as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>,

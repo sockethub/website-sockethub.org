@@ -20,7 +20,7 @@
 
   <!-- Sub -->
   <text x="88" y="440" font-family="sans-serif" font-weight="400" font-size="36" fill="#4a3420">A protocol gateway for the web.</text>
-  <text x="88" y="500" font-family="sans-serif" font-weight="400" font-size="30" fill="#7b3310">IRC · XMPP · RSS / Atom · Metadata</text>
+  <text x="88" y="500" font-family="sans-serif" font-weight="400" font-size="30" fill="#7b3310">IRC · XMPP · RSS / Atom · Metadata · CalDAV</text>
 
   <!-- URL bottom-right -->
   <text x="1112" y="580" font-family="monospace" font-weight="600" font-size="24" fill="#7b3310" text-anchor="end">sockethub.org</text>
