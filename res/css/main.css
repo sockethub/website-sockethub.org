@@ -1001,17 +1001,17 @@ img.theme-only-dark { display: none; }
 .fanout__chip-desc { font-family: var(--font-sans); font-size: 11px; fill: var(--fg-muted); }
 
 /* Envelopes — CSS transforms in SVG user-coordinate space.
-   Each variant gets its own color so the four trails read as four
+   Each variant gets its own color so the five trails read as five
    distinct protocols, not one swarm. The drop-shadow is ember-warm
    so the glow coheres with the hub. */
 .fanout-envelope {
-  transform: translate(130px, 180px);
+  transform: translate(130px, 225px);
   opacity: 0;
   fill: var(--bg-raised);
   stroke: var(--brand-500);
   stroke-width: 1.4;
   filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--brand-500) 30%, transparent));
-  animation-duration: 6s;
+  animation-duration: 7.5s;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.35, 0.08, 0.4, 1);
 }
@@ -1022,42 +1022,53 @@ img.theme-only-dark { display: none; }
 .fanout-envelope--feeds    { stroke: var(--brand-700); animation-name: fanout-feeds;    animation-delay: 3s;   }
 .fanout-envelope--metadata { stroke: var(--accent-500); animation-name: fanout-metadata; animation-delay: 4.5s;
                              filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--accent-500) 30%, transparent)); }
+.fanout-envelope--caldav   { stroke: var(--accent-600); animation-name: fanout-caldav;   animation-delay: 6s;
+                             filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--accent-600) 30%, transparent)); }
 
 @keyframes fanout-irc {
-  0%   { transform: translate(130px, 180px); opacity: 0; }
+  0%   { transform: translate(130px, 225px); opacity: 0; }
   6%   { opacity: 1; }
-  32%  { transform: translate(400px, 180px); opacity: 1; }
-  40%  { transform: translate(400px, 180px); opacity: 1; }
-  74%  { transform: translate(620px, 60px);  opacity: 1; }
+  32%  { transform: translate(400px, 225px); opacity: 1; }
+  40%  { transform: translate(400px, 225px); opacity: 1; }
+  74%  { transform: translate(620px, 45px);  opacity: 1; }
   90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 60px);  opacity: 0; }
+  100% { transform: translate(620px, 45px);  opacity: 0; }
 }
 @keyframes fanout-xmpp {
-  0%   { transform: translate(130px, 180px); opacity: 0; }
+  0%   { transform: translate(130px, 225px); opacity: 0; }
   6%   { opacity: 1; }
-  32%  { transform: translate(400px, 180px); opacity: 1; }
-  40%  { transform: translate(400px, 180px); opacity: 1; }
-  74%  { transform: translate(620px, 150px); opacity: 1; }
+  32%  { transform: translate(400px, 225px); opacity: 1; }
+  40%  { transform: translate(400px, 225px); opacity: 1; }
+  74%  { transform: translate(620px, 135px); opacity: 1; }
   90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 150px); opacity: 0; }
+  100% { transform: translate(620px, 135px); opacity: 0; }
 }
 @keyframes fanout-feeds {
-  0%   { transform: translate(130px, 180px); opacity: 0; }
+  0%   { transform: translate(130px, 225px); opacity: 0; }
   6%   { opacity: 1; }
-  32%  { transform: translate(400px, 180px); opacity: 1; }
-  40%  { transform: translate(400px, 180px); opacity: 1; }
-  74%  { transform: translate(620px, 240px); opacity: 1; }
+  32%  { transform: translate(400px, 225px); opacity: 1; }
+  40%  { transform: translate(400px, 225px); opacity: 1; }
+  74%  { transform: translate(620px, 225px); opacity: 1; }
   90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 240px); opacity: 0; }
+  100% { transform: translate(620px, 225px); opacity: 0; }
 }
 @keyframes fanout-metadata {
-  0%   { transform: translate(130px, 180px); opacity: 0; }
+  0%   { transform: translate(130px, 225px); opacity: 0; }
   6%   { opacity: 1; }
-  32%  { transform: translate(400px, 180px); opacity: 1; }
-  40%  { transform: translate(400px, 180px); opacity: 1; }
-  74%  { transform: translate(620px, 330px); opacity: 1; }
+  32%  { transform: translate(400px, 225px); opacity: 1; }
+  40%  { transform: translate(400px, 225px); opacity: 1; }
+  74%  { transform: translate(620px, 315px); opacity: 1; }
   90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 330px); opacity: 0; }
+  100% { transform: translate(620px, 315px); opacity: 0; }
+}
+@keyframes fanout-caldav {
+  0%   { transform: translate(130px, 225px); opacity: 0; }
+  6%   { opacity: 1; }
+  32%  { transform: translate(400px, 225px); opacity: 1; }
+  40%  { transform: translate(400px, 225px); opacity: 1; }
+  74%  { transform: translate(620px, 405px); opacity: 1; }
+  90%  { opacity: 0.5; }
+  100% { transform: translate(620px, 405px); opacity: 0; }
 }
 
 /* Mobile: diagram scales down; section 16 disables animations for
@@ -1079,7 +1090,8 @@ img.theme-only-dark { display: none; }
 }
 
 @media (min-width: 40rem) { .platforms__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 64rem) { .platforms__grid { grid-template-columns: repeat(4, 1fr); } }
+/* Five cards: 3 + 2 wraps more evenly than 4 + 1. */
+@media (min-width: 64rem) { .platforms__grid { grid-template-columns: repeat(3, 1fr); } }
 
 .platform-card {
   position: relative;
@@ -1517,6 +1529,13 @@ a.support-option:hover .support-option__icon {
   fill: var(--bg-raised);
   stroke: var(--border-strong);
   stroke-width: 1.5;
+}
+
+/* The gateway keeps its inline ember gradient — the generic node rule
+   above would otherwise override the SVG fill attribute. */
+.diagram__node--hub rect {
+  fill: url(#archHub);
+  stroke: none;
 }
 .diagram__text {
   fill: var(--fg);
