@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.18/activity-stream.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.19/activity-stream.json",
 	"description": "Schema for Sockethub Activity Streams",
 	"type": "object",
 	"required": [
