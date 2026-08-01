@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.17/activity-stream.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.18/activity-stream.json",
 	"description": "Schema for Sockethub Activity Streams",
 	"type": "object",
 	"required": [
@@ -81,6 +81,9 @@
 				},
 				{
 					"$ref": "#/definitions/type/address"
+				},
+				{
+					"$ref": "#/definitions/type/calendar"
 				}
 			]
 		},
@@ -235,6 +238,36 @@
 						"enum": [
 							"address"
 						]
+					}
+				}
+			},
+			"calendar": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "iri"
+					},
+					"type": {
+						"enum": [
+							"calendar"
+						]
+					},
+					"name": {
+						"type": "string"
+					},
+					"components": {
+						"type": "array",
+						"items": {
+							"enum": [
+								"event",
+								"task"
+							]
+						}
 					}
 				}
 			}

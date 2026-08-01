@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.17/sockethub-config.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.18/sockethub-config.json",
 	"description": "Sockethub Config Schema",
 	"type": "object",
 	"required": [
