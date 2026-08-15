@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.19/activity-stream.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.20/activity-stream.json",
 	"description": "Schema for Sockethub Activity Streams",
 	"type": "object",
 	"required": [
@@ -84,6 +84,9 @@
 				},
 				{
 					"$ref": "#/definitions/type/calendar"
+				},
+				{
+					"$ref": "#/definitions/type/addressBook"
 				}
 			]
 		},
@@ -268,6 +271,24 @@
 								"task"
 							]
 						}
+					}
+				}
+			},
+			"addressBook": {
+				"required": [
+					"id",
+					"type"
+				],
+				"additionalProperties": false,
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "iri"
+					},
+					"type": {
+						"enum": [
+							"addressBook"
+						]
 					}
 				}
 			}
