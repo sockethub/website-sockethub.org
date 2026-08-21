@@ -3,7 +3,7 @@
   "channel": "alpha",
   "channels": {
     "alpha": {
-      "version": "5.0.0-alpha.20",
+      "version": "5.0.0-alpha.21",
       "installTag": "@alpha",
       "label": "Alpha",
       "releasesUrl": "https://github.com/sockethub/sockethub/releases"

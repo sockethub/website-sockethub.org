@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.20/sockethub-config.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.21/sockethub-config.json",
 	"description": "Sockethub Config Schema",
 	"type": "object",
 	"required": [
@@ -294,9 +294,53 @@
 					"type": "string",
 					"default": ""
 				},
-				"traceSampleRate": {
+				"environment": {
+					"type": "string",
+					"default": "production"
+				},
+				"release": {
+					"type": "string",
+					"default": ""
+				},
+				"enableLogs": {
+					"type": "boolean",
+					"default": false
+				},
+				"logLevels": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"debug",
+							"info",
+							"warn",
+							"error"
+						]
+					},
+					"default": [
+						"warn",
+						"error"
+					]
+				},
+				"enableMetrics": {
+					"type": "boolean",
+					"default": true
+				},
+				"tracesSampleRate": {
 					"type": "number",
-					"default": 1
+					"minimum": 0,
+					"maximum": 1,
+					"default": 0.1
+				},
+				"profileSessionSampleRate": {
+					"type": "number",
+					"minimum": 0,
+					"maximum": 1,
+					"default": 0
+				},
+				"sendDefaultPii": {
+					"type": "boolean",
+					"default": false
 				}
 			}
 		},

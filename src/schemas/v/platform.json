@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.20/platform.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.21/platform.json",
 	"type": "object",
 	"required": [
 		"name",
