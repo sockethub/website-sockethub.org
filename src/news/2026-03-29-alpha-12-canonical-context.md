@@ -74,8 +74,8 @@ of hardcoding URLs:
 sc.socket.emit('message', {
   '@context': sc.contextFor('irc'),
   type: 'send',
-  actor:  { id: 'alice@irc.libera.chat', type: 'person' },
-  target: { id: 'sockethub@irc.libera.chat', type: 'room', name: '#sockethub' },
+  actor:  { id: 'alice@irc.libera.chat', type: 'person', name: 'alice' },
+  target: { id: '#sockethub@irc.libera.chat', type: 'room', name: '#sockethub' },
   object: { type: 'message', content: 'hello' }
 });
 ```
