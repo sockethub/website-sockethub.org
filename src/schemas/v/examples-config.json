@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-alpha.24/examples-config.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.25/examples-config.json",
 	"description": "Sockethub examples runtime configuration",
 	"type": "object",
 	"required": [
@@ -60,6 +60,22 @@
 			"type": "array",
 			"items": {
 				"type": "string"
+			}
+		},
+		"httpActions": {
+			"type": "object",
+			"required": [
+				"enabled",
+				"path"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"path": {
+					"type": "string"
+				}
 			}
 		}
 	}

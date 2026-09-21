@@ -30,6 +30,30 @@
           "$ref": "#/definitions/objectTypes/attendance"
         }
       ]
+    },
+    "target": {
+      "type": "object",
+      "if": {
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "const": "room"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^#[^\\s]+@[^\\s@]+$"
+          }
+        }
+      }
     }
   },
   "definitions": {

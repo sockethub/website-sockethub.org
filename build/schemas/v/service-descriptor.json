@@ -1,0 +1,41 @@
+{
+	"$id": "https://sockethub.org/schemas/3.0.0-alpha.25/service-descriptor.json",
+	"description": "Sockethub HTTP actions service descriptor",
+	"type": "object",
+	"required": [
+		"name",
+		"apiVersion",
+		"platforms"
+	],
+	"additionalProperties": true,
+	"properties": {
+		"name": {
+			"const": "sockethub"
+		},
+		"apiVersion": {
+			"type": "integer",
+			"minimum": 0
+		},
+		"platforms": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"apiVersion"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"apiVersion": {
+						"type": "integer",
+						"minimum": 0
+					}
+				}
+			}
+		}
+	}
+}
