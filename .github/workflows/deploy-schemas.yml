@@ -126,35 +126,46 @@ jobs:
           set -u
           VER="${{ steps.inputs.outputs.schemas_version }}"
 
-          # Prefer the versioned config schema (the primary acceptance target);
-          # fall back to the always-present base context for pre-config-schema
-          # releases that ship no top-level JSON schemas.
-          if [ -f "build/schemas/$VER/sockethub-config.json" ]; then
-            URL="https://sockethub.org/schemas/$VER/sockethub-config.json"
-            EXPECT_ID="$URL"
-          else
-            URL="https://sockethub.org/ns/context/v1.jsonld"
-            EXPECT_ID=""
+          # Every top-level schema published for this version must be live
+          # at the URL its `$id` names. The list comes from the build output
+          # rather than being hard-coded, so a schema added upstream is
+          # verified by the release that first ships it. Pre-config-schema
+          # releases ship none; fall back to the always-present base context.
+          URLS=()
+          if [ -d "build/schemas/$VER" ]; then
+            for file in "build/schemas/$VER"/*.json; do
+              [ -f "$file" ] || continue
+              URLS+=("https://sockethub.org/schemas/$VER/$(basename "$file")")
+            done
           fi
-          echo "Verifying $URL (GitHub Pages may take a minute to update)…"
+          CHECK_ID=true
+          if [ "${#URLS[@]}" -eq 0 ]; then
+            URLS=("https://sockethub.org/ns/context/v1.jsonld")
+            CHECK_ID=false
+          fi
+          echo "Verifying ${#URLS[@]} URL(s) (GitHub Pages may take a minute to update)…"
+
+          # True once the URL is reachable and, for schemas, serves a matching $id.
+          is_live() {
+            local url="$1" body got_id
+            body="$(curl -fsSL "$url" 2>/dev/null || true)"
+            [ -n "$body" ] || return 1
+            [ "$CHECK_ID" = true ] || return 0
+            got_id="$(printf '%s' "$body" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{process.stdout.write(JSON.parse(s).$id||"")}catch{}})')"
+            [ "$got_id" = "$url" ]
+          }
 
           for attempt in $(seq 1 30); do
-            BODY="$(curl -fsSL "$URL" 2>/dev/null || true)"
-            if [ -n "$BODY" ]; then
-              if [ -z "$EXPECT_ID" ]; then
-                echo "✅ $URL is live"
-                exit 0
-              fi
-              GOT_ID="$(printf '%s' "$BODY" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{process.stdout.write(JSON.parse(s).$id||"")}catch{}})')"
-              if [ "$GOT_ID" = "$EXPECT_ID" ]; then
-                echo "✅ $URL is live and \$id matches"
-                exit 0
-              fi
-              echo "  fetched but \$id not yet matching (got '$GOT_ID'); Pages still updating…"
-            else
-              echo "  not reachable yet (attempt $attempt/30)…"
+            PENDING=()
+            for url in "${URLS[@]}"; do
+              is_live "$url" || PENDING+=("$url")
+            done
+            if [ "${#PENDING[@]}" -eq 0 ]; then
+              printf '✅ %s\n' "${URLS[@]}"
+              exit 0
             fi
+            echo "  ${#PENDING[@]} not live yet (attempt $attempt/30)…"
             sleep 20
           done
-          echo "::error::$URL did not become live/correct within timeout"
+          printf '::error::%s did not become live/correct within timeout\n' "${PENDING[@]}"
           exit 1

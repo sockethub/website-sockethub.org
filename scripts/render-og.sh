@@ -7,7 +7,10 @@
 # Usage:
 #   ./scripts/render-og.sh
 #
-# Requires ImageMagick (`convert`).
+# Renderer: librsvg (`rsvg-convert`, brew install librsvg), or headless
+# Chrome when it is missing. ImageMagick is deliberately not used: its
+# internal SVG renderer has no font support and fails on these cards,
+# and Homebrew's build does not hand SVGs to the librsvg delegate.
 
 set -euo pipefail
 
@@ -15,24 +18,42 @@ cd "$(dirname "$0")/.."
 
 OG_DIR="src/res/img/og"
 
-# Prefer ImageMagick 7's `magick` command; fall back to v6's `convert`.
-if command -v magick >/dev/null 2>&1; then
-  IM=(magick)
-elif command -v convert >/dev/null 2>&1; then
-  IM=(convert)
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+render() {
+  local svg="$1" png="$2"
+  case "$RENDERER" in
+    rsvg)
+      rsvg-convert --width 1200 --height 630 --output "$png" "$svg"
+      ;;
+    chrome)
+      "$CHROME" --headless=new --disable-gpu --force-device-scale-factor=1 \
+        --window-size=1200,630 --screenshot="$PWD/$png" \
+        "file://$PWD/$svg" >/dev/null 2>&1
+      ;;
+  esac
+}
+
+if command -v rsvg-convert >/dev/null 2>&1; then
+  RENDERER=rsvg
+elif [[ -x "$CHROME" ]]; then
+  RENDERER=chrome
 else
-  echo "error: ImageMagick not found on PATH (need 'magick' or 'convert')" >&2
-  echo "install with: brew install imagemagick  (macOS)" >&2
-  echo "           or: apt install imagemagick   (Debian/Ubuntu)" >&2
+  echo "error: no usable SVG renderer found" >&2
+  echo "install with: brew install librsvg  (macOS)" >&2
+  echo "           or: apt install librsvg2-bin  (Debian/Ubuntu)" >&2
+  echo "           or: install Google Chrome" >&2
   exit 1
 fi
+
+echo "using renderer: $RENDERER"
 
 count=0
 for svg in "$OG_DIR"/*.svg; do
   [[ -e "$svg" ]] || { echo "no SVGs found in $OG_DIR"; exit 0; }
   png="${svg%.svg}.png"
   echo "rendering $(basename "$svg") → $(basename "$png")"
-  "${IM[@]}" -background none -density 144 "$svg" -resize 1200x630 "$png"
+  render "$svg" "$png"
   count=$((count+1))
 done
 

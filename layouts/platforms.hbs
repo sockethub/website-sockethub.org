@@ -16,6 +16,7 @@
         <a href="#xmpp">XMPP</a>
         <a href="#feeds">RSS / Atom</a>
         <a href="#metadata">Metadata</a>
+        <a href="#caldav">CalDAV</a>
       </nav>
     </div>
   </header>
@@ -274,6 +275,132 @@
   <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://example.org/reader"</span>,    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
   <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/article"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"link"</span> }
 }</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CalDAV ============ -->
+  <section class="protocol" id="caldav">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="10" width="24" height="22" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 17 H32" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 6 V12 M26 6 V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M15 24 l3.5 3.5 L25 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">CalDAV</h2>
+          <p class="protocol__sub">Calendars, events, and tasks on any CalDAV server.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-caldav" target="_blank" rel="noopener">
+          @sockethub/platform-caldav ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Discover calendars, then read, create, update, and delete events
+          (<code>VEVENT</code>) and tasks (<code>VTODO</code>) on any CalDAV
+          server — Nextcloud, Radicale, Fastmail, and friends. Every write is
+          guarded by an ETag check, so you never silently overwrite a change
+          made by another client.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full CalDAV flow is
+          <strong>credentials → fetch → query / create / update / delete</strong>.
+          <code>fetch</code> discovers your calendars; every later request
+          targets one of the discovered calendar URLs.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/caldav/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"caldav:alice"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:  <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"url"</span>:   <span class="tok-str">"https://calendar.example/dav/"</span>,
+    <span class="tok-key">"token"</span>: <span class="tok-str">"…"</span>
+  }
+}</code></pre>
+        <p>
+          <code>token</code> is sent as an HTTP Bearer token (your app runs the
+          OAuth flow itself). For Basic auth — typically an app password —
+          replace it with <code>username</code> and <code>password</code>. The
+          URL can be a service root; discovery also tries
+          <code>/.well-known/caldav</code>.
+        </p>
+
+        <h3 class="protocol__section">2. Discover calendars</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"caldav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> }
+}</code></pre>
+        <p>
+          The response lists your calendars as objects with an <code>id</code>
+          (the calendar URL), a <code>name</code>, a <code>color</code>, and
+          which <code>components</code> they support (<code>event</code>,
+          <code>task</code>).
+        </p>
+
+        <h3 class="protocol__section">3. Query events in a date range</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"query"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"caldav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"https://calendar.example/calendars/alice/personal/"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"calendar"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:      <span class="tok-str">"event"</span>,
+    <span class="tok-key">"startTime"</span>: <span class="tok-str">"2026-08-01T00:00:00Z"</span>,
+    <span class="tok-key">"endTime"</span>:   <span class="tok-str">"2026-09-01T00:00:00Z"</span>
+  }
+}</code></pre>
+        <p>
+          Each returned item carries its resource <code>id</code>,
+          <code>uid</code>, and <code>etag</code> — keep the ETag for later
+          update or delete requests.
+        </p>
+
+        <h3 class="protocol__section">4. Create an event</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"create"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"caldav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"https://calendar.example/calendars/alice/personal/"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"calendar"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:      <span class="tok-str">"event"</span>,
+    <span class="tok-key">"name"</span>:      <span class="tok-str">"Project planning"</span>,
+    <span class="tok-key">"startTime"</span>: <span class="tok-str">"2026-08-03T15:00:00"</span>,
+    <span class="tok-key">"endTime"</span>:   <span class="tok-str">"2026-08-03T16:00:00"</span>,
+    <span class="tok-key">"timeZone"</span>:  <span class="tok-str">"Europe/Prague"</span>
+  }
+}</code></pre>
+        <p>
+          Events and tasks support recurrence, attendees, reminders, and
+          attachments. <code>update</code> and <code>delete</code> send the
+          item's <code>etag</code>; if another client changed it in the
+          meantime you get <code>caldav:conflict</code> back — query again and
+          retry with the fresh ETag.
+        </p>
       </div>
     </div>
   </section>
