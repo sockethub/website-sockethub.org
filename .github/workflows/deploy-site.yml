@@ -63,6 +63,10 @@ jobs:
       - name: Checkout site
         uses: actions/checkout@v4
         with:
+          # Check out the branch tip, not the triggering SHA: a run that queued
+          # behind deploy-schemas.yml must build the master that workflow just
+          # pushed, or it would force-push a tree missing the new artifacts.
+          ref: ${{ github.ref }}
           # Full history so `git subtree split` can build the gh-pages tree.
           fetch-depth: 0
 
@@ -86,7 +90,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A build
-          git diff --cached --quiet || git commit -m "build: ${GITHUB_SHA}"
+          git diff --cached --quiet || git commit -m "build: $(git rev-parse HEAD)"
           git push origin "$(git subtree split --prefix build/ HEAD)":"${{ steps.target.outputs.branch }}" --force
 
       - name: Smoke-test live site
