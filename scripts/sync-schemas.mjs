@@ -50,6 +50,13 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
+// The release workflow dispatches this deploy as soon as its publish job ends,
+// but a version can take several minutes to become installable from the
+// registry (3.0.0-alpha.25 took ~2.5 min and outlasted the old 3-minute budget).
+// Allow ~10 minutes.
+const PACK_ATTEMPTS = 30;
+const PACK_RETRY_DELAY_MS = 20_000;
+
 function parseArgs(argv) {
     const opts = { alias: false, dryRun: false, tarball: null, version: null };
     for (let i = 0; i < argv.length; i++) {
@@ -81,11 +88,22 @@ function extractDist(version, tarballOverride, workDir) {
     if (!tgz) {
         const spec = `@sockethub/schemas@${version}`;
         let lastErr;
-        for (let attempt = 1; attempt <= 10; attempt++) {
+        for (let attempt = 1; attempt <= PACK_ATTEMPTS; attempt++) {
             try {
                 const out = execFileSync(
                     "npm",
-                    ["pack", spec, "--pack-destination", workDir, "--silent"],
+                    [
+                        "pack",
+                        spec,
+                        "--pack-destination",
+                        workDir,
+                        "--silent",
+                        // Revalidate registry metadata on every attempt. npm
+                        // otherwise reuses the packument it cached on the
+                        // first miss, so retries keep failing after the
+                        // version has actually appeared.
+                        "--prefer-online",
+                    ],
                     { encoding: "utf8" },
                 );
                 tgz = join(workDir, out.trim().split("\n").pop());
@@ -93,9 +111,9 @@ function extractDist(version, tarballOverride, workDir) {
             } catch (err) {
                 lastErr = err;
                 console.warn(
-                    `  npm pack ${spec} failed (attempt ${attempt}/10); registry may still be propagating…`,
+                    `  npm pack ${spec} failed (attempt ${attempt}/${PACK_ATTEMPTS}); registry may still be propagating…`,
                 );
-                sleep(20_000);
+                if (attempt < PACK_ATTEMPTS) sleep(PACK_RETRY_DELAY_MS);
             }
         }
         if (!tgz) throw lastErr;
