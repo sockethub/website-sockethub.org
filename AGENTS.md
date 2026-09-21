@@ -35,6 +35,8 @@ This processes source files from `src/` and generates the static site in `build/
 ```
 Pushes the `build/` directory to the `gh-pages` branch using git subtree. Note: This force pushes, so use with caution.
 
+Deployment normally happens in CI via `.github/workflows/deploy-site.yml`: it builds from source and force-pushes `build/` to `gh-pages` whenever site sources (`src/`, `layouts/`, `partials/`, `helpers/`, `build.js`, `release.json`, `package*.json`) land on `master`. It can also be run manually (`gh workflow run deploy-site.yml`, optionally `-f target=preview --ref <branch>` to publish a branch to `gh-pages-preview`). The CI build is not committed back to `master`. It shares a concurrency group with `deploy-schemas.yml` so the two never race the `gh-pages` force-push.
+
 ### Test
 No test suite is currently configured. The package.json test script exits with an error.
 

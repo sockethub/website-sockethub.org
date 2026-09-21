@@ -1,0 +1,116 @@
+name: Deploy site
+
+# Build the site from source and publish build/ to GitHub Pages: the CI
+# equivalent of `npm run build && ./deploy.sh [preview]`.
+#
+# Runs automatically when site sources land on master, and can be run manually
+# (workflow_dispatch) to redeploy, or to push any branch to the preview target.
+#
+# Pushes made by deploy-schemas.yml use GITHUB_TOKEN and so never trigger this
+# workflow; that workflow builds and deploys on its own.
+on:
+  push:
+    branches: [master]
+    paths:
+      - "src/**"
+      - "layouts/**"
+      - "partials/**"
+      - "helpers/**"
+      - "build.js"
+      - "release.json"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Where to publish (production = gh-pages, preview = gh-pages-preview)"
+        required: true
+        type: choice
+        default: production
+        options:
+          - production
+          - preview
+
+# Shared with deploy-schemas.yml: never let two deploys race the gh-pages
+# force-push (a site deploy built from a stale master would otherwise clobber
+# freshly published schema artifacts).
+concurrency:
+  group: deploy-schemas
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve target
+        id: target
+        env:
+          TARGET: ${{ inputs.target || 'production' }}
+        run: |
+          if [ "$TARGET" = "preview" ]; then
+            echo "branch=gh-pages-preview" >> "$GITHUB_OUTPUT"
+          elif [ "$GITHUB_REF" != "refs/heads/master" ]; then
+            echo "::error::production deploys must run from master (got $GITHUB_REF); use target=preview for other branches"
+            exit 1
+          else
+            echo "branch=gh-pages" >> "$GITHUB_OUTPUT"
+          fi
+          echo "🚀 $GITHUB_REF_NAME → $TARGET"
+
+      - name: Checkout site
+        uses: actions/checkout@v4
+        with:
+          # Check out the branch tip, not the triggering SHA: a run that queued
+          # behind deploy-schemas.yml must build the master that workflow just
+          # pushed, or it would force-push a tree missing the new artifacts.
+          ref: ${{ github.ref }}
+          # Full history so `git subtree split` can build the gh-pages tree.
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy build/ to ${{ steps.target.outputs.branch }}
+        run: |
+          # Same publish mechanism as ./deploy.sh: split the build/ subtree and
+          # force-push it as the Pages branch root. The fresh build is committed
+          # locally only so it is part of the split; it is never pushed to the
+          # source branch (routine build/ churn stays out of master).
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A build
+          git diff --cached --quiet || git commit -m "build: $(git rev-parse HEAD)"
+          git push origin "$(git subtree split --prefix build/ HEAD)":"${{ steps.target.outputs.branch }}" --force
+
+      - name: Smoke-test live site
+        if: steps.target.outputs.branch == 'gh-pages'
+        run: |
+          # The freshly built feed carries this build's timestamp, so once the
+          # live copy matches, GitHub Pages is serving this deploy.
+          WANT="$(grep -m1 -o '<lastBuildDate>[^<]*' build/feed.xml || true)"
+          if [ -z "$WANT" ]; then
+            echo "::warning::no lastBuildDate in build/feed.xml; checking reachability only"
+          fi
+          echo "Waiting for https://sockethub.org to serve this build (GitHub Pages may take a minute)…"
+          for attempt in $(seq 1 30); do
+            if curl -fsSL -o /dev/null https://sockethub.org/ \
+              && { [ -z "$WANT" ] || curl -fsSL https://sockethub.org/feed.xml | grep -qF "$WANT"; }; then
+              echo "✅ live"
+              exit 0
+            fi
+            echo "  not live yet (attempt $attempt/30)…"
+            sleep 20
+          done
+          echo "::error::https://sockethub.org did not serve the new build within timeout"
+          exit 1
