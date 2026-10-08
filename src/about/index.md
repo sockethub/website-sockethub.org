@@ -39,6 +39,7 @@ shape, Sockethub translates it, and you receive the same shape back.
 - Fetch and parse feeds (RSS, Atom)
 - Generate link previews and metadata
 - Manage calendar events and tasks (CalDAV)
+- Search and manage contacts (CardDAV)
 - Add new protocols as custom platforms
 
 ## Architecture
@@ -60,6 +61,7 @@ Currently implemented platforms include:
 - **RSS/Atom** – Feed processing and aggregation
 - **Metadata** – Link preview generation and metadata extraction
 - **CalDAV** – Calendar, event, and task synchronization
+- **CardDAV** – Address-book and contact synchronization
 
 ## Origins
 

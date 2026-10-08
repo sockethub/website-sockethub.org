@@ -17,6 +17,7 @@
         <a href="#feeds">RSS / Atom</a>
         <a href="#metadata">Metadata</a>
         <a href="#caldav">CalDAV</a>
+        <a href="#carddav">CardDAV</a>
       </nav>
     </div>
   </header>
@@ -401,6 +402,139 @@
           item's <code>etag</code>; if another client changed it in the
           meantime you get <code>caldav:conflict</code> back — query again and
           retry with the fresh ETag.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CardDAV ============ -->
+  <section class="protocol" id="carddav">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="9" y="8" width="22" height="24" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M6 14 H9 M6 20 H9 M6 26 H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="17" r="3.5" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 27 c0 -3.5 2.7 -5.5 6 -5.5 s6 2 6 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">CardDAV</h2>
+          <p class="protocol__sub">Contacts and address books on any CardDAV server.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-carddav" target="_blank" rel="noopener">
+          @sockethub/platform-carddav ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Discover address books, then search, create, update, and delete
+          vCard contacts on any CardDAV server — Nextcloud, Radicale,
+          Fastmail, and friends. Contacts come back as plain ActivityStreams
+          <code>person</code> objects, and every write is guarded by an ETag
+          check, so you never silently overwrite a change made by another
+          client.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full CardDAV flow is
+          <strong>credentials → fetch → query / create / update / delete</strong>.
+          <code>fetch</code> discovers your address books; every later request
+          targets one of the discovered address book URLs.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/carddav/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"carddav:alice"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:     <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"url"</span>:      <span class="tok-str">"https://contacts.example/dav/"</span>,
+    <span class="tok-key">"username"</span>: <span class="tok-str">"alice"</span>,
+    <span class="tok-key">"password"</span>: <span class="tok-str">"…"</span>
+  }
+}</code></pre>
+        <p>
+          <code>username</code> and <code>password</code> — typically an app
+          password — are sent as Basic or Digest auth. For Bearer auth (your
+          app runs the OAuth flow itself) replace them with a single
+          <code>token</code>. The URL can be a service root; discovery also
+          tries <code>/.well-known/carddav</code>.
+        </p>
+
+        <h3 class="protocol__section">2. Discover address books</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"carddav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> }
+}</code></pre>
+        <p>
+          The response lists your address books as objects with an
+          <code>id</code> (the address book URL) and a <code>name</code>.
+        </p>
+
+        <h3 class="protocol__section">3. Search contacts</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"query"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"carddav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"https://contacts.example/addressbooks/alice/personal/"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"addressBook"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:   <span class="tok-str">"contactQuery"</span>,
+    <span class="tok-key">"text"</span>:   <span class="tok-str">"Bob"</span>,
+    <span class="tok-key">"fields"</span>: [ <span class="tok-str">"name"</span>, <span class="tok-str">"email"</span> ],
+    <span class="tok-key">"limit"</span>:  <span class="tok-str">50</span>
+  }
+}</code></pre>
+        <p>
+          Leave <code>text</code> out to list the whole address book. Each
+          returned contact is a <code>person</code> with its resource
+          <code>id</code>, <code>uid</code>, and <code>etag</code>, plus
+          structured <code>emails</code>, <code>telephones</code>,
+          <code>addresses</code>, and <code>photoUrls</code> — keep the ETag
+          for later update or delete requests.
+        </p>
+
+        <h3 class="protocol__section">4. Create a contact</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"create"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"carddav:alice"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: {
+    <span class="tok-key">"id"</span>:   <span class="tok-str">"https://contacts.example/addressbooks/alice/personal/"</span>,
+    <span class="tok-key">"type"</span>: <span class="tok-str">"addressBook"</span>
+  },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:       <span class="tok-str">"person"</span>,
+    <span class="tok-key">"name"</span>:       <span class="tok-str">"Bob Example"</span>,
+    <span class="tok-key">"givenName"</span>:  <span class="tok-str">"Bob"</span>,
+    <span class="tok-key">"familyName"</span>: <span class="tok-str">"Example"</span>,
+    <span class="tok-key">"emails"</span>: [
+      { <span class="tok-key">"value"</span>: <span class="tok-str">"bob@example.com"</span>, <span class="tok-key">"types"</span>: [ <span class="tok-str">"work"</span> ], <span class="tok-key">"preferred"</span>: <span class="tok-str">true</span> }
+    ]
+  }
+}</code></pre>
+        <p>
+          The platform reads vCard 3.0 and 4.0 and writes vCard 4.0.
+          <code>update</code> sends the complete contact back with its
+          <code>etag</code>; properties your app doesn't understand are
+          preserved rather than erased. If another client changed the card in
+          the meantime you get <code>carddav:conflict</code> back — query again
+          and retry with the fresh ETag.
         </p>
       </div>
     </div>
