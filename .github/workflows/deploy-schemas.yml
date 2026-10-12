@@ -23,7 +23,7 @@ on:
         required: false
         type: string
       channel:
-        description: "Release channel whose advertised version to bump"
+        description: "Release channel whose advertised version to bump (stable or next)"
         required: false
         type: string
 

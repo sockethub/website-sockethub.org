@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node build.js",
     "build:stable": "SOCKETHUB_CHANNEL=stable node build.js",
-    "build:alpha": "SOCKETHUB_CHANNEL=alpha node build.js",
+    "build:next": "SOCKETHUB_CHANNEL=next node build.js",
     "serve": "cd build && python3 -m http.server 8080"
   },
   "repository": {

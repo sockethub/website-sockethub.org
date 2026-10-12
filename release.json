@@ -1,20 +1,20 @@
 {
-  "_comment": "Source of truth for the currently-promoted release channel. Flip `channel` to switch which version the site advertises. The `alpha` key is the prerelease channel (alpha, beta, rc); its label/installTag/imageTag describe the current prerelease stage. Can be overridden at build time with SOCKETHUB_CHANNEL=stable|alpha.",
-  "channel": "alpha",
+  "_comment": "Source of truth for the currently-promoted release channel. Two channels mirror the npm dist-tags: `stable` (latest) and `next` (any prerelease: alpha, beta, rc). Flip `channel` to switch which one the site advertises; `label` is the human-readable stage shown in the banner. Can be overridden at build time with SOCKETHUB_CHANNEL=stable|next.",
+  "channel": "next",
   "channels": {
-    "alpha": {
+    "next": {
       "version": "5.0.0-beta.0",
       "installTag": "@next",
+      "imageTag": "next",
       "label": "Beta",
-      "releasesUrl": "https://github.com/sockethub/sockethub/releases",
-      "imageTag": "next"
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
     },
     "stable": {
       "version": "4.1.0",
       "installTag": "",
+      "imageTag": "latest",
       "label": "Stable",
-      "releasesUrl": "https://github.com/sockethub/sockethub/releases",
-      "imageTag": "latest"
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
     }
   }
 }
