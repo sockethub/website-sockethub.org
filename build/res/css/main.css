@@ -1001,74 +1001,129 @@ img.theme-only-dark { display: none; }
 .fanout__chip-desc { font-family: var(--font-sans); font-size: 11px; fill: var(--fg-muted); }
 
 /* Envelopes — CSS transforms in SVG user-coordinate space.
-   Each variant gets its own color so the five trails read as five
-   distinct protocols, not one swarm. The drop-shadow is ember-warm
-   so the glow coheres with the hub. */
+   Each envelope makes a round trip: browser → hub → platform, a pause
+   while the platform "fills it in" (payload lines fade in and the
+   envelope is sealed in the platform's colour), then platform → hub →
+   browser. Each variant gets its own colour so the six trails read as
+   six distinct protocols, not one swarm. Six envelopes launch 2s apart
+   on a 12s cycle, so there is always traffic in both directions. */
 .fanout-envelope {
-  transform: translate(130px, 225px);
+  --envelope-ink: var(--brand-500);
+  transform: translate(130px, 255px);
   opacity: 0;
   fill: var(--bg-raised);
-  stroke: var(--brand-500);
+  stroke: var(--envelope-ink);
   stroke-width: 1.4;
-  filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--brand-500) 30%, transparent));
-  animation-duration: 7.5s;
+  filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--envelope-ink) 30%, transparent));
+  animation-duration: 12s;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.35, 0.08, 0.4, 1);
 }
 .fanout-envelope path { fill: none; stroke: inherit; stroke-width: 1.4; }
 
-.fanout-envelope--irc      { stroke: var(--brand-400); animation-name: fanout-irc;      animation-delay: 0s;   }
-.fanout-envelope--xmpp     { stroke: var(--brand-500); animation-name: fanout-xmpp;     animation-delay: 1.5s; }
-.fanout-envelope--feeds    { stroke: var(--brand-700); animation-name: fanout-feeds;    animation-delay: 3s;   }
-.fanout-envelope--metadata { stroke: var(--accent-500); animation-name: fanout-metadata; animation-delay: 4.5s;
-                             filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--accent-500) 30%, transparent)); }
-.fanout-envelope--caldav   { stroke: var(--accent-600); animation-name: fanout-caldav;   animation-delay: 6s;
-                             filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--accent-600) 30%, transparent)); }
+/* The reply: short "text lines" that appear once the platform has
+   written into the envelope. Inherits the parent's timing so the two
+   animations stay in lock-step. */
+.fanout-envelope__payload {
+  stroke: var(--bg-raised) !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: fanout-payload 12s infinite;
+  animation-delay: inherit;
+}
 
+.fanout-envelope--irc      { --envelope-ink: var(--brand-400); animation-name: fanout-irc; animation-delay: 0s; }
+.fanout-envelope--xmpp     { --envelope-ink: var(--brand-500); animation-name: fanout-xmpp; animation-delay: 2s; }
+.fanout-envelope--feeds    { --envelope-ink: var(--brand-700); animation-name: fanout-feeds; animation-delay: 4s; }
+.fanout-envelope--metadata { --envelope-ink: var(--accent-500); animation-name: fanout-metadata; animation-delay: 6s; }
+.fanout-envelope--caldav   { --envelope-ink: var(--accent-600); animation-name: fanout-caldav; animation-delay: 8s; }
+.fanout-envelope--carddav  { --envelope-ink: var(--accent-700); animation-name: fanout-carddav; animation-delay: 10s; }
+
+/* Outbound: outlined envelope. 42–48%: the platform fills and seals it.
+   Inbound: solid envelope in the platform colour, payload visible. */
 @keyframes fanout-irc {
-  0%   { transform: translate(130px, 225px); opacity: 0; }
-  6%   { opacity: 1; }
-  32%  { transform: translate(400px, 225px); opacity: 1; }
-  40%  { transform: translate(400px, 225px); opacity: 1; }
-  74%  { transform: translate(620px, 45px);  opacity: 1; }
-  90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 45px);  opacity: 0; }
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 45px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 45px);  fill: var(--brand-400); }
+  55%  { transform: translate(620px, 45px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--brand-400); }
 }
 @keyframes fanout-xmpp {
-  0%   { transform: translate(130px, 225px); opacity: 0; }
-  6%   { opacity: 1; }
-  32%  { transform: translate(400px, 225px); opacity: 1; }
-  40%  { transform: translate(400px, 225px); opacity: 1; }
-  74%  { transform: translate(620px, 135px); opacity: 1; }
-  90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 135px); opacity: 0; }
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 129px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 129px);  fill: var(--brand-500); }
+  55%  { transform: translate(620px, 129px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--brand-500); }
 }
 @keyframes fanout-feeds {
-  0%   { transform: translate(130px, 225px); opacity: 0; }
-  6%   { opacity: 1; }
-  32%  { transform: translate(400px, 225px); opacity: 1; }
-  40%  { transform: translate(400px, 225px); opacity: 1; }
-  74%  { transform: translate(620px, 225px); opacity: 1; }
-  90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 225px); opacity: 0; }
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 213px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 213px);  fill: var(--brand-700); }
+  55%  { transform: translate(620px, 213px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--brand-700); }
 }
 @keyframes fanout-metadata {
-  0%   { transform: translate(130px, 225px); opacity: 0; }
-  6%   { opacity: 1; }
-  32%  { transform: translate(400px, 225px); opacity: 1; }
-  40%  { transform: translate(400px, 225px); opacity: 1; }
-  74%  { transform: translate(620px, 315px); opacity: 1; }
-  90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 315px); opacity: 0; }
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 297px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 297px);  fill: var(--accent-500); }
+  55%  { transform: translate(620px, 297px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--accent-500); }
 }
 @keyframes fanout-caldav {
-  0%   { transform: translate(130px, 225px); opacity: 0; }
-  6%   { opacity: 1; }
-  32%  { transform: translate(400px, 225px); opacity: 1; }
-  40%  { transform: translate(400px, 225px); opacity: 1; }
-  74%  { transform: translate(620px, 405px); opacity: 1; }
-  90%  { opacity: 0.5; }
-  100% { transform: translate(620px, 405px); opacity: 0; }
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 381px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 381px);  fill: var(--accent-600); }
+  55%  { transform: translate(620px, 381px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--accent-600); }
+}
+@keyframes fanout-carddav {
+  0%   { transform: translate(130px, 255px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 1; }
+  20%  { transform: translate(400px, 255px); }
+  25%  { transform: translate(400px, 255px); }
+  42%  { transform: translate(620px, 465px);  fill: var(--bg-raised); }
+  48%  { transform: translate(620px, 465px);  fill: var(--accent-700); }
+  55%  { transform: translate(620px, 465px); }
+  72%  { transform: translate(400px, 255px); }
+  77%  { transform: translate(400px, 255px); }
+  95%  { transform: translate(130px, 255px); opacity: 1; }
+  100% { transform: translate(130px, 255px); opacity: 0; fill: var(--accent-700); }
+}
+@keyframes fanout-payload {
+  0%, 44% { opacity: 0; }
+  50%, 95% { opacity: 1; }
+  100%    { opacity: 0; }
 }
 
 /* Mobile: diagram scales down; section 16 disables animations for
@@ -1090,7 +1145,7 @@ img.theme-only-dark { display: none; }
 }
 
 @media (min-width: 40rem) { .platforms__grid { grid-template-columns: repeat(2, 1fr); } }
-/* Five cards: 3 + 2 wraps more evenly than 4 + 1. */
+/* Six cards: 3 + 3. */
 @media (min-width: 64rem) { .platforms__grid { grid-template-columns: repeat(3, 1fr); } }
 
 .platform-card {

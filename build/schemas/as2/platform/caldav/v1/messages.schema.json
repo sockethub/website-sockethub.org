@@ -8,6 +8,7 @@
       "type": "string",
       "enum": [
         "fetch",
+        "read",
         "query",
         "create",
         "update",
@@ -35,24 +36,49 @@
       }
     },
     "target": {
-      "type": "object",
-      "required": [
-        "id",
-        "type"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uri",
-          "maxLength": 4096
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 4096
+            },
+            "type": {
+              "enum": [
+                "calendar"
+              ]
+            }
+          }
         },
-        "type": {
-          "enum": [
-            "calendar"
-          ]
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^(?:https?|webcal)://",
+              "maxLength": 4096
+            },
+            "type": {
+              "enum": [
+                "feed"
+              ]
+            }
+          }
         }
-      }
+      ]
     },
     "object": {
       "oneOf": [
