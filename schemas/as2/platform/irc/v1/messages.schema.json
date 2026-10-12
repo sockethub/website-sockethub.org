@@ -28,6 +28,9 @@
         },
         {
           "$ref": "#/definitions/objectTypes/attendance"
+        },
+        {
+          "$ref": "#/definitions/objectTypes/channels"
         }
       ]
     },
@@ -119,6 +122,25 @@
             "enum": [
               "attendance"
             ]
+          }
+        }
+      },
+      "channels": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "channels"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^\\s]+$"
           }
         }
       }

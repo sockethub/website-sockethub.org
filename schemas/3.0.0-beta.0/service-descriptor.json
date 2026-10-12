@@ -1,0 +1,58 @@
+{
+	"$id": "https://sockethub.org/schemas/3.0.0-beta.0/service-descriptor.json",
+	"description": "Sockethub service descriptor",
+	"type": "object",
+	"required": [
+		"name",
+		"apiVersion",
+		"platforms"
+	],
+	"additionalProperties": true,
+	"properties": {
+		"name": {
+			"const": "sockethub"
+		},
+		"apiVersion": {
+			"type": "integer",
+			"minimum": 0
+		},
+		"endpoints": {
+			"type": "object",
+			"required": [
+				"socketIO"
+			],
+			"additionalProperties": true,
+			"properties": {
+				"socketIO": {
+					"type": "string",
+					"pattern": "^/(?![/\\\\])[^\\s\\\\]*$"
+				},
+				"httpActions": {
+					"type": "string",
+					"pattern": "^/(?![/\\\\])[^\\s\\\\]*$"
+				}
+			}
+		},
+		"platforms": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [
+					"id",
+					"apiVersion"
+				],
+				"additionalProperties": true,
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"apiVersion": {
+						"type": "integer",
+						"minimum": 0
+					}
+				}
+			}
+		}
+	}
+}
