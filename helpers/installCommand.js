@@ -1,5 +1,5 @@
 // Returns the npm install command for the current release channel, e.g.
-//   "npm install -g sockethub@alpha"  (alpha)
+//   "npm install -g sockethub@next"   (prerelease channel)
 //   "npm install -g sockethub"        (stable)
 module.exports = function () {
   const release = this && this.site && this.site.release;

@@ -1,18 +1,20 @@
 {
-  "_comment": "Source of truth for the currently-promoted release channel. Flip `channel` to switch which version the site advertises. Can be overridden at build time with SOCKETHUB_CHANNEL=stable|alpha.",
+  "_comment": "Source of truth for the currently-promoted release channel. Flip `channel` to switch which version the site advertises. The `alpha` key is the prerelease channel (alpha, beta, rc); its label/installTag/imageTag describe the current prerelease stage. Can be overridden at build time with SOCKETHUB_CHANNEL=stable|alpha.",
   "channel": "alpha",
   "channels": {
     "alpha": {
       "version": "5.0.0-beta.0",
-      "installTag": "@alpha",
-      "label": "Alpha",
-      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
+      "installTag": "@next",
+      "label": "Beta",
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases",
+      "imageTag": "next"
     },
     "stable": {
       "version": "4.1.0",
       "installTag": "",
       "label": "Stable",
-      "releasesUrl": "https://github.com/sockethub/sockethub/releases"
+      "releasesUrl": "https://github.com/sockethub/sockethub/releases",
+      "imageTag": "latest"
     }
   }
 }

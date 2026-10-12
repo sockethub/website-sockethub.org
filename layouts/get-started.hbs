@@ -66,7 +66,7 @@ sockethub --examples</code></pre>
   <span class="tok-key">redis</span>:
     <span class="tok-key">image</span>: <span class="tok-str">redis:7-alpine</span>
   <span class="tok-key">sockethub</span>:
-    <span class="tok-key">image</span>: <span class="tok-str">sockethub/sockethub:alpha</span>
+    <span class="tok-key">image</span>: <span class="tok-str">ghcr.io/sockethub/sockethub:{{site.release.imageTag}}</span>
     <span class="tok-key">ports</span>: [<span class="tok-str">"10550:10550"</span>]
     <span class="tok-key">environment</span>:
       <span class="tok-key">REDIS_URL</span>: <span class="tok-str">redis://redis:6379</span>
