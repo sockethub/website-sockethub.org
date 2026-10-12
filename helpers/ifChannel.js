@@ -1,7 +1,7 @@
 // Block helper: renders its body only when the resolved release channel
 // matches the given name. Use like:
 //
-//   {{#ifChannel "alpha"}} shown only during alpha {{/ifChannel}}
+//   {{#ifChannel "next"}} shown only on the prerelease channel {{/ifChannel}}
 //
 // The channel name comes from site.release.channel, populated by build.js
 // from release.json (or the SOCKETHUB_CHANNEL env var).

@@ -5,7 +5,10 @@
  * The deploy-schemas workflow calls this with the server release version so the
  * site's advertised version tracks releases automatically. It only touches the
  * version of the named channel — it never flips the active `channel` (promoting
- * alpha -> stable stays an editorial decision).
+ * next -> stable stays an editorial decision).
+ *
+ * `alpha` is accepted as a legacy alias for `next`: the core repo's
+ * release-publish workflow still sends that name for prereleases.
  *
  * Usage: node scripts/set-channel-version.mjs <channel> <version>
  */
@@ -17,8 +20,11 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const RELEASE_JSON = join(ROOT, "release.json");
 
-const [channel, version] = process.argv.slice(2);
-if (!channel || !version) {
+const LEGACY_ALIASES = { alpha: "next" };
+
+const [rawChannel, version] = process.argv.slice(2);
+const channel = LEGACY_ALIASES[rawChannel] ?? rawChannel;
+if (!rawChannel || !version) {
     console.error("usage: set-channel-version.mjs <channel> <version>");
     process.exit(1);
 }
