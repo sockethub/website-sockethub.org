@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+
+  <!--
+    Theme bootstrap. Runs synchronously before the stylesheet loads so the
+    `data-theme` attribute is already present on <html> when styles first
+    paint. Prevents a light-flash on a dark-mode preference, and vice
+    versa. Reads a persisted choice from localStorage; falls back to the
+    system preference when the user hasn't chosen.
+  -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var pref = (stored === "light" || stored === "dark") ? stored :
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", pref);
+      } catch (e) {
+        /* private-mode or blocked storage — fall through to media-query default */
+      }
+    })();
+  </script>
+
+  <title>Sockethub 5.0.0 enters beta — Sockethub</title>
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="author" content="Nick Jennings">
+
+  <meta property="og:title" content="Sockethub 5.0.0 enters beta — Sockethub">
+  <meta property="og:site_name" content="Sockethub">
+  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sockethub.org">
+  <meta property="og:image" content="https://sockethub.org/res/img/og/sockethub.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sockethub 5.0.0 enters beta — Sockethub">
+  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="twitter:image" content="https://sockethub.org/res/img/og/sockethub.png">
+
+  <link rel="canonical" href="https://sockethub.org">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/res/css/main.css">
+  <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="/feed.xml">
+
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['disableCookies']);
+    _paq.push(['enableHeartBeatTimer']);
+    _paq.push(['enableJSErrorTracking']);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['trackAllContentImpressions']);
+    (function() {
+      var u = "//matomo.silverbucket.net/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '4']);
+      var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript';
+      g.async = true;
+      g.src = u + 'matomo.js';
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+</head>
+<body>
+<div class="release-banner" data-banner="next-5.0.0-beta.0" role="region" aria-label="Release channel notice">
+  <div class="release-banner__inner">
+    <span class="release-banner__tag">Beta</span>
+    <p class="release-banner__text">
+      Sockethub <strong>5.0.0-beta.0</strong> is the current active-use release.
+      <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
+    </p>
+    <button type="button" class="release-banner__close" aria-label="Dismiss release notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+<script>
+  (function () {
+    var el = document.querySelector('.release-banner');
+    if (!el) return;
+    var key = 'sh-banner-dismissed-' + el.getAttribute('data-banner');
+    try {
+      if (localStorage.getItem(key) === '1') { el.hidden = true; return; }
+    } catch (e) { /* storage disabled; render the banner */ }
+    var btn = el.querySelector('.release-banner__close');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        el.hidden = true;
+        try { localStorage.setItem(key, '1'); } catch (e) { /* ignore */ }
+      });
+    }
+  })();
+</script>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="/">
+      <img src="/res/img/sockethub-icon.svg" alt="" width="28" height="28">
+      <span class="site-header__brand-text">Sockethub</span>
+    </a>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="/"             >Home</a>
+      <a href="/get-started"  >Get started</a>
+      <a href="/how-it-works" >How it works</a>
+      <a href="/platforms"    >Platforms</a>
+      <a href="/news"         >News</a>
+      <a href="/about"        >About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<article class="news-post">
+  <header class="news-post__head">
+    <div class="container">
+      <p class="news-post__eyebrow">
+        <a href="/news">News</a>
+      </p>
+      <h1 class="news-post__title">Sockethub 5.0.0 enters beta</h1>
+      <p class="news-post__meta">
+        <time datetime="2026-10-12">
+          2026.10.12
+        </time>
+        <span class="news-post__sep">·</span>Nick Jennings
+          <span class="news-post__sep">·</span>2 min read
+      </p>
+    </div>
+  </header>
+
+  <div class="container news-post__body prose">
+    <p>Sockethub 5.0.0 has left alpha. The first beta,
+<a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.0">5.0.0-beta.0</a>,
+is available now:</p>
+<pre><code>npm install -g sockethub@next
+</code></pre>
+<p>Prereleases now publish under the <code>next</code> tag, for npm and for the container
+image at <code>ghcr.io/sockethub/sockethub:next</code>. The old <code>@alpha</code> tag stays at the
+last alpha and will not be updated again.</p>
+<p>When we <a href="/news/release-500-alpha/">announced the alphas</a> in January we said
+we&#39;d post again once we reached beta. This is that post.</p>
+<h2 id="what-beta-means">What beta means</h2>
+<p>The alpha series was about getting the architecture right: the package split,
+the move to Bun and BullMQ, and the
+<a href="/news/alpha-12-canonical-context/">canonical AS2.0 contexts</a>. That work is
+done. Beta means the shape of 5.0 is settled.</p>
+<ul>
+<li><strong>This is largely what 5.0 will be.</strong> The message envelope, the client API,
+the platform interface, and the published schemas are in their 5.0 form.
+Code written against the beta should carry over to the final release.</li>
+<li><strong>It is already stable.</strong> The last stretch of alphas went into hardening
+rather than features, mostly IRC session and nick handling, CardDAV
+round-trip correctness, and safer outbound fetching. It has held up well in
+day-to-day use.</li>
+<li><strong>It is not a complete feature freeze.</strong> We will still land additions that
+leave existing behaviour alone, and the newer platforms (CalDAV and CardDAV)
+will keep filling out.</li>
+<li><strong>Breaking changes are the exception now.</strong> When one is unavoidable it is
+listed under Breaking Changes at the top of the release notes, as the IRC
+attendance change is in beta.0. If that section is empty, upgrading is safe.</li>
+</ul>
+<h2 id="new-in-beta0">New in beta.0</h2>
+<p>Beyond the fixes, a few things landed since the last alpha:</p>
+<ul>
+<li>The server serves an info page at its root and advertises its connection
+endpoints in the service descriptor, so clients can connect by discovery
+instead of a hardcoded URL.</li>
+<li>A <code>GET /health</code> endpoint for anyone running Sockethub behind a load balancer
+or orchestrator.</li>
+<li>CalDAV reads published iCalendar feeds, and the CardDAV example now covers
+create, edit, delete, and list.</li>
+<li>IRC can list a server&#39;s channels, and answers attendance queries with a
+single <code>members</code> message.</li>
+</ul>
+<p>The <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.0">full changelog</a>
+has everything.</p>
+<h2 id="the-road-to-50">The road to 5.0</h2>
+<p>We expect a short beta series rather than another long one. Each beta will
+bundle the fixes that come out of real use, and 5.0.0 follows once those settle
+down. The most useful thing you can do is run the beta against your own IRC,
+XMPP, or DAV servers and
+<a href="https://github.com/sockethub/sockethub/issues">tell us what breaks</a>.</p>
+<p>The documentation on this site tracks the beta: <a href="/get-started/">get started</a>,
+<a href="/platforms/">platforms</a>, and the <a href="/client/">client</a> and <a href="/server/">server</a>
+guides.</p>
+
+  </div>
+
+  <footer class="news-post__foot">
+    <div class="container">
+      <a class="button is-light" href="/news">← All news</a>
+    </div>
+  </footer>
+</article>
+
+</main>
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__credits">
+      <p>
+        Developed and maintained by
+        <a href="https://silverbucket.net" target="_blank" rel="noopener">Nick Jennings</a>.
+      </p>
+      <p>Released under the <a href="https://github.com/sockethub/sockethub/blob/master/LICENSE">GNU Lesser General Public License 3.0</a>.</p>
+    </div>
+
+    <div class="site-footer__sponsor">
+      <span class="site-footer__sponsor-label">Sponsored by</span>
+      <a href="https://nlnet.nl" target="_blank" rel="noopener">
+        <img class="theme-only-light" src="/res/img/nlnet-logo.svg"      alt="NLnet Foundation" width="160" height="48">
+        <img class="theme-only-dark"  src="/res/img/nlnet-logo.dark.svg" alt=""                 width="160" height="48" aria-hidden="true">
+      </a>
+    </div>
+
+    <div class="site-footer__controls">
+      <div class="site-footer__icons">
+        <a href="https://sockethub.org/feed.xml"
+           rel="alternate" type="application/rss+xml"
+           aria-label="Subscribe to Sockethub news feed">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 11a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 4a16 16 0 0 1 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="5.5" cy="18.5" r="1.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="https://github.com/sockethub/sockethub"
+           rel="me noopener" target="_blank"
+           aria-label="Sockethub on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.9 18 5.2 18 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6a11.6 11.6 0 0 0 7.9-11C23.5 5.6 18.3.5 12 .5z"/>
+          </svg>
+        </a>
+      </div>
+
+      <fieldset class="theme-switch" aria-label="Theme">
+        <legend class="visually-hidden">Appearance</legend>
+        <button type="button" class="theme-switch__btn" data-theme-set="system" aria-label="Match system theme" title="System">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 20h8M10 17v3M14 17v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="light" aria-label="Use light theme" title="Light">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="theme-switch__btn" data-theme-set="dark" aria-label="Use dark theme" title="Dark">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 14.5A8 8 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </fieldset>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll(".theme-switch__btn");
+    var media = matchMedia("(prefers-color-scheme: dark)");
+
+    // What did the user actually pick? "system" when they haven't stored
+    // anything; "light" / "dark" when they've chosen explicitly.
+    function storedChoice() {
+      try {
+        var s = localStorage.getItem("theme");
+        return (s === "light" || s === "dark") ? s : "system";
+      } catch (e) { return "system"; }
+    }
+
+    // Resolve a choice to the concrete theme that should be applied to <html>.
+    function resolve(choice) {
+      if (choice === "light" || choice === "dark") return choice;
+      return media.matches ? "dark" : "light";
+    }
+
+    // Apply + highlight. Choice is what the user picked; resolved is what
+    // the page actually renders as.
+    function paint(choice) {
+      var resolved = resolve(choice);
+      root.setAttribute("data-theme", resolved);
+      buttons.forEach(function (b) {
+        var on = b.getAttribute("data-theme-set") === choice;
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var choice = b.getAttribute("data-theme-set");
+        try {
+          if (choice === "system") localStorage.removeItem("theme");
+          else                     localStorage.setItem("theme", choice);
+        } catch (e) { /* storage blocked — we still paint for this session */ }
+        paint(choice);
+      });
+    });
+
+    // When the user is on "system", react to OS scheme changes live.
+    media.addEventListener("change", function () {
+      if (storedChoice() === "system") paint("system");
+    });
+
+    paint(storedChoice());
+  })();
+</script>
+</body>
+</html>

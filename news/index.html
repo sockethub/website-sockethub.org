@@ -71,14 +71,14 @@
   </script>
 </head>
 <body>
-<div class="alpha-banner" data-banner="alpha-5.0.0-beta.0" role="region" aria-label="Release channel notice">
-  <div class="alpha-banner__inner">
-    <span class="alpha-banner__tag">Alpha</span>
-    <p class="alpha-banner__text">
+<div class="release-banner" data-banner="next-5.0.0-beta.0" role="region" aria-label="Release channel notice">
+  <div class="release-banner__inner">
+    <span class="release-banner__tag">Beta</span>
+    <p class="release-banner__text">
       Sockethub <strong>5.0.0-beta.0</strong> is the current active-use release.
       <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
     </p>
-    <button type="button" class="alpha-banner__close" aria-label="Dismiss release notice">
+    <button type="button" class="release-banner__close" aria-label="Dismiss release notice">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
@@ -87,13 +87,13 @@
 </div>
 <script>
   (function () {
-    var el = document.querySelector('.alpha-banner');
+    var el = document.querySelector('.release-banner');
     if (!el) return;
     var key = 'sh-banner-dismissed-' + el.getAttribute('data-banner');
     try {
       if (localStorage.getItem(key) === '1') { el.hidden = true; return; }
     } catch (e) { /* storage disabled; render the banner */ }
-    var btn = el.querySelector('.alpha-banner__close');
+    var btn = el.querySelector('.release-banner__close');
     if (btn) {
       btn.addEventListener('click', function () {
         el.hidden = true;
@@ -137,6 +137,22 @@
         <section class="news-year">
           <h2 class="news-year__label">2026</h2>
           <ol class="news-year__list">
+              <li class="news-card">
+                <a class="news-card__link" href="/news/release-500-beta/">
+                  <time class="news-card__date" datetime="2026-10-12">
+                    10.12
+                  </time>
+                  <div class="news-card__body">
+                    <h3 class="news-card__title">Sockethub 5.0.0 enters beta</h3>
+                    <p class="news-card__excerpt">Sockethub 5.0.0 has left alpha. The first beta, 5.0.0-beta.0 , is available now: npm install -g sockethub@next Prereleases now publish under the next tag, for npm and for the…</p>
+                    <p class="news-card__meta">
+                      Nick Jennings
+                        &nbsp;·&nbsp;
+                        2 min read
+                    </p>
+                  </div>
+                </a>
+              </li>
               <li class="news-card">
                 <a class="news-card__link" href="/news/alpha-12-canonical-context/">
                   <time class="news-card__date" datetime="2026-03-29">
