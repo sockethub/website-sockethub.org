@@ -34,7 +34,7 @@
   <meta property="og:site_name" content="{{site.title}}">
   <meta property="og:description" content="{{#if og_description}}{{og_description}}{{else}}{{site.description}}{{/if}}">
   <meta property="og:type" content="{{#if og_type}}{{og_type}}{{else}}website{{/if}}">
-  <meta property="og:url" content="{{site.url}}{{#if path}}/{{path}}{{/if}}">
+  <meta property="og:url" content="{{canonical}}">
   <meta property="og:image" content="{{site.url}}{{#if og_image}}{{og_image}}{{else}}/res/img/og/sockethub.png{{/if}}">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -42,7 +42,26 @@
   <meta name="twitter:description" content="{{#if og_description}}{{og_description}}{{else}}{{site.description}}{{/if}}">
   <meta name="twitter:image" content="{{site.url}}{{#if og_image}}{{og_image}}{{else}}/res/img/og/sockethub.png{{/if}}">
 
-  <link rel="canonical" href="{{site.url}}{{#if path}}/{{path}}{{/if}}">
+  <link rel="canonical" href="{{canonical}}">
+  {{#ifEq current_page "home"}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "Sockethub",
+    "url": "https://sockethub.org/",
+    "description": "Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.",
+    "codeRepository": "https://github.com/sockethub/sockethub",
+    "license": "https://github.com/sockethub/sockethub/blob/master/LICENSE",
+    "programmingLanguage": ["TypeScript", "JavaScript"],
+    "funder": {
+      "@type": "Organization",
+      "name": "NLnet",
+      "url": "https://nlnet.nl/"
+    }
+  }
+  </script>
+  {{/ifEq}}
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/res/css/main.css">
   <link rel="alternate" type="application/rss+xml" title="Sockethub News" href="/feed.xml">

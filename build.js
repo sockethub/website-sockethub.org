@@ -130,6 +130,13 @@ Metalsmith(ROOT)
       ],
     })
   )
+  .use((files) => {
+    for (const filepath of Object.keys(files)) {
+      if (!filepath.endsWith('.html')) continue;
+      files[filepath].canonical = `${site.url}/${filepath.replace(/index\.html$/, '')}`;
+      if (files[filepath].redirect_to) files[filepath].private = true;
+    }
+  })
   .use(
     feed({
       collection: "news",
