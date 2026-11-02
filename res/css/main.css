@@ -27,7 +27,7 @@
 
   /* ---- Accent: cool cyan counterpoint ----
      The warm brand needs a cool other — this cyan carries the "digital
-     signal" voice: metadata chips, alpha banner, code highlights. */
+     signal" voice: metadata chips, release banner, code highlights. */
   --accent-300: #a5f3fc;
   --accent-400: #22d3ee;
   --accent-500: #06b6d4;
@@ -571,19 +571,19 @@ img.theme-only-dark { display: none; }
 :root[data-theme="dark"] img.theme-only-dark  { display: inline-block; }
 
 /* --------------------------------------------------------------------------
-   4. Alpha banner
+   4. Release banner
    -------------------------------------------------------------------------- */
 
-.alpha-banner {
+.release-banner {
   background: linear-gradient(135deg,
               color-mix(in oklab, var(--accent-500) 18%, var(--bg)),
               color-mix(in oklab, var(--accent-700) 10%, var(--bg)));
   border-bottom: 1px solid color-mix(in oklab, var(--accent-600) 30%, var(--border));
 }
 
-.alpha-banner[hidden] { display: none; }
+.release-banner[hidden] { display: none; }
 
-.alpha-banner__inner {
+.release-banner__inner {
   max-width: var(--container);
   margin-inline: auto;
   padding: var(--space-xs) var(--space-md);
@@ -594,7 +594,7 @@ img.theme-only-dark { display: none; }
   color: var(--fg);
 }
 
-.alpha-banner__tag {
+.release-banner__tag {
   display: inline-block;
   padding: 0.125rem 0.5rem;
   background: var(--accent-600);
@@ -606,10 +606,10 @@ img.theme-only-dark { display: none; }
   text-transform: uppercase;
 }
 
-.alpha-banner__text { margin: 0; flex: 1; }
-.alpha-banner__text strong { font-weight: 650; }
+.release-banner__text { margin: 0; flex: 1; }
+.release-banner__text strong { font-weight: 650; }
 
-.alpha-banner__close {
+.release-banner__close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -623,13 +623,13 @@ img.theme-only-dark { display: none; }
               background var(--dur-fast) var(--ease);
 }
 
-.alpha-banner__close:hover {
+.release-banner__close:hover {
   color: var(--fg);
   background: color-mix(in oklab, var(--fg) 8%, transparent);
 }
 
 @media (max-width: 30rem) {
-  .alpha-banner__inner { padding-block: var(--space-sm); }
+  .release-banner__inner { padding-block: var(--space-sm); }
 }
 
 /* --------------------------------------------------------------------------
@@ -2168,7 +2168,7 @@ a.support-option:hover .support-option__icon {
 @media print {
   .site-header,
   .site-footer,
-  .alpha-banner,
+  .release-banner,
   .hero-actions,
   .news_brief > .button { display: none; }
 
