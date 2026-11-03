@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sockethub.org/sitemap.xml
