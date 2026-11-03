@@ -34,12 +34,19 @@ import SockethubClient from '@sockethub/client';
 const sc = await SockethubClient.connect('http://localhost:10550');
 await sc.ready();
 
+const start = new Date();
+const end = new Date(start.getTime() + 90 * 24 * 60 * 60 * 1000);
+
 sc.socket.emit('message', {
   '@context': sc.contextFor('caldav'),
   type: 'read',
   actor: { id: 'calendar:community', type: 'person' },
   target: { id: 'https://example.org/events.ics', type: 'feed' },
-  object: { type: 'event' }
+  object: {
+    type: 'event',
+    startTime: start.toISOString(),
+    endTime: end.toISOString()
+  }
 }, result => {
   if (result?.error) {
     console.error('Calendar unavailable:', result.error);
@@ -50,6 +57,9 @@ sc.socket.emit('message', {
   }
 });
 ```
+
+The UTC date range selects events overlapping the next 90 days. Recurring
+events still need expansion before display, as described below.
 
 Despite the `caldav` context name, this request reads a published file. It
 requires no CalDAV account, credentials, or calendar-discovery step. The actor
@@ -64,8 +74,9 @@ over HTTPS when you deploy the app.
 ## Keep your events view current
 
 Store the subscription URL and decide how often to read it again. Treat each
-response as a snapshot and reconcile changed or removed events. If a refresh
-fails, you can retain the previous snapshot and show when it was last updated.
+response as a snapshot for the requested date range and reconcile changed or
+removed events within that range. If a refresh fails, you can retain the previous
+snapshot and show when it was last updated.
 
 Recurring events need extra work: Sockethub returns recurrence rules rather
 than expanding every occurrence. Your calendar view must expand those rules and
