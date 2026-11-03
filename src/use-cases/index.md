@@ -18,3 +18,13 @@ messaging client.
 
 Fetch RSS and Atom feeds that block cross-origin browser requests, then use
 the parsed entries in a reader or a project news dashboard.
+
+## [Show link previews in your chat or bookmark app](/use-cases/link-previews/)
+
+Turn shared URLs into cards with a title, description, and image. Use the
+metadata in a conversation, a reading list, or a saved-links collection.
+
+## [Show upcoming events from an ICS calendar](/use-cases/ics-calendar/)
+
+Read a published calendar link and use its events on a community website or
+personal dashboard. Your app controls the display and refresh schedule.
