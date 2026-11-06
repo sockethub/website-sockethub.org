@@ -181,10 +181,12 @@
         <p>
           The gateway validates and routes. The queue ( BullMQ on Redis )
           moves jobs between the gateway and the workers. Platforms that
-          hold a live connection — IRC, XMPP, email — get a worker process
-          per session; stateless ones such as feeds, metadata, CalDAV, and
-          CardDAV share one worker each. Either way an IRC reconnect loop
-          can't stall XMPP, and a metadata parse error can't take down feeds.
+          hold a live connection run in persistent workers: IRC and XMPP
+          sessions that submit identical credentials share one, while email
+          gets a worker per session. Stateless platforms such as feeds,
+          metadata, CalDAV, and CardDAV share one worker each. Either way an
+          IRC reconnect loop can't stall XMPP, and a metadata parse error
+          can't take down feeds.
         </p>
         <p>
           Events flow back the other way — from worker, through the queue,
