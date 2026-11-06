@@ -50,9 +50,9 @@ const site = {
   author: "Nick Jennings",
   title_brief: "Sockethub — a protocol gateway for the web",
   description:
-    "Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.",
+    "Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.",
   keywords:
-    "protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source",
+    "protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source",
   release,
 };
 

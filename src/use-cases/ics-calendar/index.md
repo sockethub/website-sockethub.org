@@ -67,7 +67,7 @@ identifies the request; the calendar URL belongs in `target.id`.
 
 The same action accepts `webcal://` links and fetches them over HTTPS. Public
 HTTPS destinations are allowed by default. See the
-[published calendar API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-caldav/README.md#read-a-published-icalendar-feed)
+[published calendar API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-caldav/README.md#read-a-published-icalendar-feed)
 for date-range filters and response details. Use your deployed Sockethub URL
 over HTTPS when you deploy the app.
 

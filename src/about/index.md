@@ -10,7 +10,8 @@ og_description: Open source, built in the open — maintained by Nick Jennings, 
 ## What is Sockethub?
 
 Sockethub is a **protocol gateway for the web**. It lets browser apps talk to
-IRC, XMPP, feeds, calendars, and other services using one message format:
+IRC, XMPP, email, feeds, calendars, contacts, and other services using one
+message format:
 [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/).
 
 ## ActivityStreams 2.0 In/Out
@@ -36,10 +37,12 @@ shape, Sockethub translates it, and you receive the same shape back.
 ## What You Can Do
 
 - Send and receive chat messages (IRC, XMPP)
+- Receive and send email (IMAP, SMTP)
 - Fetch and parse feeds (RSS, Atom)
 - Generate link previews and metadata
 - Manage calendar events and tasks (CalDAV)
 - Search and manage contacts (CardDAV)
+- Send messages as a Facebook Page or Instagram professional account (Messenger, Instagram)
 - Add new protocols as custom platforms
 
 ## Architecture
@@ -56,12 +59,15 @@ Redis so browsers can talk to long-lived connections safely.
 
 Currently implemented platforms include:
 
-- **XMPP** – Extensible Messaging and Presence Protocol
 - **IRC** – Internet Relay Chat
+- **XMPP** – Extensible Messaging and Presence Protocol
+- **Email** – Filtered IMAP receiving and SMTP sending
 - **RSS/Atom** – Feed processing and aggregation
 - **Metadata** – Link preview generation and metadata extraction
 - **CalDAV** – Calendar, event, and task synchronization
 - **CardDAV** – Address-book and contact synchronization
+- **Messenger** – Outgoing Facebook Page text messages
+- **Instagram** – Outgoing Instagram professional-account text messages
 
 ## Origins
 
