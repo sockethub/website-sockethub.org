@@ -370,6 +370,13 @@
             "allDay": {
               "type": "boolean",
               "default": false
+            },
+            "status": {
+              "enum": [
+                "tentative",
+                "confirmed",
+                "cancelled"
+              ]
             }
           }
         },

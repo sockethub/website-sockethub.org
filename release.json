@@ -3,7 +3,7 @@
   "channel": "next",
   "channels": {
     "next": {
-      "version": "5.0.0-beta.1",
+      "version": "5.0.0-beta.2",
       "installTag": "@next",
       "imageTag": "next",
       "label": "Beta",

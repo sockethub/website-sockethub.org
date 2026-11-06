@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-beta.1/service-descriptor.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-beta.2/service-descriptor.json",
 	"description": "Sockethub service descriptor",
 	"type": "object",
 	"required": [

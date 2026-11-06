@@ -422,6 +422,7 @@ li + li { margin-top: var(--space-2xs); }
    drop the brand entirely and let the nav span the full row. A lone brand on
    its own line wasted vertical space and looked unbalanced. */
 @media (max-width: 52rem) {
+  .site-header { position: static; }
   .site-header__brand { display: none; }
   .site-header__nav {
     margin-left: 0;
