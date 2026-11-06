@@ -1,5 +1,5 @@
 {
-	"$id": "https://sockethub.org/schemas/3.0.0-beta.1/sockethub-config.json",
+	"$id": "https://sockethub.org/schemas/3.0.0-beta.2/sockethub-config.json",
 	"description": "Sockethub Config Schema",
 	"type": "object",
 	"required": [
@@ -111,8 +111,11 @@
 				"@sockethub/platform-caldav",
 				"@sockethub/platform-dummy",
 				"@sockethub/platform-feeds",
+				"@sockethub/platform-email",
 				"@sockethub/platform-irc",
 				"@sockethub/platform-metadata",
+				"@sockethub/platform-messenger",
+				"@sockethub/platform-instagram",
 				"@sockethub/platform-xmpp"
 			]
 		},
@@ -138,6 +141,10 @@
 						"concurrency": {
 							"type": "integer",
 							"minimum": 1
+						},
+						"discoveryCacheTtlMs": {
+							"type": "integer",
+							"minimum": 0
 						}
 					}
 				},
@@ -158,6 +165,24 @@
 						"concurrency": {
 							"type": "integer",
 							"minimum": 1
+						},
+						"discoveryCacheTtlMs": {
+							"type": "integer",
+							"minimum": 0
+						}
+					}
+				},
+				"@sockethub/platform-email": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"connectTimeoutMs": {
+							"type": "integer",
+							"minimum": 5000,
+							"maximum": 120000
+						},
+						"allowPrivateAddresses": {
+							"type": "boolean"
 						}
 					}
 				},
@@ -193,6 +218,9 @@
 					"properties": {
 						"connectTimeoutMs": {
 							"type": "number"
+						},
+						"allowPrivateAddresses": {
+							"type": "boolean"
 						}
 					}
 				},
@@ -314,6 +342,12 @@
 					"minimum": 0,
 					"default": 20,
 					"description": "Maximum persistent instances per client IP, including HTTP actions. 0 disables the cap."
+				},
+				"maxStartsPerIpPerMinute": {
+					"type": "integer",
+					"minimum": 0,
+					"default": 60,
+					"description": "Maximum new persistent instances a client IP may start per minute, including HTTP actions. Bounds fork/teardown churn that the concurrent caps allow. Reusing a running instance does not count. 0 disables the cap."
 				},
 				"maxPlatformInstances": {
 					"type": "number",
