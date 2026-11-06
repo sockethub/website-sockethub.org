@@ -49,7 +49,7 @@ sc.socket.emit('message', {
 
 Replace `actor.id` with the shared URL. The response's `object` contains the
 page metadata; images are an array, and some pages have none. See the
-[metadata API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-metadata/README.md)
+[metadata API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-metadata/README.md)
 for the response fields. For deployment, use your own Sockethub URL over HTTPS.
 
 ## Build a card that still works when metadata is missing

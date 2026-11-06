@@ -43,7 +43,7 @@ sc.socket.emit('message', {
 
 The feed URL goes in `actor.id`. The response contains an `items` array;
 each item's `object` contains the article fields. See the
-[feeds API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-feeds/README.md)
+[feeds API reference](https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-feeds/README.md)
 for request and response details.
 
 Use your deployed Sockethub URL when you move beyond local development.

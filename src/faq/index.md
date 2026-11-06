@@ -13,9 +13,10 @@ between your app and those services.
 
 ## Which protocols and services does Sockethub support?
 
-Sockethub supports IRC and XMPP chat, RSS and Atom feeds, CalDAV calendars and
-tasks, CardDAV contacts, and metadata extraction for link previews. You can
-also build custom platforms. See the [platforms guide](/platforms/) for details.
+Sockethub supports IRC and XMPP chat, email over IMAP and SMTP, RSS and Atom
+feeds, CalDAV calendars and tasks, CardDAV contacts, metadata extraction for
+link previews, and outgoing Messenger and Instagram messages. You can also
+build custom platforms. See the [platforms guide](/platforms/) for details.
 
 ## How does Sockethub compare with using each protocol's client directly?
 
@@ -44,7 +45,7 @@ a client example.
     {
       "@type": "Question",
       "name": "Which protocols and services does Sockethub support?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Sockethub supports IRC and XMPP chat, RSS and Atom feeds, CalDAV calendars and tasks, CardDAV contacts, and metadata extraction for link previews. You can also build custom platforms." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Sockethub supports IRC and XMPP chat, email over IMAP and SMTP, RSS and Atom feeds, CalDAV calendars and tasks, CardDAV contacts, metadata extraction for link previews, and outgoing Messenger and Instagram messages. You can also build custom platforms." }
     },
     {
       "@type": "Question",

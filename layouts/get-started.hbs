@@ -35,7 +35,7 @@
             <span class="install-tab__hint">fastest way to try it</span>
           </summary>
           <div class="install-tab__body">
-            <p>Requires Node.js 20+ and a Redis instance reachable at <code>localhost:6379</code>:</p>
+            <p>Requires Node.js 20.19+ and a Redis instance reachable at <code>localhost:6379</code>:</p>
 <pre class="code-block"><code><span class="tok-comment"># install the current release channel</span>
 npm install -g sockethub{{site.release.installTag}}
 
@@ -116,10 +116,17 @@ bun run dev</code></pre>
       <div class="client-example__grid">
         <div class="client-example__copy">
           <p>
-            The client is a thin wrapper over Socket.IO. Point it at your
-            gateway, wait for the schema registry, then credentials → connect
+            The client is a thin wrapper over Socket.IO. Give it your
+            gateway's base URL and it discovers the Socket.IO endpoint for
+            you. Wait for the schema registry, then credentials → connect
             → join → send. Every call is the same JSON-LD ActivityStreams
             2.0 shape.
+          </p>
+          <p>
+            Install it with
+            <code>npm install @sockethub/client socket.io-client</code>, or
+            load the bundle a running gateway serves at
+            <code>/sockethub-client.js</code>.
           </p>
           <p>
             This example sends a single message to
@@ -134,12 +141,11 @@ bun run dev</code></pre>
             no guessing at state.
           </p>
         </div>
-<pre class="client-example__block"><code><span class="tok-comment">// Load @sockethub/client (ESM or bundled UMD)</span>
+<pre class="client-example__block"><code><span class="tok-comment">// npm: @sockethub/client + socket.io-client (or the bundle at /sockethub-client.js)</span>
 <span class="tok-key">import</span> SockethubClient <span class="tok-key">from</span> <span class="tok-str">'@sockethub/client'</span>;
 
-<span class="tok-key">const</span> sc = <span class="tok-key">new</span> SockethubClient({
-  host: <span class="tok-str">'http://localhost:10550'</span>,
-});
+<span class="tok-comment">// discovers the Socket.IO endpoint from the server's base URL</span>
+<span class="tok-key">const</span> sc = <span class="tok-key">await</span> SockethubClient.connect(<span class="tok-str">'http://localhost:10550'</span>);
 
 <span class="tok-comment">// wait for the schema registry to load</span>
 <span class="tok-key">await</span> sc.ready();
@@ -192,7 +198,7 @@ bun run dev</code></pre>
   console.log(<span class="tok-str">'sent'</span>, ack);
 } <span class="tok-key">catch</span> (err) {
   console.error(<span class="tok-str">'sockethub:'</span>, err.message);
-}</code></pre></code></pre>
+}</code></pre>
       </div>
     </div>
   </section>
