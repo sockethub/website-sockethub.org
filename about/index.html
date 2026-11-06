@@ -26,8 +26,8 @@
   </script>
 
   <title>About — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="About — Sockethub">
@@ -126,7 +126,8 @@
   <article class="prose" style="margin-inline: auto; padding-block: var(--space-2xl);">
     <h2 id="what-is-sockethub">What is Sockethub?</h2>
 <p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
-IRC, XMPP, feeds, calendars, and other services using one message format:
+IRC, XMPP, email, feeds, calendars, contacts, and other services using one
+message format:
 <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
 <h2 id="activitystreams-20-inout">ActivityStreams 2.0 In/Out</h2>
 <p>Sockethub uses the same JSON envelope for every platform. Your app sends one
@@ -149,10 +150,12 @@ shape, Sockethub translates it, and you receive the same shape back.</p>
 <h2 id="what-you-can-do">What You Can Do</h2>
 <ul>
 <li>Send and receive chat messages (IRC, XMPP)</li>
+<li>Receive and send email (IMAP, SMTP)</li>
 <li>Fetch and parse feeds (RSS, Atom)</li>
 <li>Generate link previews and metadata</li>
 <li>Manage calendar events and tasks (CalDAV)</li>
 <li>Search and manage contacts (CardDAV)</li>
+<li>Send messages as a Facebook Page or Instagram professional account (Messenger, Instagram)</li>
 <li>Add new protocols as custom platforms</li>
 </ul>
 <h2 id="architecture">Architecture</h2>
@@ -167,12 +170,15 @@ Redis so browsers can talk to long-lived connections safely.</p>
 <h2 id="supported-protocols">Supported Protocols</h2>
 <p>Currently implemented platforms include:</p>
 <ul>
-<li><strong>XMPP</strong> – Extensible Messaging and Presence Protocol</li>
 <li><strong>IRC</strong> – Internet Relay Chat</li>
+<li><strong>XMPP</strong> – Extensible Messaging and Presence Protocol</li>
+<li><strong>Email</strong> – Filtered IMAP receiving and SMTP sending</li>
 <li><strong>RSS/Atom</strong> – Feed processing and aggregation</li>
 <li><strong>Metadata</strong> – Link preview generation and metadata extraction</li>
 <li><strong>CalDAV</strong> – Calendar, event, and task synchronization</li>
 <li><strong>CardDAV</strong> – Address-book and contact synchronization</li>
+<li><strong>Messenger</strong> – Outgoing Facebook Page text messages</li>
+<li><strong>Instagram</strong> – Outgoing Instagram professional-account text messages</li>
 </ul>
 <h2 id="origins">Origins</h2>
 <p>Originally conceived as a sister project to <a href="https://remotestorage.io/">RemoteStorage</a>,

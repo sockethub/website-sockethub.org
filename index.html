@@ -26,20 +26,20 @@
   </script>
 
   <title>Sockethub — a protocol gateway for the web</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="Sockethub — a protocol gateway for the web">
   <meta property="og:site_name" content="Sockethub">
-  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta property="og:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sockethub.org/">
   <meta property="og:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sockethub — a protocol gateway for the web">
-  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
+  <meta name="twitter:description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
   <meta name="twitter:image" content="https://sockethub.org/res/img/og/sockethub.png">
 
   <link rel="canonical" href="https://sockethub.org/">
@@ -49,7 +49,7 @@
     "@type": "SoftwareSourceCode",
     "name": "Sockethub",
     "url": "https://sockethub.org/",
-    "description": "Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.",
+    "description": "Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.",
     "codeRepository": "https://github.com/sockethub/sockethub",
     "license": "https://github.com/sockethub/sockethub/blob/master/LICENSE",
     "programmingLanguage": ["TypeScript", "JavaScript"],
@@ -144,11 +144,11 @@
     <img src="/res/img/sockethub-logo.svg" alt="Sockethub" class="hero-logo" width="352" height="112">
     <p class="hero-eyebrow">Protocol gateway for the web</p>
     <h1 class="hero-title">
-      Chat, feeds, calendars, contacts, and metadata through one API.
+      Chat, email, feeds, calendars, contacts, and link previews through one API.
     </h1>
     <p class="hero-subtitle">
-      Sockethub lets browser apps talk to IRC, XMPP, RSS/Atom feeds, CalDAV calendars, CardDAV contacts and more, all
-      through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
+      Sockethub lets browser apps talk to IRC, XMPP, email, RSS/Atom feeds, CalDAV calendars, CardDAV contacts,
+      Messenger, Instagram and more, all through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
     </p>
 
     <div class="hero-actions">
@@ -184,8 +184,8 @@
       <h2 id="fanout-title" class="section-header__title">One message, every protocol</h2>
     </header>
 
-    <svg class="fanout__diagram" viewBox="0 0 800 510" role="img"
-         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which routes it to IRC, XMPP, RSS/Atom feeds, Metadata, CalDAV, or CardDAV; the platform fills in a response and Sockethub carries it back to the browser.">
+    <svg class="fanout__diagram" viewBox="0 0 800 762" role="img"
+         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which routes it to IRC, XMPP, email, RSS/Atom feeds, Metadata, CalDAV, CardDAV, Messenger, or Instagram; the platform fills in a response and Sockethub carries it back to the browser.">
       <!-- Inline gradient matching the sockethub logo: sun → signal → ember. -->
       <defs>
         <linearGradient id="emberGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -197,24 +197,27 @@
 
       <!-- Connection lines -->
       <g class="fanout__lines">
-        <path class="fanout__line" d="M220,255 L344,255"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,45"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,129"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,213"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,297"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,381"/>
-        <path class="fanout__line" d="M456,255 Q540,255 620,465"/>
+        <path class="fanout__line" d="M220,381 L344,381"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,45"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,129"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,213"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,297"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,381"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,465"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,549"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,633"/>
+        <path class="fanout__line" d="M456,381 Q540,381 620,717"/>
       </g>
 
       <!-- Client node -->
-      <g class="fanout__node fanout__node--client" transform="translate(40,215)">
+      <g class="fanout__node fanout__node--client" transform="translate(40,341)">
         <rect width="180" height="80" rx="12"/>
         <text x="90" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
         <text x="90" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
       </g>
 
       <!-- Sockethub hub -->
-      <g class="fanout__node fanout__node--hub" transform="translate(400,255)">
+      <g class="fanout__node fanout__node--hub" transform="translate(400,381)">
         <circle r="56"/>
         <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
@@ -232,23 +235,38 @@
       </g>
       <g class="fanout__chip" transform="translate(620,183)">
         <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Email</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">IMAP &amp; SMTP</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,267)">
+        <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,267)">
+      <g class="fanout__chip" transform="translate(620,351)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Metadata</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,351)">
+      <g class="fanout__chip" transform="translate(620,435)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">CalDAV</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Calendars &amp; tasks</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,435)">
+      <g class="fanout__chip" transform="translate(620,519)">
         <rect width="160" height="60" rx="10"/>
         <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">CardDAV</text>
         <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Contacts &amp; address books</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,603)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Messenger</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Facebook Page messages</text>
+      </g>
+      <g class="fanout__chip" transform="translate(620,687)">
+        <rect width="160" height="60" rx="10"/>
+        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Instagram</text>
+        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Direct messages</text>
       </g>
 
       <!-- Envelopes (animated — CSS drives motion). Each one travels
@@ -261,6 +279,11 @@
         <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
       </g>
       <g class="fanout-envelope fanout-envelope--xmpp" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
+        <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--email" aria-hidden="true">
         <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
         <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
         <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
@@ -285,6 +308,16 @@
         <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
         <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
       </g>
+      <g class="fanout-envelope fanout-envelope--messenger" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
+        <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--instagram" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
+        <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
     </svg>
 
     <p class="fanout__caption">
@@ -299,9 +332,9 @@
     <div class="intro__prose prose">
       <p>Sockethub is a <strong>protocol gateway for the web</strong>. It lets browser apps talk to
 protocols and services that JavaScript can&#39;t reach on its own — IRC, XMPP,
-RSS/Atom, link-metadata services, CalDAV calendars, CardDAV contacts — using
-one standard
-message format:
+email over IMAP and SMTP, RSS/Atom, link-metadata services, CalDAV calendars,
+CardDAV contacts, and Meta&#39;s Messenger and Instagram messaging APIs — using one
+standard message format:
 <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a>.</p>
 <p>By holding the long-lived connections, credentials, and protocol-specific
 logic on the server, Sockethub gives browser apps a single, consistent
@@ -345,6 +378,18 @@ JSON API for reaching networks the web usually walls off.</p>
         </div>
         <h3 class="platform-card__name">XMPP</h3>
         <p class="platform-card__desc">Federated messaging, rooms, and presence.</p>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="7" y="11" width="26" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M7 14 L20 23 L33 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">Email</h3>
+        <p class="platform-card__desc">Receive over IMAP, send over SMTP. Your mail server stays the store.</p>
+        <span class="platform-card__badge">New in 5.0</span>
       </article>
 
       <article class="platform-card">
@@ -396,6 +441,31 @@ JSON API for reaching networks the web usually walls off.</p>
         </div>
         <h3 class="platform-card__name">CardDAV</h3>
         <p class="platform-card__desc">Contacts and address books on any CardDAV server.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 7 C12 7 6 12.5 6 19.5 C6 23.5 8 27 11 29.2 L11 34 L16 31.2 C17.3 31.6 18.6 31.8 20 31.8 C28 31.8 34 26.3 34 19.5 C34 12.5 28 7 20 7 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 21 L17.5 15.5 L21.5 19.5 L28 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">Messenger</h3>
+        <p class="platform-card__desc">Send text replies as a Facebook Page through Meta's Messenger API.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="8" width="24" height="24" rx="7" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="20" r="5.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="27" cy="13" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">Instagram</h3>
+        <p class="platform-card__desc">Send text replies from an Instagram professional account.</p>
         <span class="platform-card__badge">New in 5.0</span>
       </article>
     </div>
@@ -485,6 +555,22 @@ JSON API for reaching networks the web usually walls off.</p>
     </header>
     <ol class="news-cards">
           <li class="news-card">
+            <a class="news-card__link" href="/news/release-500-beta-2/">
+              <time class="news-card__date" datetime="2026-11-06">
+                2026.11.6
+              </time>
+              <div class="news-card__body">
+                <h3 class="news-card__title">Sockethub 5.0.0-beta.2 adds email, Messenger, and Instagram</h3>
+                <p class="news-card__excerpt">Sockethub 5.0.0-beta.2 is out, and it brings three new platforms: npm install -g sockethub@next The container image follows at ghcr.io/sockethub/sockethub:next . Email…</p>
+                <p class="news-card__meta">
+                  Nick Jennings
+                    &nbsp;·&nbsp;
+                    1 min read
+                </p>
+              </div>
+            </a>
+          </li>
+          <li class="news-card">
             <a class="news-card__link" href="/news/release-500-beta/">
               <time class="news-card__date" datetime="2026-10-12">
                 2026.10.12
@@ -512,22 +598,6 @@ JSON API for reaching networks the web usually walls off.</p>
                   Nick Jennings
                     &nbsp;·&nbsp;
                     2 min read
-                </p>
-              </div>
-            </a>
-          </li>
-          <li class="news-card">
-            <a class="news-card__link" href="/news/release-500-alpha/">
-              <time class="news-card__date" datetime="2026-01-19">
-                2026.1.19
-              </time>
-              <div class="news-card__body">
-                <h3 class="news-card__title">Sockethub 5.0.0 alpha releases</h3>
-                <p class="news-card__excerpt">Sockethub 5.0.0 has been a multi-year project, and we&#x27;ve been quietely releasing alpha builds for testing. These alpha releases have major rewrite and architectural improvements…</p>
-                <p class="news-card__meta">
-                  Nick Jennings
-                    &nbsp;·&nbsp;
-                    1 min read
                 </p>
               </div>
             </a>

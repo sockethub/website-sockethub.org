@@ -26,8 +26,8 @@
   </script>
 
   <title>Show link previews in your chat or bookmark app — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="Show link previews in your chat or bookmark app — Sockethub">
@@ -160,7 +160,7 @@ sc.socket.emit(&#39;message&#39;, {
 </code></pre>
 <p>Replace <code>actor.id</code> with the shared URL. The response&#39;s <code>object</code> contains the
 page metadata; images are an array, and some pages have none. See the
-<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-metadata/README.md">metadata API reference</a>
+<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-metadata/README.md">metadata API reference</a>
 for the response fields. For deployment, use your own Sockethub URL over HTTPS.</p>
 <h2 id="build-a-card-that-still-works-when-metadata-is-missing">Build a card that still works when metadata is missing</h2>
 <p>Keep the original link visible while fetching. Add the title and description

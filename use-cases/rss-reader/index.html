@@ -26,8 +26,8 @@
   </script>
 
   <title>Build a web-based RSS reader — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="Build a web-based RSS reader — Sockethub">
@@ -156,7 +156,7 @@ sc.socket.emit(&#39;message&#39;, {
 </code></pre>
 <p>The feed URL goes in <code>actor.id</code>. The response contains an <code>items</code> array;
 each item&#39;s <code>object</code> contains the article fields. See the
-<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-feeds/README.md">feeds API reference</a>
+<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-feeds/README.md">feeds API reference</a>
 for request and response details.</p>
 <p>Use your deployed Sockethub URL when you move beyond local development.
 An HTTPS reader needs an HTTPS connection to Sockethub too.</p>
