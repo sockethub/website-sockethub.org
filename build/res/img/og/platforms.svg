@@ -28,29 +28,32 @@
 
   <text x="88" y="240" font-family="monospace" font-weight="700" font-size="22" fill="#b04514" letter-spacing="4">PLATFORMS</text>
 
-  <text x="88" y="360" font-family="sans-serif" font-weight="800" font-size="86" fill="#1a1a1a">Supported platforms</text>
+  <text x="88" y="330" font-family="sans-serif" font-weight="800" font-size="86" fill="#1a1a1a">Supported platforms</text>
 
-  <text x="88" y="440" font-family="sans-serif" font-weight="400" font-size="36" fill="#4a3420">Each one a documented ActivityStreams 2.0 adapter.</text>
+  <text x="88" y="398" font-family="sans-serif" font-weight="400" font-size="36" fill="#4a3420">Each one a documented ActivityStreams 2.0 adapter.</text>
 
   <!-- Protocol chips -->
-  <g transform="translate(88 485)">
-    <rect x="0" y="0" width="110" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="55" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">IRC</text>
-
-    <rect x="124" y="0" width="130" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="189" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">XMPP</text>
-
-    <rect x="268" y="0" width="180" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="358" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">RSS / Atom</text>
-
-    <rect x="462" y="0" width="170" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="547" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">Metadata</text>
-
-    <rect x="646" y="0" width="140" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="716" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">CalDAV</text>
-
-    <rect x="800" y="0" width="150" height="60" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
-    <text x="875" y="39" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">CardDAV</text>
+  <g transform="translate(88 430)">
+    <rect x="0" y="0" width="110" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="55" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">IRC</text>
+    <rect x="124" y="0" width="130" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="189" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">XMPP</text>
+    <rect x="268" y="0" width="130" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="333" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">Email</text>
+    <rect x="412" y="0" width="180" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="502" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">RSS / Atom</text>
+    <rect x="606" y="0" width="170" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="691" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">Metadata</text>
+  </g>
+  <g transform="translate(88 500)">
+    <rect x="0" y="0" width="140" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="70" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">CalDAV</text>
+    <rect x="154" y="0" width="150" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="229" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">CardDAV</text>
+    <rect x="318" y="0" width="190" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="413" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">Messenger</text>
+    <rect x="522" y="0" width="180" height="56" rx="10" fill="#ffffff" stroke="#b04514" stroke-width="2"/>
+    <text x="612" y="37" font-family="monospace" font-weight="700" font-size="24" fill="#1a1a1a" text-anchor="middle">Instagram</text>
   </g>
 
   <text x="1112" y="580" font-family="monospace" font-weight="600" font-size="24" fill="#7b3310" text-anchor="end">sockethub.org</text>

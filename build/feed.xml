@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Fri, 06 Nov 2026 14:55:50 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Sockethub 5.0.0 enters beta]]></title><description><![CDATA[<p>Sockethub 5.0.0 has left alpha. The first beta,
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Sat, 07 Nov 2026 20:14:05 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Sockethub 5.0.0-beta.2 adds email, Messenger, and Instagram]]></title><description><![CDATA[<p>Sockethub
+<a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.2">5.0.0-beta.2</a>
+is out, and it brings three new platforms:</p>
+<pre><code>npm install -g sockethub@next
+</code></pre>
+<p>The container image follows at <code>ghcr.io/sockethub/sockethub:next</code>.</p>
+<h2 id="email">Email</h2>
+<p><a href="https://github.com/sockethub/sockethub/tree/v5.0.0-beta.2/packages/platform-email"><code>@sockethub/platform-email</code></a>
+receives mail over IMAP and sends it over SMTP. Your mail server stays the
+message store: Sockethub keeps no mailbox database and never changes read
+flags, moves messages, or deletes mail.</p>
+<ul>
+<li><code>fetch</code> pages through one or more folders, filtered by sender and recipient,
+with per-folder cursors so your app can resume where it left off.</li>
+<li><code>watch</code> follows a folder with IMAP IDLE and pushes new messages to the
+browser as <code>post</code> activities.</li>
+<li><code>send</code> submits a message over SMTP and reports which recipients the server
+accepted or rejected.</li>
+</ul>
+<p>Credentials take a password or an access token for each of IMAP and SMTP.
+Connections require TLS or STARTTLS. See the
+<a href="/platforms/#email">email section of the platforms page</a> for the envelopes.</p>
+<h2 id="messenger-and-instagram">Messenger and Instagram</h2>
+<p><a href="https://github.com/sockethub/sockethub/tree/v5.0.0-beta.2/packages/platform-messenger"><code>@sockethub/platform-messenger</code></a>
+and
+<a href="https://github.com/sockethub/sockethub/tree/v5.0.0-beta.2/packages/platform-instagram"><code>@sockethub/platform-instagram</code></a>
+send text messages through Meta&#39;s Messenger and Instagram APIs. Both are
+stateless: store a token, then <code>send</code>. No <code>connect</code> step and no webhook
+hosting. Sockethub sends as a Facebook Page or an Instagram professional
+account, not as a personal profile, and your app brings the recipient&#39;s
+scoped ID from its own incoming-message integration.</p>
+<p>These are outgoing-only. Incoming messages, delivery receipts, attachments,
+and OAuth onboarding stay with your application and Meta&#39;s review process.</p>
+<h2 id="also-in-beta2">Also in beta.2</h2>
+<ul>
+<li>The metadata platform now surfaces a schema.org <code>Event</code> embedded as JSON-LD,
+so link previews for Luma, Meetup, and Eventbrite pages carry the event
+name, start and end, location, and status.</li>
+<li>CalDAV accepts and round-trips <code>STATUS</code> on events, and calendar and address
+book discovery is cached across requests.</li>
+<li>XMPP roster activities are schema-valid, and inbound subscription requests
+now arrive as <code>request-friend</code>.</li>
+<li>IRC refuses to connect to private and loopback addresses, and incoming
+<code>NOTICE</code> lines are attributed to their sender.</li>
+<li>The server rate-limits persistent platform starts per client IP.</li>
+</ul>
+<p>The <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.2">full changelog</a>
+has every fix. The documentation on this site tracks beta.2:
+<a href="/get-started/">get started</a> and <a href="/platforms/">platforms</a>.</p>
+]]></description><guid isPermaLink="false">Sockethub 5.0.0-beta.2 adds email, Messenger, and Instagram</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub 5.0.0 enters beta]]></title><description><![CDATA[<p>Sockethub 5.0.0 has left alpha. The first beta,
 <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.0">5.0.0-beta.0</a>,
 is available now:</p>
 <pre><code>npm install -g sockethub@next
@@ -159,5 +208,4 @@ e.g. <code>@sockethub/server</code>, <code>@sockethub/client</code>, <code>@sock
 <p>[ <a href="https://dogfeed.5apps.com">dogfeed</a> | <a href="https://github.com/silverbucket/dogfeed">github repository</a> | <a href="https://groups.google.com/forum/#!topic/unhosted/xzOueGY2GYA">official announcement</a> ]</p>
 ]]></description><guid isPermaLink="false">Dogfeed RSS/Atom Reader released</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Thu, 05 Sep 2013 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub lightning talk at OHM2013]]></title><description><![CDATA[<p><a href="https://silverbucket.net">Nick Jennings</a> will be giving a talk tonight on Sockethub @ <a href="https://program.ohm2013.org">OHM2013</a></p>
 <p>[ <a href="https://program.ohm2013.org/event/475.html">talk overview</a> ]</p>
-]]></description><guid isPermaLink="false">Sockethub lightning talk at OHM2013</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Wed, 31 Jul 2013 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub talk @ PragueJS]]></title><description><![CDATA[<p><a href="https://silverbucket.net">Nick Jennings</a> will give a Sockethub talk at <a href="http://www.praguejs.cz">PragueJS</a></p>
-]]></description><guid isPermaLink="false">Sockethub talk @ PragueJS</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Thu, 30 May 2013 00:00:00 GMT</pubDate></item></channel></rss>
+]]></description><guid isPermaLink="false">Sockethub lightning talk at OHM2013</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Wed, 31 Jul 2013 00:00:00 GMT</pubDate></item></channel></rss>

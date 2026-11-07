@@ -26,8 +26,8 @@
   </script>
 
   <title>How it works — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="How it works — Sockethub">
@@ -71,11 +71,11 @@
   </script>
 </head>
 <body>
-<div class="release-banner" data-banner="next-5.0.0-beta.2" role="region" aria-label="Release channel notice">
+<div class="release-banner" data-banner="next-5.0.0-beta.3" role="region" aria-label="Release channel notice">
   <div class="release-banner__inner">
     <span class="release-banner__tag">Beta</span>
     <p class="release-banner__text">
-      Sockethub <strong>5.0.0-beta.2</strong> is the current active-use release.
+      Sockethub <strong>5.0.0-beta.3</strong> is the current active-use release.
       <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
     </p>
     <button type="button" class="release-banner__close" aria-label="Dismiss release notice">
@@ -143,9 +143,10 @@
         <h2 class="step__title">The browser sandbox</h2>
         <p>
           IRC wants a TCP stream. XMPP wants a long-lived connection that
-          survives credential rotation. Feed polling wants a cron. A browser tab
-          can do none of these — the sandbox blocks raw sockets, CORS blocks
-          arbitrary hosts, and page lifecycle breaks long-lived connections.
+          survives credential rotation. Email wants an IMAP session that stays
+          open. Feed polling wants a cron. A browser tab can do none of these —
+          the sandbox blocks raw sockets, CORS blocks arbitrary hosts, and page
+          lifecycle breaks long-lived connections.
         </p>
         <p>
           The classic workaround is a backend per protocol. Sockethub is the
@@ -153,8 +154,8 @@
         </p>
       </div>
       <figure class="step__figure">
-        <svg viewBox="0 0 360 300" class="diagram diagram--wall" role="img"
-             aria-label="A browser tab sends sockets that hit a sandbox wall, with IRC, XMPP, feed, metadata, CalDAV, and CardDAV servers unreachable on the far side.">
+        <svg viewBox="0 0 360 420" class="diagram diagram--wall" role="img"
+             aria-label="A browser tab sends sockets that hit a sandbox wall, with IRC, XMPP, mail, feed, metadata, CalDAV, CardDAV, Messenger, and Instagram servers unreachable on the far side.">
           <defs>
             <linearGradient id="wallGradient" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%"   stop-color="#ff9c1f" stop-opacity="0.35"/>
@@ -162,7 +163,7 @@
             </linearGradient>
           </defs>
           <!-- Browser -->
-          <g class="diagram__browser" transform="translate(12,117)">
+          <g class="diagram__browser" transform="translate(12,177)">
             <rect width="110" height="76" rx="8" class="diagram__box"/>
             <rect x="10" y="10" width="90" height="8" rx="2" class="diagram__bar"/>
             <circle cx="16" cy="14" r="2" class="diagram__dot"/>
@@ -173,21 +174,24 @@
           </g>
           <!-- Packets bouncing off the wall -->
           <g class="diagram__packets">
-            <circle cx="160" cy="137" r="4" class="diagram__packet diagram__packet--1"/>
-            <circle cx="160" cy="157" r="4" class="diagram__packet diagram__packet--2"/>
-            <circle cx="160" cy="177" r="4" class="diagram__packet diagram__packet--3"/>
+            <circle cx="160" cy="195" r="4" class="diagram__packet diagram__packet--1"/>
+            <circle cx="160" cy="215" r="4" class="diagram__packet diagram__packet--2"/>
+            <circle cx="160" cy="235" r="4" class="diagram__packet diagram__packet--3"/>
           </g>
           <!-- The sandbox wall -->
-          <rect x="180" y="30" width="10" height="240" class="diagram__wall" fill="url(#wallGradient)"/>
+          <rect x="180" y="30" width="10" height="370" class="diagram__wall" fill="url(#wallGradient)"/>
           <text x="185" y="20" text-anchor="middle" class="diagram__wall-label">sandbox</text>
           <!-- Inaccessible servers -->
           <g class="diagram__servers" transform="translate(210,40)">
             <g class="diagram__server"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">IRC server</text></g>
             <g class="diagram__server" transform="translate(0,40)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">XMPP server</text></g>
-            <g class="diagram__server" transform="translate(0,80)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Feed origin</text></g>
-            <g class="diagram__server" transform="translate(0,120)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Metadata source</text></g>
-            <g class="diagram__server" transform="translate(0,160)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">CalDAV server</text></g>
-            <g class="diagram__server" transform="translate(0,200)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">CardDAV server</text></g>
+            <g class="diagram__server" transform="translate(0,80)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Mail server</text></g>
+            <g class="diagram__server" transform="translate(0,120)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Feed origin</text></g>
+            <g class="diagram__server" transform="translate(0,160)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Metadata source</text></g>
+            <g class="diagram__server" transform="translate(0,200)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">CalDAV server</text></g>
+            <g class="diagram__server" transform="translate(0,240)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">CardDAV server</text></g>
+            <g class="diagram__server" transform="translate(0,280)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Messenger API</text></g>
+            <g class="diagram__server" transform="translate(0,320)"><rect width="130" height="30" rx="6"/><text x="65" y="19" text-anchor="middle">Instagram API</text></g>
           </g>
         </svg>
       </figure>
@@ -250,7 +254,9 @@
         <p>
           Three actions in that order. Credentials are stored encrypted per
           session. Connect spins up a worker and holds the live socket.
-          Operate is everything after — send, join, fetch.
+          Operate is everything after — send, join, fetch. Stateless platforms
+          such as feeds and metadata skip the first two and go straight to
+          operate.
         </p>
         <p>
           Every step is the same JSON envelope, just with a different
@@ -264,7 +270,7 @@
             <div>
               <h3 class="flow-step__name">credentials</h3>
               <p class="flow-step__desc">Stored encrypted. Scoped to the session.</p>
-              <code class="flow-step__code">sc.credentials('irc', creds)</code>
+              <code class="flow-step__code">sc.socket.emit('credentials', { '@context', type: 'credentials', actor, object })</code>
             </div>
           </li>
           <li class="flow-step">
@@ -272,7 +278,7 @@
             <div>
               <h3 class="flow-step__name">connect</h3>
               <p class="flow-step__desc">Spawns (or reuses) a worker; opens the live socket.</p>
-              <code class="flow-step__code">sc.connect('irc')</code>
+              <code class="flow-step__code">sc.socket.emit('message', { '@context', type: 'connect', actor })</code>
             </div>
           </li>
           <li class="flow-step">
@@ -280,7 +286,7 @@
             <div>
               <h3 class="flow-step__name">operate</h3>
               <p class="flow-step__desc">Send, join, leave, follow, update — all the same shape.</p>
-              <code class="flow-step__code">sc.send({ type, actor, target, object })</code>
+              <code class="flow-step__code">sc.socket.emit('message', { '@context', type, actor, target, object })</code>
             </div>
           </li>
         </ol>
@@ -296,9 +302,13 @@
         <h2 class="step__title">Gateway, queue, and workers</h2>
         <p>
           The gateway validates and routes. The queue ( BullMQ on Redis )
-          moves jobs between the gateway and the workers. Each platform runs
-          in its own worker process, so an IRC reconnect loop can't stall
-          XMPP, and a metadata parse error can't take down feeds.
+          moves jobs between the gateway and the workers. Platforms that
+          hold a live connection run in persistent workers: IRC and XMPP
+          sessions that submit identical credentials share one, while email
+          gets a worker per session. Stateless platforms such as feeds,
+          metadata, CalDAV, and CardDAV share one worker each. Either way an
+          IRC reconnect loop can't stall XMPP, and a metadata parse error
+          can't take down feeds.
         </p>
         <p>
           Events flow back the other way — from worker, through the queue,
@@ -306,8 +316,8 @@
         </p>
       </div>
       <figure class="step__figure">
-        <svg viewBox="0 0 520 420" class="diagram diagram--arch" role="img"
-             aria-label="Browser connects to the Sockethub gateway over Socket.IO; gateway pushes jobs onto a Redis / BullMQ queue, which dispatches to per-platform worker processes for IRC, XMPP, feeds, metadata, CalDAV, and CardDAV.">
+        <svg viewBox="0 0 520 598" class="diagram diagram--arch" role="img"
+             aria-label="Browser connects to the Sockethub gateway over Socket.IO; gateway pushes jobs onto a Redis / BullMQ queue, which dispatches to per-platform worker processes for IRC, XMPP, email, feeds, metadata, CalDAV, CardDAV, Messenger, and Instagram.">
           <defs>
             <linearGradient id="archHub" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%"   stop-color="#ff9c1f"/>
@@ -317,21 +327,21 @@
           </defs>
 
           <!-- Browser -->
-          <g class="diagram__node" transform="translate(18,176)">
+          <g class="diagram__node" transform="translate(18,269)">
             <rect width="100" height="60" rx="8"/>
             <text x="50" y="28" text-anchor="middle" class="diagram__text">Browser</text>
             <text x="50" y="46" text-anchor="middle" class="diagram__text-sub">Socket.IO</text>
           </g>
 
           <!-- Gateway -->
-          <g class="diagram__node diagram__node--hub" transform="translate(148,166)">
+          <g class="diagram__node diagram__node--hub" transform="translate(148,259)">
             <rect width="120" height="80" rx="12" fill="url(#archHub)" stroke="none"/>
             <text x="60" y="38" text-anchor="middle" class="diagram__text-hub">Sockethub</text>
             <text x="60" y="56" text-anchor="middle" class="diagram__text-hub-sub">gateway</text>
           </g>
 
           <!-- Redis / BullMQ -->
-          <g class="diagram__node" transform="translate(298,176)">
+          <g class="diagram__node" transform="translate(298,269)">
             <rect width="100" height="60" rx="8"/>
             <text x="50" y="28" text-anchor="middle" class="diagram__text">Redis</text>
             <text x="50" y="46" text-anchor="middle" class="diagram__text-sub">BullMQ queue</text>
@@ -341,22 +351,28 @@
           <g class="diagram__workers" transform="translate(428,30)">
             <g class="diagram__worker"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">IRC worker</text></g>
             <g class="diagram__worker" transform="translate(0,62)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">XMPP worker</text></g>
-            <g class="diagram__worker" transform="translate(0,124)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Feeds worker</text></g>
-            <g class="diagram__worker" transform="translate(0,186)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Metadata</text></g>
-            <g class="diagram__worker" transform="translate(0,248)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">CalDAV</text></g>
-            <g class="diagram__worker" transform="translate(0,310)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">CardDAV</text></g>
+            <g class="diagram__worker" transform="translate(0,124)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Email worker</text></g>
+            <g class="diagram__worker" transform="translate(0,186)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Feeds worker</text></g>
+            <g class="diagram__worker" transform="translate(0,248)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Metadata</text></g>
+            <g class="diagram__worker" transform="translate(0,310)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">CalDAV</text></g>
+            <g class="diagram__worker" transform="translate(0,372)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">CardDAV</text></g>
+            <g class="diagram__worker" transform="translate(0,434)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Messenger</text></g>
+            <g class="diagram__worker" transform="translate(0,496)"><rect width="92" height="42" rx="6"/><text x="46" y="26" text-anchor="middle">Instagram</text></g>
           </g>
 
           <!-- Wires -->
           <g class="diagram__wires">
-            <path d="M118,206 L148,206"/>
-            <path d="M268,206 L298,206"/>
-            <path d="M398,206 Q 414,206 428,51"/>
-            <path d="M398,206 Q 414,206 428,113"/>
-            <path d="M398,206 Q 414,206 428,175"/>
-            <path d="M398,206 Q 414,206 428,237"/>
-            <path d="M398,206 Q 414,206 428,299"/>
-            <path d="M398,206 Q 414,206 428,361"/>
+            <path d="M118,299 L148,299"/>
+            <path d="M268,299 L298,299"/>
+            <path d="M398,299 Q 414,299 428,51"/>
+            <path d="M398,299 Q 414,299 428,113"/>
+            <path d="M398,299 Q 414,299 428,175"/>
+            <path d="M398,299 Q 414,299 428,237"/>
+            <path d="M398,299 Q 414,299 428,299"/>
+            <path d="M398,299 Q 414,299 428,361"/>
+            <path d="M398,299 Q 414,299 428,423"/>
+            <path d="M398,299 Q 414,299 428,485"/>
+            <path d="M398,299 Q 414,299 428,547"/>
           </g>
         </svg>
       </figure>

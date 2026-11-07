@@ -1,0 +1,68 @@
+{
+  "required": [
+    "type",
+    "actor",
+    "target",
+    "object"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "send"
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "maxLength": 128
+        },
+        "type": {
+          "const": "person"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^\\+?[1-9][0-9]{6,14}$"
+        },
+        "type": {
+          "const": "person"
+        }
+      }
+    },
+    "object": {
+      "type": "object",
+      "required": [
+        "type",
+        "content"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "message"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      }
+    }
+  }
+}

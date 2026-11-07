@@ -26,20 +26,20 @@
   </script>
 
   <title>Platforms — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="Platforms — Sockethub">
   <meta property="og:site_name" content="Sockethub">
-  <meta property="og:description" content="IRC, XMPP, feeds, metadata, CalDAV, CardDAV, and pluggable platforms — each a first-class, documented adapter.">
+  <meta property="og:description" content="IRC, XMPP, email, feeds, metadata, CalDAV, CardDAV, Messenger, Instagram, and pluggable platforms — each a first-class, documented adapter.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sockethub.org/platforms/">
   <meta property="og:image" content="https://sockethub.org/res/img/og/platforms.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Platforms — Sockethub">
-  <meta name="twitter:description" content="IRC, XMPP, feeds, metadata, CalDAV, CardDAV, and pluggable platforms — each a first-class, documented adapter.">
+  <meta name="twitter:description" content="IRC, XMPP, email, feeds, metadata, CalDAV, CardDAV, Messenger, Instagram, and pluggable platforms — each a first-class, documented adapter.">
   <meta name="twitter:image" content="https://sockethub.org/res/img/og/platforms.png">
 
   <link rel="canonical" href="https://sockethub.org/platforms/">
@@ -71,11 +71,11 @@
   </script>
 </head>
 <body>
-<div class="release-banner" data-banner="next-5.0.0-beta.2" role="region" aria-label="Release channel notice">
+<div class="release-banner" data-banner="next-5.0.0-beta.3" role="region" aria-label="Release channel notice">
   <div class="release-banner__inner">
     <span class="release-banner__tag">Beta</span>
     <p class="release-banner__text">
-      Sockethub <strong>5.0.0-beta.2</strong> is the current active-use release.
+      Sockethub <strong>5.0.0-beta.3</strong> is the current active-use release.
       <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
     </p>
     <button type="button" class="release-banner__close" aria-label="Dismiss release notice">
@@ -136,10 +136,13 @@
       <nav class="platforms-toc" aria-label="Platform sections">
         <a href="#irc">IRC</a>
         <a href="#xmpp">XMPP</a>
+        <a href="#email">Email</a>
         <a href="#feeds">RSS / Atom</a>
         <a href="#metadata">Metadata</a>
         <a href="#caldav">CalDAV</a>
         <a href="#carddav">CardDAV</a>
+        <a href="#messenger">Messenger</a>
+        <a href="#instagram">Instagram</a>
       </nav>
     </div>
   </header>
@@ -318,6 +321,129 @@
     </div>
   </section>
 
+  <!-- ============ Email ============ -->
+  <section class="protocol" id="email">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="7" y="11" width="26" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M7 14 L20 23 L33 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">Email</h2>
+          <p class="protocol__sub">Receive over IMAP, send over SMTP.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-email" target="_blank" rel="noopener">
+          @sockethub/platform-email ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Read a mailbox and send mail from the browser. The mail server
+          stays the message store: Sockethub keeps no mailbox database and
+          never changes read flags, moves messages, or deletes mail. Each
+          client session gets its own IMAP connection, so two clients on the
+          same account can watch different folders.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full email flow is
+          <strong>credentials → connect → fetch / watch / send</strong>.
+          Configure IMAP, SMTP, or both; each needs a username and exactly
+          one of <code>password</code> or <code>token</code>.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/email/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>, <span class="tok-key">"name"</span>: <span class="tok-str">"Alice Example"</span> },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>: <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"from"</span>: <span class="tok-str">"me@example.com"</span>,
+    <span class="tok-key">"imap"</span>: { <span class="tok-key">"host"</span>: <span class="tok-str">"imap.example.com"</span>, <span class="tok-key">"port"</span>: 993, <span class="tok-key">"secure"</span>: true,
+              <span class="tok-key">"username"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"password"</span>: <span class="tok-str">"…"</span> },
+    <span class="tok-key">"smtp"</span>: { <span class="tok-key">"host"</span>: <span class="tok-str">"smtp.example.com"</span>, <span class="tok-key">"port"</span>: 587, <span class="tok-key">"secure"</span>: false,
+              <span class="tok-key">"username"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"token"</span>: <span class="tok-str">"…"</span> }
+  }
+}</code></pre>
+        <p>
+          <code>secure: true</code> uses TLS immediately; <code>false</code>
+          requires STARTTLS. Plaintext credentials are never accepted.
+          <code>token</code> is an access token your app obtained itself;
+          Sockethub runs no OAuth flow and does not refresh tokens.
+        </p>
+
+        <h3 class="protocol__section">2. Connect</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:  <span class="tok-str">"connect"</span>,
+  <span class="tok-key">"actor"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> }
+}</code></pre>
+
+        <h3 class="protocol__section">3. Fetch a page of messages</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"folders"</span>: [ <span class="tok-str">"INBOX"</span> ],
+    <span class="tok-key">"from"</span>:    [ <span class="tok-str">"friend@example.com"</span> ],
+    <span class="tok-key">"limit"</span>:   20
+  }
+}</code></pre>
+        <p>
+          The reply is a <code>collection</code> of <code>post</code>
+          activities (sender as actor, a <code>message</code> as object) plus
+          per-folder <code>cursors</code> and <code>hasMore</code>. Send the
+          cursors back in the next <code>fetch</code> to get the next page.
+          Attachments are listed by filename and type; their contents are
+          never returned.
+        </p>
+
+        <h3 class="protocol__section">4. Watch a folder for new mail</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"watch"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"folder"</span>: <span class="tok-str">"INBOX"</span> }
+}</code></pre>
+        <p>
+          New messages arrive on your <code>message</code> listener as
+          <code>post</code> activities, using IMAP IDLE where the server
+          supports it. One watch per session; <code>unwatch</code> stops it.
+        </p>
+
+        <h3 class="protocol__section">5. Send</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"me@example.com"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span>, <span class="tok-key">"name"</span>: <span class="tok-str">"Alice Example"</span> },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"to"</span>:      [ <span class="tok-str">"friend@example.com"</span> ],
+    <span class="tok-key">"subject"</span>: <span class="tok-str">"Hello"</span>,
+    <span class="tok-key">"content"</span>: <span class="tok-str">"Hello from Sockethub!"</span>
+  }
+}</code></pre>
+        <p>
+          The acknowledgement carries a <code>submission</code> with the
+          server's <code>messageId</code> and the <code>accepted</code> and
+          <code>rejected</code> recipients. Acceptance means the SMTP server
+          took the message, not that it was delivered. No Sent-folder copy is
+          saved.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ Feeds ============ -->
   <section class="protocol" id="feeds">
     <div class="container">
@@ -353,9 +479,21 @@
     <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
     <span class="tok-str">"https://sockethub.org/ns/context/platform/feeds/v1.jsonld"</span>
   ],
+  <span class="tok-key">"type"</span>:  <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/feed.xml"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"feed"</span> }
+}</code></pre>
+        <p>
+          The feed URL is the <code>actor</code>; there is no target. The
+          reply is a <code>collection</code> whose <code>items</code> are
+          <code>post</code> activities, one per entry. Add an
+          <code>object</code> with <code>since</code> (RFC 3339) and
+          <code>limit</code> to fetch only what's new:
+        </p>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
   <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
-  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://example.org/reader"</span>,    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
-  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/feed.xml"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"feed"</span> }
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/feed.xml"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"feed"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"since"</span>: <span class="tok-str">"2026-11-01T00:00:00Z"</span>, <span class="tok-key">"limit"</span>: 10 }
 }</code></pre>
       </div>
     </div>
@@ -383,9 +521,10 @@
 
       <div class="protocol__body">
         <p>
-          Fetch a URL, extract Open Graph, oEmbed, microformats2, and
-          JSON-LD, and hand back a single normalized object. Built for chat
-          link previews and reader summaries.
+          Fetch a URL, extract Open Graph tags, the canonical URL, favicon,
+          images, and any schema.org <code>Event</code> published as JSON-LD,
+          and hand back a single normalized <code>page</code> object. Built
+          for chat link previews, reader summaries, and event cards.
         </p>
 
         <h3 class="protocol__section">Fetch metadata for a URL</h3>
@@ -395,10 +534,17 @@
     <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
     <span class="tok-str">"https://sockethub.org/ns/context/platform/metadata/v1.jsonld"</span>
   ],
-  <span class="tok-key">"type"</span>:   <span class="tok-str">"fetch"</span>,
-  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"https://example.org/reader"</span>,    <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
-  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/article"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"link"</span> }
+  <span class="tok-key">"type"</span>:  <span class="tok-str">"fetch"</span>,
+  <span class="tok-key">"actor"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"https://blog.example/article"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"website"</span> }
 }</code></pre>
+        <p>
+          The page URL is the <code>actor</code>; there is no target. The
+          reply's <code>object</code> carries <code>title</code>,
+          <code>description</code>, <code>image</code> (an array, possibly
+          empty), <code>url</code>, <code>favicon</code>, and — when the page
+          declares one — an <code>event</code> with its name, start, end,
+          location, and status.
+        </p>
       </div>
     </div>
   </section>
@@ -657,6 +803,166 @@
           preserved rather than erased. If another client changed the card in
           the meantime you get <code>carddav:conflict</code> back — query again
           and retry with the fresh ETag.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Messenger ============ -->
+  <section class="protocol" id="messenger">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 7 C12 7 6 12.5 6 19.5 C6 23.5 8 27 11 29.2 L11 34 L16 31.2 C17.3 31.6 18.6 31.8 20 31.8 C28 31.8 34 26.3 34 19.5 C34 12.5 28 7 20 7 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M12 21 L17.5 15.5 L21.5 19.5 L28 13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">Messenger</h2>
+          <p class="protocol__sub">Outgoing text messages as a Facebook Page.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-messenger" target="_blank" rel="noopener">
+          @sockethub/platform-messenger ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Reply to people who message your Facebook Page, through Meta's
+          Messenger API. Sockethub sends as the Page, not as a personal
+          profile. Incoming messages and recipient discovery stay with your
+          own webhook integration; this platform covers the reply.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full Messenger flow is
+          <strong>credentials → send</strong>. The platform is stateless:
+          there is no <code>connect</code> step and no webhook to host.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/messenger/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;account id&gt;"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:       <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"token"</span>:      <span class="tok-str">"…"</span>,
+    <span class="tok-key">"apiVersion"</span>: <span class="tok-str">"v22.0"</span>
+  }
+}</code></pre>
+        <p>
+          <code>actor.id</code> is your Facebook Page ID and <code>token</code>
+          is a Page access token with <code>pages_messaging</code>, obtained
+          outside Sockethub. Choose a Graph API version your Meta app supports;
+          it is never guessed.
+        </p>
+
+        <h3 class="protocol__section">2. Send a text message</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;account id&gt;"</span>,   <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;recipient id&gt;"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>, <span class="tok-key">"content"</span>: <span class="tok-str">"Hello from Sockethub!"</span> }
+}</code></pre>
+        <p>
+          <code>target.id</code> is the recipient's Page-scoped ID (PSID) from
+          your incoming-message integration. Text only, up to 2000 characters.
+          The acknowledgement returns your activity with <code>object.id</code>
+          set to Meta's message ID, which confirms acceptance by the API, not
+          delivery. A closed messaging window comes back as the stable error
+          marker <code>meta:messaging-window-closed</code>. Set
+          <code>object.humanAgent: true</code> only for a manual support reply
+          when your app has Human Agent access.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Instagram ============ -->
+  <section class="protocol" id="instagram">
+    <div class="container">
+      <header class="protocol__head">
+        <div class="protocol__glyph" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="8" width="24" height="24" rx="7" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="20" r="5.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="27" cy="13" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="protocol__name">Instagram</h2>
+          <p class="protocol__sub">Outgoing text messages from a professional account.</p>
+        </div>
+        <a class="protocol__link" href="https://www.npmjs.com/package/@sockethub/platform-instagram" target="_blank" rel="noopener">
+          @sockethub/platform-instagram ↗
+        </a>
+        <span class="protocol__badge">New in 5.0</span>
+      </header>
+
+      <div class="protocol__body">
+        <p>
+          Reply to people who message your Instagram professional account,
+          through Meta's Instagram API. Incoming messages and recipient
+          discovery stay with your own webhook integration; this platform
+          covers the reply.
+        </p>
+
+        <p class="protocol__flow-note">
+          The full Instagram flow is
+          <strong>credentials → send</strong>. The platform is stateless:
+          there is no <code>connect</code> step and no webhook to host.
+        </p>
+
+        <h3 class="protocol__section">1. Credentials</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [
+    <span class="tok-str">"https://www.w3.org/ns/activitystreams"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/v1.jsonld"</span>,
+    <span class="tok-str">"https://sockethub.org/ns/context/platform/instagram/v1.jsonld"</span>
+  ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"credentials"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;account id&gt;"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: {
+    <span class="tok-key">"type"</span>:       <span class="tok-str">"credentials"</span>,
+    <span class="tok-key">"token"</span>:      <span class="tok-str">"…"</span>,
+    <span class="tok-key">"apiVersion"</span>: <span class="tok-str">"v22.0"</span>
+  }
+}</code></pre>
+        <p>
+          <code>actor.id</code> is your Instagram professional account ID and
+          <code>token</code> is an Instagram Login access token with
+          <code>instagram_business_manage_messages</code>. For Facebook Login,
+          add <code>login: "facebook"</code> and <code>pageId</code> with a
+          Page token that has <code>instagram_manage_messages</code>; the login
+          method is explicit and never inferred from the token.
+        </p>
+
+        <h3 class="protocol__section">2. Send a text message</h3>
+        <pre class="envelope-block"><code>{
+  <span class="tok-key">"@context"</span>: [ <span class="tok-comment">/* as above */</span> ],
+  <span class="tok-key">"type"</span>:   <span class="tok-str">"send"</span>,
+  <span class="tok-key">"actor"</span>:  { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;account id&gt;"</span>,   <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"target"</span>: { <span class="tok-key">"id"</span>: <span class="tok-str">"&lt;recipient id&gt;"</span>, <span class="tok-key">"type"</span>: <span class="tok-str">"person"</span> },
+  <span class="tok-key">"object"</span>: { <span class="tok-key">"type"</span>: <span class="tok-str">"message"</span>, <span class="tok-key">"content"</span>: <span class="tok-str">"Hello from Sockethub!"</span> }
+}</code></pre>
+        <p>
+          <code>target.id</code> is the recipient's Instagram-scoped ID (IGSID)
+          from your incoming-message integration. Text only, up to 1000 bytes
+          of UTF-8. The acknowledgement returns your activity with
+          <code>object.id</code> set to Meta's message ID, which confirms
+          acceptance by the API, not delivery. A closed messaging window comes
+          back as the stable error marker
+          <code>meta:messaging-window-closed</code>. Set
+          <code>object.humanAgent: true</code> only for a manual support reply
+          when your app has Human Agent access.
         </p>
       </div>
     </div>

@@ -26,8 +26,8 @@
   </script>
 
   <title>Build a web-based RSS reader — Sockethub</title>
-  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, feeds, and metadata services through one ActivityStreams 2.0 API.">
-  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, rss, atom, messaging, federated web, open source">
+  <meta name="description" content="Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.">
+  <meta name="keywords" content="protocol gateway, activitystreams, activitystreams 2.0, irc, xmpp, email, imap, smtp, messenger, instagram, rss, atom, caldav, carddav, messaging, federated web, open source">
   <meta name="author" content="Nick Jennings">
 
   <meta property="og:title" content="Build a web-based RSS reader — Sockethub">
@@ -71,11 +71,11 @@
   </script>
 </head>
 <body>
-<div class="release-banner" data-banner="next-5.0.0-beta.2" role="region" aria-label="Release channel notice">
+<div class="release-banner" data-banner="next-5.0.0-beta.3" role="region" aria-label="Release channel notice">
   <div class="release-banner__inner">
     <span class="release-banner__tag">Beta</span>
     <p class="release-banner__text">
-      Sockethub <strong>5.0.0-beta.2</strong> is the current active-use release.
+      Sockethub <strong>5.0.0-beta.3</strong> is the current active-use release.
       <a href="https://github.com/sockethub/sockethub/releases" target="_blank" rel="noopener">See the changelog</a>.
     </p>
     <button type="button" class="release-banner__close" aria-label="Dismiss release notice">
@@ -156,7 +156,7 @@ sc.socket.emit(&#39;message&#39;, {
 </code></pre>
 <p>The feed URL goes in <code>actor.id</code>. The response contains an <code>items</code> array;
 each item&#39;s <code>object</code> contains the article fields. See the
-<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.1/packages/platform-feeds/README.md">feeds API reference</a>
+<a href="https://github.com/sockethub/sockethub/blob/v5.0.0-beta.2/packages/platform-feeds/README.md">feeds API reference</a>
 for request and response details.</p>
 <p>Use your deployed Sockethub URL when you move beyond local development.
 An HTTPS reader needs an HTTPS connection to Sockethub too.</p>
