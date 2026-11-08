@@ -74,14 +74,11 @@
       <!-- Client node -->
       <g class="fanout__node fanout__node--client" transform="translate(20,184)">
         <rect width="160" height="80" rx="12"/>
-        <text x="80" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
-        <text x="80" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
       </g>
 
       <!-- Sockethub hub -->
       <g class="fanout__node fanout__node--hub" transform="translate(260,224)">
         <circle r="56"/>
-        <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
 
       <!-- Platform chips -->
@@ -189,6 +186,12 @@
         <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
         <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
         <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
+
+      <g class="fanout__node-labels" pointer-events="none" aria-hidden="true">
+        <text x="100" y="220" text-anchor="middle" class="fanout__node-label">Your browser app</text>
+        <text x="100" y="242" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
+        <text x="260" y="230" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
     </svg>
 
