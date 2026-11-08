@@ -9,7 +9,7 @@ og_image: /res/img/og/sockethub.png
 Sockethub is a **protocol gateway for the web**. It lets browser apps talk to
 protocols and services that JavaScript can't reach on its own — IRC, XMPP,
 email over IMAP and SMTP, RSS/Atom, link-metadata services, CalDAV calendars,
-CardDAV contacts, and Meta's Messenger and Instagram messaging APIs — using one
+CardDAV contacts, and Meta's Messenger, Instagram, and WhatsApp messaging APIs — using one
 standard message format:
 [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core/).
 
