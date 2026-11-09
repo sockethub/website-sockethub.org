@@ -1001,23 +1001,20 @@ img.theme-only-dark { display: none; }
 .fanout__chip-name { font-family: var(--font-sans); font-size: 16px; font-weight: 700; fill: var(--fg); }
 .fanout__chip-desc { font-family: var(--font-sans); font-size: 11px; fill: var(--fg-muted); }
 
-/* Envelopes — CSS transforms in SVG user-coordinate space.
-   Each envelope makes a round trip: browser → hub → platform, a pause
-   while the platform "fills it in" (payload lines fade in and the
-   envelope is sealed in the platform's colour), then platform → hub →
-   browser. Each variant gets its own colour so the nine trails read as
-   nine distinct protocols, not one swarm. Nine envelopes launch ~1.3s
-   apart on a 12s cycle, so there is always traffic in both directions.
-   Coordinates mirror the <svg viewBox> in layouts/index.hbs: the hub
-   sits at y=381 and the chips are centred at y=45 + 84·n. */
+/* Envelopes — CSS transforms in SVG user-coordinate space. Each envelope
+   makes the same browser → hub → platform → hub → browser round trip.
+   Target coordinates mirror the two-column platform grid in layouts/index.hbs. */
 .fanout-envelope {
   --envelope-ink: var(--brand-500);
-  transform: translate(130px, 381px);
+  --target-x: 430px;
+  --target-y: 48px;
+  transform: translate(160px, 224px);
   opacity: 0;
   fill: var(--bg-raised);
   stroke: var(--envelope-ink);
   stroke-width: 1.4;
   filter: drop-shadow(0 2px 4px color-mix(in oklab, var(--envelope-ink) 30%, transparent));
+  animation-name: fanout-route;
   animation-duration: 12s;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.35, 0.08, 0.4, 1);
@@ -1036,134 +1033,61 @@ img.theme-only-dark { display: none; }
   animation-delay: inherit;
 }
 
-.fanout-envelope--irc       { --envelope-ink: var(--brand-400); animation-name: fanout-irc; animation-delay: 0s; }
-.fanout-envelope--xmpp      { --envelope-ink: var(--brand-500); animation-name: fanout-xmpp; animation-delay: 1.3s; }
-.fanout-envelope--email     { --envelope-ink: var(--brand-600); animation-name: fanout-email; animation-delay: 2.7s; }
-.fanout-envelope--feeds     { --envelope-ink: var(--brand-700); animation-name: fanout-feeds; animation-delay: 4s; }
-.fanout-envelope--metadata  { --envelope-ink: var(--brand-800); animation-name: fanout-metadata; animation-delay: 5.3s; }
-.fanout-envelope--caldav    { --envelope-ink: var(--accent-400); animation-name: fanout-caldav; animation-delay: 6.7s; }
-.fanout-envelope--carddav   { --envelope-ink: var(--accent-500); animation-name: fanout-carddav; animation-delay: 8s; }
-.fanout-envelope--messenger { --envelope-ink: var(--accent-600); animation-name: fanout-messenger; animation-delay: 9.3s; }
-.fanout-envelope--instagram { --envelope-ink: var(--accent-700); animation-name: fanout-instagram; animation-delay: 10.7s; }
+.fanout-envelope--irc       { --envelope-ink: var(--brand-400); --target-x: 430px; --target-y: 48px; animation-delay: 0s; }
+.fanout-envelope--xmpp      { --envelope-ink: var(--brand-500); --target-x: 430px; --target-y: 136px; animation-delay: 1.2s; }
+.fanout-envelope--email     { --envelope-ink: var(--brand-600); --target-x: 430px; --target-y: 224px; animation-delay: 2.4s; }
+.fanout-envelope--feeds     { --envelope-ink: var(--brand-700); --target-x: 430px; --target-y: 312px; animation-delay: 3.6s; }
+.fanout-envelope--metadata  { --envelope-ink: var(--brand-800); --target-x: 430px; --target-y: 400px; animation-delay: 4.8s; }
+.fanout-envelope--caldav    { --envelope-ink: var(--accent-400); --target-x: 646px; --target-y: 48px; animation-name: fanout-route-secondary; animation-delay: 6s; }
+.fanout-envelope--carddav   { --envelope-ink: var(--accent-500); --target-x: 646px; --target-y: 136px; animation-name: fanout-route-secondary; animation-delay: 7.2s; }
+.fanout-envelope--messenger { --envelope-ink: var(--accent-600); --target-x: 646px; --target-y: 224px; animation-name: fanout-route-secondary; animation-delay: 8.4s; }
+.fanout-envelope--instagram { --envelope-ink: var(--accent-700); --target-x: 646px; --target-y: 312px; animation-name: fanout-route-secondary; animation-delay: 9.6s; }
+.fanout-envelope--whatsapp  { --envelope-ink: var(--fg-muted); --target-x: 646px; --target-y: 400px; animation-name: fanout-route-secondary; animation-delay: 10.8s; }
 
 /* Outbound: outlined envelope. 42–48%: the platform fills and seals it.
    Inbound: solid envelope in the platform colour, payload visible. */
-@keyframes fanout-irc {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 45px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 45px);  fill: var(--brand-400); }
-  55%  { transform: translate(620px, 45px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--brand-400); }
+@keyframes fanout-route {
+  0%   { transform: translate(160px, 224px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 0.12; }
+  14%  { transform: translate(180px, 224px); opacity: 0.16; }
+  18%  { transform: translate(204px, 224px); opacity: 0.16; }
+  20%  { transform: translate(204px, 224px); opacity: 0.12; }
+  25%  { transform: translate(330px, 224px); opacity: 0.12; }
+  27%  { transform: translate(330px, 224px); opacity: 0.65; }
+  42%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--bg-raised); }
+  48%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--envelope-ink); }
+  55%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; }
+  70%  { transform: translate(330px, 224px); opacity: 0.65; }
+  72%  { transform: translate(330px, 224px); opacity: 0.12; }
+  77%  { transform: translate(204px, 224px); opacity: 0.12; }
+  79%  { transform: translate(204px, 224px); opacity: 0.16; }
+  85%  { transform: translate(180px, 224px); opacity: 0.16; }
+  95%  { transform: translate(160px, 224px); opacity: 0.12; }
+  100% { transform: translate(160px, 224px); opacity: 0; fill: var(--envelope-ink); }
 }
-@keyframes fanout-xmpp {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 129px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 129px);  fill: var(--brand-500); }
-  55%  { transform: translate(620px, 129px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--brand-500); }
-}
-@keyframes fanout-email {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 213px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 213px);  fill: var(--brand-600); }
-  55%  { transform: translate(620px, 213px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--brand-600); }
-}
-@keyframes fanout-feeds {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 297px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 297px);  fill: var(--brand-700); }
-  55%  { transform: translate(620px, 297px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--brand-700); }
-}
-@keyframes fanout-metadata {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 381px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 381px);  fill: var(--brand-800); }
-  55%  { transform: translate(620px, 381px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--brand-800); }
-}
-@keyframes fanout-caldav {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 465px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 465px);  fill: var(--accent-400); }
-  55%  { transform: translate(620px, 465px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--accent-400); }
-}
-@keyframes fanout-carddav {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 549px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 549px);  fill: var(--accent-500); }
-  55%  { transform: translate(620px, 549px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--accent-500); }
-}
-@keyframes fanout-messenger {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 633px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 633px);  fill: var(--accent-600); }
-  55%  { transform: translate(620px, 633px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--accent-600); }
-}
-@keyframes fanout-instagram {
-  0%   { transform: translate(130px, 381px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 1; }
-  20%  { transform: translate(400px, 381px); }
-  25%  { transform: translate(400px, 381px); }
-  42%  { transform: translate(620px, 717px);  fill: var(--bg-raised); }
-  48%  { transform: translate(620px, 717px);  fill: var(--accent-700); }
-  55%  { transform: translate(620px, 717px); }
-  72%  { transform: translate(400px, 381px); }
-  77%  { transform: translate(400px, 381px); }
-  95%  { transform: translate(130px, 381px); opacity: 1; }
-  100% { transform: translate(130px, 381px); opacity: 0; fill: var(--accent-700); }
+@keyframes fanout-route-secondary {
+  0%   { transform: translate(160px, 224px); opacity: 0; fill: var(--bg-raised); }
+  4%   { opacity: 0.12; }
+  14%  { transform: translate(180px, 224px); opacity: 0.16; }
+  18%  { transform: translate(204px, 224px); opacity: 0.16; }
+  20%  { transform: translate(204px, 224px); opacity: 0.12; }
+  25%  { transform: translate(330px, 224px); opacity: 0.12; }
+  27%  { transform: translate(410px, 224px); opacity: 0.35; }
+  30%  { transform: translate(410px, 0); opacity: 0.35; }
+  34%  { transform: translate(var(--target-x), 0); opacity: 0.35; }
+  37%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; }
+  42%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--bg-raised); }
+  48%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--envelope-ink); }
+  55%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; }
+  70%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; }
+  73%  { transform: translate(var(--target-x), 0); opacity: 0.35; }
+  76%  { transform: translate(410px, 0); opacity: 0.35; }
+  79%  { transform: translate(410px, 224px); opacity: 0.22; }
+  82%  { transform: translate(330px, 224px); opacity: 0.22; }
+  84%  { transform: translate(204px, 224px); opacity: 0.16; }
+  88%  { transform: translate(180px, 224px); opacity: 0.16; }
+  95%  { transform: translate(160px, 224px); opacity: 0.12; }
+  100% { transform: translate(160px, 224px); opacity: 0; fill: var(--envelope-ink); }
 }
 @keyframes fanout-payload {
   0%, 44% { opacity: 0; }

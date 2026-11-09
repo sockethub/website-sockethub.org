@@ -8,6 +8,7 @@
       "enum": [
         "fetch",
         "query",
+        "sync",
         "create",
         "update",
         "delete"
@@ -368,6 +369,20 @@
               "maxLength": 1024
             }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "syncToken": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "required": [
+            "syncToken"
+          ]
         }
       ]
     }
