@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Sun, 08 Nov 2026 23:24:45 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Sockethub 5.0.0-beta.2 adds email, Messenger, and Instagram]]></title><description><![CDATA[<p>Sockethub
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Sockethub]]></title><description><![CDATA[Sockethub is a protocol gateway that lets browser apps talk to IRC, XMPP, email, Messenger, Instagram, feeds, link metadata, CalDAV calendars, and CardDAV contacts through one ActivityStreams 2.0 API.]]></description><link>https://sockethub.org</link><generator>metalsmith-feed</generator><lastBuildDate>Mon, 09 Nov 2026 01:31:53 GMT</lastBuildDate><atom:link href="https://sockethub.org/feed.xml" rel="self" type="application/rss+xml"/><author><![CDATA[Nick Jennings]]></author><item><title><![CDATA[Sockethub 5.0.0-beta.4 fixes WhatsApp numbers and metadata images]]></title><description><![CDATA[<p>Sockethub <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.4">5.0.0-beta.4</a>
+is available on the <code>next</code> release channel:</p>
+<pre><code>npm install -g sockethub@next
+</code></pre>
+<p>The container image is available at <code>ghcr.io/sockethub/sockethub:next</code>.</p>
+<p>This release fixes WhatsApp recipient numbers that omit the leading plus sign,
+and restores real product images for Amazon pages and Reddit galleries in
+metadata previews. See the
+<a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.4">full changelog</a>.</p>
+]]></description><guid isPermaLink="false">Sockethub 5.0.0-beta.4 fixes WhatsApp numbers and metadata images</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub 5.0.0-beta.3 adds WhatsApp]]></title><description><![CDATA[<p>Sockethub <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.3">5.0.0-beta.3</a>
+adds a WhatsApp platform for sending text messages through Meta&#39;s WhatsApp
+Business Cloud API:</p>
+<pre><code>npm install -g sockethub@next
+</code></pre>
+<p>The container image is available at <code>ghcr.io/sockethub/sockethub:next</code>.</p>
+<h2 id="whatsapp-business-messages">WhatsApp Business messages</h2>
+<p><a href="https://github.com/sockethub/sockethub/tree/v5.0.0-beta.3/packages/platform-whatsapp"><code>@sockethub/platform-whatsapp</code></a>
+is a stateless, outgoing-only platform. Set credentials and send; there is no
+connect step or webhook endpoint to host. Your application obtains the Meta
+access token and handles incoming messages and recipient discovery.</p>
+<p>The platform sends text as a WhatsApp Business phone number, not a personal
+WhatsApp account. The actor ID is the phone number ID from Meta, and the
+recipient is a phone number in international format. Free-form text is subject
+to Meta&#39;s 24-hour messaging window; template messages, media, and incoming
+messages are not supported.</p>
+<p>See the <a href="/platforms/#whatsapp">WhatsApp section of the platforms page</a> for a
+credentials and send example, limits, and setup details.</p>
+<p>Beta.3 also fixes the metadata package dependency declaration. The
+<a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.3">full changelog</a>
+has the release details.</p>
+]]></description><guid isPermaLink="false">Sockethub 5.0.0-beta.3 adds WhatsApp</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub 5.0.0-beta.2 adds email, Messenger, and Instagram]]></title><description><![CDATA[<p>Sockethub
 <a href="https://github.com/sockethub/sockethub/releases/tag/v5.0.0-beta.2">5.0.0-beta.2</a>
 is out, and it brings three new platforms:</p>
 <pre><code>npm install -g sockethub@next
@@ -204,8 +234,4 @@ e.g. <code>@sockethub/server</code>, <code>@sockethub/client</code>, <code>@sock
 <p>[ <a href="https://github.com/sockethub/sockethub/releases/tag/v0.3.0">release v0.3.0</a> | <a href="https://github.com/sockethub/sockethub/blob/v0.3.0/CHANGELOG.md">CHANGELOG</a> ]</p>
 ]]></description><guid isPermaLink="false">Release v0.3.x</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Sun, 16 Nov 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Release v0.2.x]]></title><description><![CDATA[<p>The sockethub v0.2.x branch has been released!</p>
 <p>[ <a href="https://github.com/sockethub/sockethub/releases/tag/v0.2.0">release v0.2.0</a> | <a href="https://github.com/sockethub/sockethub/blob/v0.2.0/CHANGELOG.md">CHANGELOG</a> ]</p>
-]]></description><guid isPermaLink="false">Release v0.2.x</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Tue, 09 Sep 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[Dogfeed RSS/Atom Reader released]]></title><description><![CDATA[<p>A fully unhosted RSS/Atom reader using Sockethub + <a href="http://remotestorage.io">remoteStorage</a></p>
-<p>[ <a href="https://dogfeed.5apps.com">dogfeed</a> | <a href="https://github.com/silverbucket/dogfeed">github repository</a> | <a href="https://groups.google.com/forum/#!topic/unhosted/xzOueGY2GYA">official announcement</a> ]</p>
-]]></description><guid isPermaLink="false">Dogfeed RSS/Atom Reader released</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Thu, 05 Sep 2013 00:00:00 GMT</pubDate></item><item><title><![CDATA[Sockethub lightning talk at OHM2013]]></title><description><![CDATA[<p><a href="https://silverbucket.net">Nick Jennings</a> will be giving a talk tonight on Sockethub @ <a href="https://program.ohm2013.org">OHM2013</a></p>
-<p>[ <a href="https://program.ohm2013.org/event/475.html">talk overview</a> ]</p>
-]]></description><guid isPermaLink="false">Sockethub lightning talk at OHM2013</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Wed, 31 Jul 2013 00:00:00 GMT</pubDate></item></channel></rss>
+]]></description><guid isPermaLink="false">Release v0.2.x</guid><dc:creator><![CDATA[Nick Jennings]]></dc:creator><pubDate>Tue, 09 Sep 2014 00:00:00 GMT</pubDate></item></channel></rss>

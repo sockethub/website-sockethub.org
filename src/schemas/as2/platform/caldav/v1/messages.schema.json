@@ -10,6 +10,7 @@
         "fetch",
         "read",
         "query",
+        "sync",
         "create",
         "update",
         "delete"
@@ -769,6 +770,20 @@
               "format": "date-time"
             }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "syncToken": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "required": [
+            "syncToken"
+          ]
         }
       ]
     }
