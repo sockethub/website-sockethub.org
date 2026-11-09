@@ -353,6 +353,14 @@
             "updateSupported": {
               "type": "boolean"
             },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
             "type": {
               "enum": [
                 "event"
@@ -650,6 +658,14 @@
             "updateSupported": {
               "type": "boolean"
             },
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date-time"
+            },
             "type": {
               "enum": [
                 "task"
@@ -779,10 +795,42 @@
               "type": "string",
               "minLength": 1,
               "maxLength": 4096
+            },
+            "tokenOnly": {
+              "const": true
             }
+          },
+          "not": {
+            "required": [
+              "syncToken",
+              "tokenOnly"
+            ]
           },
           "required": [
             "syncToken"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "syncToken": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "tokenOnly": {
+              "const": true
+            }
+          },
+          "not": {
+            "required": [
+              "syncToken",
+              "tokenOnly"
+            ]
+          },
+          "required": [
+            "tokenOnly"
           ]
         }
       ]
