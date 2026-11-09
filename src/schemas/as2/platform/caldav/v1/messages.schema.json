@@ -164,6 +164,17 @@
                   "type": "string",
                   "format": "date-time"
                 },
+                "weekStart": {
+                  "enum": [
+                    "MO",
+                    "TU",
+                    "WE",
+                    "TH",
+                    "FR",
+                    "SA",
+                    "SU"
+                  ]
+                },
                 "byDay": {
                   "type": "array",
                   "uniqueItems": true,
@@ -468,6 +479,17 @@
                 "until": {
                   "type": "string",
                   "format": "date-time"
+                },
+                "weekStart": {
+                  "enum": [
+                    "MO",
+                    "TU",
+                    "WE",
+                    "TH",
+                    "FR",
+                    "SA",
+                    "SU"
+                  ]
                 },
                 "byDay": {
                   "type": "array",
