@@ -9,7 +9,7 @@
     </h1>
     <p class="hero-subtitle">
       Sockethub lets browser apps talk to IRC, XMPP, email, RSS/Atom feeds, CalDAV calendars, CardDAV contacts,
-      Messenger, Instagram and more, all through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
+      Messenger, Instagram, WhatsApp and more, all through a single <strong><a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a></strong> message format.
     </p>
 
     <div class="hero-actions">
@@ -45,8 +45,8 @@
       <h2 id="fanout-title" class="section-header__title">One message, every protocol</h2>
     </header>
 
-    <svg class="fanout__diagram" viewBox="0 0 800 762" role="img"
-         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which routes it to IRC, XMPP, email, RSS/Atom feeds, Metadata, CalDAV, CardDAV, Messenger, or Instagram; the platform fills in a response and Sockethub carries it back to the browser.">
+    <svg class="fanout__diagram" viewBox="0 0 840 448" role="img"
+         aria-label="A browser application sends an ActivityStreams 2.0 message to Sockethub, which routes it to IRC, XMPP, email, RSS/Atom feeds, Metadata, CalDAV, CardDAV, Messenger, Instagram, or WhatsApp; the platform fills in a response and Sockethub carries it back to the browser.">
       <!-- Inline gradient matching the sockethub logo: sun → signal → ember. -->
       <defs>
         <linearGradient id="emberGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -58,76 +58,80 @@
 
       <!-- Connection lines -->
       <g class="fanout__lines">
-        <path class="fanout__line" d="M220,381 L344,381"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,45"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,129"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,213"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,297"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,381"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,465"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,549"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,633"/>
-        <path class="fanout__line" d="M456,381 Q540,381 620,717"/>
+        <path class="fanout__line" d="M180,224 L204,224"/>
+        <path class="fanout__line" d="M316,224 C360,224 375,48 430,48"/>
+        <path class="fanout__line" d="M316,224 C360,224 375,136 430,136"/>
+        <path class="fanout__line" d="M316,224 L430,224"/>
+        <path class="fanout__line" d="M316,224 C360,224 375,312 430,312"/>
+        <path class="fanout__line" d="M316,224 C360,224 375,400 430,400"/>
+        <path class="fanout__line" d="M316,224 L410,224 L410,0 L646,0 L646,400"/>
+        <path class="fanout__line" d="M646,48 L660,48"/>
+        <path class="fanout__line" d="M646,136 L660,136"/>
+        <path class="fanout__line" d="M646,224 L660,224"/>
+        <path class="fanout__line" d="M646,312 L660,312"/>
+        <path class="fanout__line" d="M646,400 L660,400"/>
       </g>
 
       <!-- Client node -->
-      <g class="fanout__node fanout__node--client" transform="translate(40,341)">
-        <rect width="180" height="80" rx="12"/>
-        <text x="90" y="36" text-anchor="middle" class="fanout__node-label">Your browser app</text>
-        <text x="90" y="58" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
+      <g class="fanout__node fanout__node--client" transform="translate(20,184)">
+        <rect width="160" height="80" rx="12"/>
       </g>
 
       <!-- Sockethub hub -->
-      <g class="fanout__node fanout__node--hub" transform="translate(400,381)">
+      <g class="fanout__node fanout__node--hub" transform="translate(260,224)">
         <circle r="56"/>
-        <text y="6" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
 
       <!-- Platform chips -->
-      <g class="fanout__chip" transform="translate(620,15)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">IRC</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Chat &amp; channels</text>
+      <g class="fanout__chip" transform="translate(430,16)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">IRC</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Chat &amp; channels</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,99)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">XMPP</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Messaging &amp; presence</text>
+      <g class="fanout__chip" transform="translate(430,104)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">XMPP</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Messaging &amp; presence</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,183)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Email</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">IMAP &amp; SMTP</text>
+      <g class="fanout__chip" transform="translate(430,192)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">Email</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">IMAP &amp; SMTP</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,267)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
+      <g class="fanout__chip" transform="translate(430,280)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">RSS / Atom</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Feed fetching</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,351)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Metadata</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
+      <g class="fanout__chip" transform="translate(430,368)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">Metadata</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Link previews</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,435)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">CalDAV</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Calendars &amp; tasks</text>
+      <g class="fanout__chip" transform="translate(660,16)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">CalDAV</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Calendars &amp; tasks</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,519)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">CardDAV</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Contacts &amp; address books</text>
+      <g class="fanout__chip" transform="translate(660,104)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">CardDAV</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Contacts &amp; address books</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,603)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Messenger</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Facebook Page messages</text>
+      <g class="fanout__chip" transform="translate(660,192)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">Messenger</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Facebook Page messages</text>
       </g>
-      <g class="fanout__chip" transform="translate(620,687)">
-        <rect width="160" height="60" rx="10"/>
-        <text x="80" y="28" class="fanout__chip-name" text-anchor="middle">Instagram</text>
-        <text x="80" y="46" class="fanout__chip-desc" text-anchor="middle">Direct messages</text>
+      <g class="fanout__chip" transform="translate(660,280)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">Instagram</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Direct messages</text>
+      </g>
+      <g class="fanout__chip" transform="translate(660,368)">
+        <rect width="170" height="64" rx="10"/>
+        <text x="85" y="27" class="fanout__chip-name" text-anchor="middle">WhatsApp</text>
+        <text x="85" y="46" class="fanout__chip-desc" text-anchor="middle">Business messages</text>
       </g>
 
       <!-- Envelopes (animated — CSS drives motion). Each one travels
@@ -178,6 +182,17 @@
         <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
         <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
         <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
+      <g class="fanout-envelope fanout-envelope--whatsapp" aria-hidden="true">
+        <rect x="-13" y="-8" width="26" height="16" rx="2.5"/>
+        <path class="fanout-envelope__flap" d="M-13,-8 L0,3 L13,-8"/>
+        <path class="fanout-envelope__payload" d="M-8,-2 H8 M-8,3 H4"/>
+      </g>
+
+      <g class="fanout__node-labels" pointer-events="none" aria-hidden="true">
+        <text x="100" y="220" text-anchor="middle" class="fanout__node-label">Your browser app</text>
+        <text x="100" y="242" text-anchor="middle" class="fanout__node-sublabel">one JSON API</text>
+        <text x="260" y="230" text-anchor="middle" class="fanout__node-hub-label">Sockethub</text>
       </g>
     </svg>
 
@@ -318,6 +333,18 @@
         </div>
         <h3 class="platform-card__name">Instagram</h3>
         <p class="platform-card__desc">Send text replies from an Instagram professional account.</p>
+        <span class="platform-card__badge">New in 5.0</span>
+      </article>
+
+      <article class="platform-card">
+        <div class="platform-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 6 C12.3 6 6 12.1 6 19.6 c0 2.8.9 5.4 2.5 7.5 L7 34 l7.2-1.9 c1.8.9 3.8 1.3 5.8 1.3 7.7 0 14-6.1 14-13.8S27.7 6 20 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M15 13.5 c-.5-.8-1.2-.7-1.7-.2-.8.8-1.3 1.7-1.1 2.8.4 3.6 4.8 8.1 8.4 9.1 1.1.3 2.1-.1 2.9-.8.6-.5.9-1.2.4-1.7l-2.3-1.7c-.5-.3-.9-.2-1.3.3l-.8 1c-1.9-.8-3.4-2.2-4.3-4l.9-.9c.4-.4.5-.8.2-1.3l-1.3-2.6Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="platform-card__name">WhatsApp</h3>
+        <p class="platform-card__desc">Send text messages from a WhatsApp Business number.</p>
         <span class="platform-card__badge">New in 5.0</span>
       </article>
     </div>
