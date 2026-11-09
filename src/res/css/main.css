@@ -1048,30 +1048,30 @@ img.theme-only-dark { display: none; }
    Inbound: solid envelope in the platform colour, payload visible. */
 @keyframes fanout-route {
   0%   { transform: translate(160px, 224px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 0.22; }
-  14%  { transform: translate(180px, 224px); opacity: 0.34; }
-  18%  { transform: translate(204px, 224px); opacity: 0.65; }
-  20%  { transform: translate(204px, 224px); opacity: 0.22; }
-  25%  { transform: translate(330px, 224px); opacity: 0.22; }
+  4%   { opacity: 0.12; }
+  14%  { transform: translate(180px, 224px); opacity: 0.16; }
+  18%  { transform: translate(204px, 224px); opacity: 0.16; }
+  20%  { transform: translate(204px, 224px); opacity: 0.12; }
+  25%  { transform: translate(330px, 224px); opacity: 0.12; }
   27%  { transform: translate(330px, 224px); opacity: 0.65; }
   42%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--bg-raised); }
   48%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; fill: var(--envelope-ink); }
   55%  { transform: translate(var(--target-x), var(--target-y)); opacity: 0.65; }
   70%  { transform: translate(330px, 224px); opacity: 0.65; }
-  72%  { transform: translate(330px, 224px); opacity: 0.22; }
-  77%  { transform: translate(204px, 224px); opacity: 0.22; }
-  79%  { transform: translate(204px, 224px); opacity: 0.65; }
-  85%  { transform: translate(180px, 224px); opacity: 0.34; }
-  95%  { transform: translate(160px, 224px); opacity: 0.22; }
+  72%  { transform: translate(330px, 224px); opacity: 0.12; }
+  77%  { transform: translate(204px, 224px); opacity: 0.12; }
+  79%  { transform: translate(204px, 224px); opacity: 0.16; }
+  85%  { transform: translate(180px, 224px); opacity: 0.16; }
+  95%  { transform: translate(160px, 224px); opacity: 0.12; }
   100% { transform: translate(160px, 224px); opacity: 0; fill: var(--envelope-ink); }
 }
 @keyframes fanout-route-secondary {
   0%   { transform: translate(160px, 224px); opacity: 0; fill: var(--bg-raised); }
-  4%   { opacity: 0.22; }
-  14%  { transform: translate(180px, 224px); opacity: 0.34; }
-  18%  { transform: translate(204px, 224px); opacity: 0.65; }
-  20%  { transform: translate(204px, 224px); opacity: 0.22; }
-  25%  { transform: translate(330px, 224px); opacity: 0.22; }
+  4%   { opacity: 0.12; }
+  14%  { transform: translate(180px, 224px); opacity: 0.16; }
+  18%  { transform: translate(204px, 224px); opacity: 0.16; }
+  20%  { transform: translate(204px, 224px); opacity: 0.12; }
+  25%  { transform: translate(330px, 224px); opacity: 0.12; }
   27%  { transform: translate(410px, 224px); opacity: 0.35; }
   30%  { transform: translate(410px, 0); opacity: 0.35; }
   34%  { transform: translate(var(--target-x), 0); opacity: 0.35; }
@@ -1084,9 +1084,9 @@ img.theme-only-dark { display: none; }
   76%  { transform: translate(410px, 0); opacity: 0.35; }
   79%  { transform: translate(410px, 224px); opacity: 0.22; }
   82%  { transform: translate(330px, 224px); opacity: 0.22; }
-  84%  { transform: translate(204px, 224px); opacity: 0.65; }
-  88%  { transform: translate(180px, 224px); opacity: 0.34; }
-  95%  { transform: translate(160px, 224px); opacity: 0.22; }
+  84%  { transform: translate(204px, 224px); opacity: 0.16; }
+  88%  { transform: translate(180px, 224px); opacity: 0.16; }
+  95%  { transform: translate(160px, 224px); opacity: 0.12; }
   100% { transform: translate(160px, 224px); opacity: 0; fill: var(--envelope-ink); }
 }
 @keyframes fanout-payload {
